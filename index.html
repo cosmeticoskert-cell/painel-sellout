@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0050)file:///C:/Users/Analytics/Downloads/index_10.html -->
+<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_2.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -359,7 +359,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 <div class="main">
   <div class="spinner-wrap hidden" id="spinner">
     <div class="spinner"></div>
-    <div id="spinner-msg" style="font-size:13.5px;color:#888">Carregando Mar/26...</div>
+    <div id="spinner-msg" style="font-size:13.5px;color:#888">Carregando abas...</div>
   </div>
   <div class="error-box hidden" id="error-box">
     <div style="font-size:32px">⚠️</div>
@@ -367,7 +367,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <div id="error-msg" style="font-size:12.5px;color:#888;max-width:500px;margin:8px auto"></div>
     <button class="btn-retry" onclick="loadTab(activeSheet)">Tentar novamente</button>
   </div>
-  <div id="dashboard" class="">
+  <div id="dashboard" class="hidden">
     <div class="kpis" id="kpis">
     <div class="kpi-card" style="border-top:4px solid #3f51b5" onclick="toggleKpiFilter(&#39;total&#39;,&#39;Total de Relatórios&#39;)">
       <span class="kpi-icon">📋</span>
@@ -1672,13 +1672,19 @@ async function abrirEmailAviso() {
   let emails = [];
   let nomes  = [];
   try {
-    const resp = await fetch(`${API_URL}?action=emailsRepresentantes`);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+    const resp = await fetch(`${API_URL}?action=emailsRepresentantes`, { signal: controller.signal });
+    clearTimeout(timeout);
     const data = await resp.json();
     emails = data.emails || [];
     nomes  = data.nomes  || [];
   } catch(e) {
+    const msg = e.name === 'AbortError'
+      ? '⏱️ Tempo esgotado ao buscar emails. Verifique se o Apps Script foi republicado com a nova versão.'
+      : '❌ Erro ao buscar emails. Verifique a URL do Apps Script.';
     document.getElementById('email-body-content').innerHTML =
-      '<div style="text-align:center;padding:40px;color:#ef4444">❌ Erro ao buscar emails.</div>';
+      `<div style="text-align:center;padding:40px;color:#ef4444">${msg}</div>`;
     return;
   }
 
@@ -1765,7 +1771,7 @@ function enviarEmailOutlook() {
       </div>
       <button class="cob-close" onclick="fecharEmailAviso()">✕</button>
     </div>
-    <div class="email-body" id="email-body-content"><div style="text-align:center;padding:40px;color:#6b7280">⏳ Buscando emails dos representantes...</div></div>
+    <div class="email-body" id="email-body-content"><div style="text-align:center;padding:40px;color:#6b7280">⚠️ Nenhum email encontrado na aba Representantes (coluna C).</div></div>
     <div class="email-footer">
       <span class="email-footer-info" id="email-footer-info"></span>
       <button class="btn-email-cancelar" onclick="fecharEmailAviso()">Fechar</button>
