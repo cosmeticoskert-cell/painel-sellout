@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_4.html -->
+<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_5.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1652,13 +1652,16 @@ function getMesPassadoAnoAtual() {
 
 function getTextoDataLimite() {
   const hoje = new Date();
+  hoje.setHours(0,0,0,0);
   const dia10 = new Date(hoje.getFullYear(), hoje.getMonth(), 10);
+  dia10.setHours(0,0,0,0);
   const diffDias = Math.round((dia10 - hoje) / (1000*60*60*24));
   const dia10Fmt = `10/${String(hoje.getMonth()+1).padStart(2,'0')}/${hoje.getFullYear()}`;
 
-  if (diffDias === 0) return { texto: 'hoje', data: dia10Fmt };
-  if (diffDias === 1) return { texto: 'amanhã', data: dia10Fmt };
-  return { texto: `dia 10/${String(hoje.getMonth()+1).padStart(2,'0')}/${hoje.getFullYear()}`, data: dia10Fmt };
+  if (diffDias === 0)  return { texto: 'hoje',   data: dia10Fmt, situacao: 'hoje' };
+  if (diffDias === 1)  return { texto: 'amanha',  data: dia10Fmt, situacao: 'amanha' };
+  if (diffDias < 0)    return { texto: dia10Fmt,  data: dia10Fmt, situacao: 'atrasado' };
+  return { texto: dia10Fmt, data: dia10Fmt, situacao: 'futuro' };
 }
 
 async function abrirEmailAviso() {
@@ -1695,30 +1698,54 @@ async function abrirEmailAviso() {
   }
 
   const { mes, ano } = getMesPassadoAnoAtual();
-  const { texto: textoData } = getTextoDataLimite();
+  const { texto: textoData, situacao } = getTextoDataLimite();
   const refMes = `${mes}/${ano}`;
-
-  // Monta texto do prazo — se for hoje/amanhã não repete o mês
-  const prazoTexto = (textoData === 'hoje' || textoData === 'amanhã')
-    ? textoData
-    : textoData;
 
   const assunto = `RELATÓRIO SELL OUT - ${refMes}`;
 
-  const corpo = `Boa tarde, Srs.
+  // Bloco fixo de rodapé — texto puro e HTML
+  const rodapeTxt = `\n__ATENÇÃO NOVO EMAIL PARA ENVIO DOS RELATÓRIOS.__\n\nNovos Canais para Envio dos Relatórios:\n• E-mail: trade@chercom.com.br   (favor enviar nesse email os relatórios)\n• WhatsApp: (11) 98860-3143`;
+  const rodapeHtml = `
+    <p style="margin:18px 0 6px"><a href="mailto:trade@chercom.com.br" style="color:#c0392b;font-weight:700;text-decoration:none">ATENÇÃO NOVO EMAIL PARA ENVIO DOS RELATÓRIOS.</a></p>
+    <p style="margin:4px 0 4px;font-weight:700">Novos Canais para Envio dos Relatórios:</p>
+    <ul style="margin:4px 0 4px;padding-left:22px">
+      <li><strong>E-mail:</strong> <a href="mailto:trade@chercom.com.br" style="color:#c0392b">trade@chercom.com.br</a> &nbsp;<span style="color:#c0392b">(favor enviar nesse email os relatórios)</span></li>
+      <li><strong>WhatsApp:</strong> (11) 98860-3143</li>
+    </ul>`;
 
-Os relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até ${prazoTexto} para podermos calcular a premiação das demonstradoras.
+  let corpo, corpoHtml;
 
-__ATENÇÃO NOVO EMAIL PARA ENVIO DOS RELATÓRIOS.__
+  if (situacao === 'amanha') {
+    corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até amanhã para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
+    corpoHtml = `<p>Boa tarde, Srs.</p>
+    <p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">AMANHÃ</strong> para podermos calcular a premiação das demonstradoras.</p>
+    ${rodapeHtml}
+    <p>Duvidas estou à disposição.</p>`;
 
-Novos Canais para Envio dos Relatórios:
-• E-mail: trade@chercom.com.br   (favor enviar nesse email os relatórios)
-• WhatsApp: (11) 98860-3143
+  } else if (situacao === 'hoje') {
+    corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até hoje para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
+    corpoHtml = `<p>Boa tarde, Srs.</p>
+    <p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">HOJE</strong> para podermos calcular a premiação das demonstradoras.</p>
+    ${rodapeHtml}
+    <p>Duvidas estou à disposição.</p>`;
 
-Dúvidas estou à disposição.`;
+  } else if (situacao === 'atrasado') {
+    corpo = `Boa tarde, Srs.\n\nAinda não recebemos todos os relatórios de vendas referente ao mês de ${refMes}, precisamos o quanto antes para podermos calcular a premiação das demonstradoras em tempo hábil.\n\nA partir de amanhã farei a cobrança individualmente.${rodapeTxt}`;
+    corpoHtml = `<p>Boa tarde, Srs.</p>
+    <p>Ainda não recebemos todos os relatórios de vendas referente ao mês de <strong>${refMes}</strong>, precisamos <strong>o quanto antes</strong> para podermos calcular a premiação das demonstradoras em tempo hábil.</p>
+    <p><strong>A partir de amanhã farei a cobrança individualmente.</strong></p>
+    ${rodapeHtml}`;
+
+  } else {
+    corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até ${textoData} para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
+    corpoHtml = `<p>Boa tarde, Srs.</p>
+    <p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">${textoData}</strong> para podermos calcular a premiação das demonstradoras.</p>
+    ${rodapeHtml}
+    <p>Duvidas estou à disposição.</p>`;
+  }
 
   // Salva para uso no envio
-  window._emailAvisoData = { emails, nomes, assunto, corpo };
+  window._emailAvisoData = { emails, nomes, assunto, corpo, corpoHtml };
 
   document.getElementById('btn-enviar-email').disabled = false;
 
@@ -1734,7 +1761,7 @@ Dúvidas estou à disposição.`;
     </div>
     <div class="email-field">
       <label>Corpo do email</label>
-      <div class="email-body-preview">${escHtml(corpo)}</div>
+      <div class="email-body-preview" style="font-size:13px;line-height:1.7;color:#374151;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:8px;padding:14px">${corpoHtml}</div>
     </div>`;
 
   // Atualiza footer (existe no HTML fixo)
