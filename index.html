@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_5.html -->
+<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_6.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -189,7 +189,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 }
 .btn-email-aviso:hover { opacity: .88; }
 
-/* ── MODAL EMAIL ────────────────────────────────────── */
+/* ── MODAL EMAIL WIZARD ─────────────────────────────── */
 .email-overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,.52); z-index: 900;
@@ -198,33 +198,69 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 .email-overlay.aberto { display: flex; }
 .email-modal {
   background: #fff; border-radius: 14px;
-  width: 680px; max-width: 96vw; max-height: 88vh;
+  width: 600px; max-width: 96vw; max-height: 92vh;
   display: flex; flex-direction: column;
   box-shadow: 0 24px 64px rgba(0,0,0,.28); overflow: hidden;
 }
 .email-header {
-  padding: 18px 22px 14px; border-bottom: 1px solid #e5e7eb;
+  padding: 16px 20px 12px; border-bottom: 1px solid #e5e7eb;
   display: flex; justify-content: space-between; align-items: flex-start;
   background: linear-gradient(135deg, #eff6ff, #dbeafe);
 }
-.email-header h2 { font-size: 17px; font-weight: 800; color: #1e40af; margin: 0 0 2px; }
+.email-header h2 { font-size: 16px; font-weight: 800; color: #1e40af; margin: 0 0 2px; }
 .email-header p  { font-size: 12px; color: #3b82f6; margin: 0; }
-.email-body { padding: 18px 22px; overflow-y: auto; flex: 1; }
-.email-field { margin-bottom: 14px; }
-.email-field label { font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: .4px; display: block; margin-bottom: 5px; }
-.email-field-val { background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #111827; }
-.email-body-preview { white-space: pre-wrap; font-size: 13px; line-height: 1.7; color: #374151; background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 14px; }
-.email-footer {
-  padding: 14px 22px; border-top: 1px solid #e5e7eb;
-  display: flex; align-items: center; gap: 10px;
-  background: #fafafa;
+/* steps indicator */
+.email-steps {
+  display: flex; gap: 0; border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
 }
-.email-footer-info { flex: 1; font-size: 12px; color: #6b7280; }
+.email-step-dot {
+  flex: 1; text-align: center; padding: 8px 4px 7px;
+  font-size: 11px; font-weight: 700; color: #9ca3af;
+  border-bottom: 3px solid transparent; transition: all .2s;
+}
+.email-step-dot.ativo { color: #1e40af; border-bottom-color: #3b82f6; }
+.email-step-dot.feito { color: #16a34a; border-bottom-color: #22c55e; }
+/* body */
+.email-wiz-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+.email-wiz-instrucao {
+  font-size: 13px; color: #374151; margin-bottom: 14px; line-height: 1.6;
+}
+.email-wiz-instrucao strong { color: #1e40af; }
+.email-wiz-box {
+  background: #f9fafb; border: 1.5px solid #e5e7eb; border-radius: 10px;
+  padding: 12px 14px; font-size: 13px; color: #111827;
+  line-height: 1.7; position: relative; word-break: break-word;
+}
+.email-wiz-box.html-preview { font-size: 13px; }
+.btn-copiar-passo {
+  margin-top: 12px; width: 100%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #fff; border: none; border-radius: 9px;
+  padding: 11px; font-size: 13px; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 8px; transition: opacity .15s;
+}
+.btn-copiar-passo:hover { opacity: .88; }
+.btn-copiar-passo.copiado {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
+.email-wiz-dica {
+  margin-top: 10px; font-size: 11.5px; color: #6b7280;
+  background: #fef9c3; border-radius: 7px; padding: 8px 12px;
+  border-left: 3px solid #eab308;
+}
+/* footer */
+.email-wiz-footer {
+  padding: 12px 20px; border-top: 1px solid #e5e7eb;
+  display: flex; align-items: center; gap: 10px; background: #fafafa;
+}
+.email-wiz-footer-info { flex: 1; font-size: 12px; color: #6b7280; }
 .btn-email-cancelar { background: #f3f4f6; color: #374151; border: none; border-radius: 8px; padding: 9px 18px; font-size: 13px; cursor: pointer; font-weight: 600; }
 .btn-email-cancelar:hover { background: #e5e7eb; }
-.btn-email-enviar { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-.btn-email-enviar:hover { opacity: .9; }
-.btn-email-enviar:disabled { background: #9ca3af; cursor: not-allowed; opacity: 1; }
+.btn-email-proximo { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 700; cursor: pointer; }
+.btn-email-proximo:hover { opacity: .9; }
+.btn-email-proximo:disabled { background: #9ca3af; cursor: not-allowed; }
 
 /* ── MÓDULO COBRANÇAS ─────────────────────────────── */
 .btn-cobrancas {
@@ -1666,17 +1702,18 @@ function getTextoDataLimite() {
 
 async function abrirEmailAviso() {
   document.getElementById('email-overlay').classList.add('aberto');
-  document.getElementById('email-body-content').innerHTML =
+  document.getElementById('email-wiz-body').innerHTML =
     '<div style="text-align:center;padding:40px;color:#6b7280">⏳ Buscando emails dos representantes...</div>';
-  document.getElementById('btn-enviar-email').disabled = true;
-  document.getElementById('email-footer-info').textContent = '';
+  document.getElementById('email-steps').innerHTML = '';
+  document.getElementById('email-wiz-footer-info').textContent = '';
+  document.getElementById('btn-email-wiz-proximo').disabled = true;
 
   // Busca emails da aba Representantes
   let emails = [];
   let nomes  = [];
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+    const timeout = setTimeout(() => controller.abort(), 10000);
     const resp = await fetch(`${API_URL}?action=emailsRepresentantes`, { signal: controller.signal });
     clearTimeout(timeout);
     const data = await resp.json();
@@ -1684,18 +1721,20 @@ async function abrirEmailAviso() {
     nomes  = data.nomes  || [];
   } catch(e) {
     const msg = e.name === 'AbortError'
-      ? '⏱️ Tempo esgotado ao buscar emails. Verifique se o Apps Script foi republicado com a nova versão.'
+      ? '⏱️ Tempo esgotado ao buscar emails. Verifique se o Apps Script foi republicado.'
       : '❌ Erro ao buscar emails. Verifique a URL do Apps Script.';
-    document.getElementById('email-body-content').innerHTML =
+    document.getElementById('email-wiz-body').innerHTML =
       `<div style="text-align:center;padding:40px;color:#ef4444">${msg}</div>`;
     return;
   }
 
   if (!emails.length) {
-    document.getElementById('email-body-content').innerHTML =
+    document.getElementById('email-wiz-body').innerHTML =
       '<div style="text-align:center;padding:40px;color:#6b7280">⚠️ Nenhum email encontrado na aba Representantes (coluna C).</div>';
     return;
   }
+
+  document.getElementById('btn-email-wiz-proximo').disabled = false;
 
   const { mes, ano } = getMesPassadoAnoAtual();
   const { texto: textoData, situacao } = getTextoDataLimite();
@@ -1747,63 +1786,155 @@ async function abrirEmailAviso() {
   // Salva para uso no envio
   window._emailAvisoData = { emails, nomes, assunto, corpo, corpoHtml };
 
-  document.getElementById('btn-enviar-email').disabled = false;
-
-  // Renderiza HTML primeiro, depois seta os valores
-  document.getElementById('email-body-content').innerHTML = `
-    <div class="email-field">
-      <label>Assunto</label>
-      <div class="email-field-val" id="email-assunto-val">${escHtml(assunto)}</div>
-    </div>
-    <div class="email-field">
-      <label>Para (${emails.length} representantes)</label>
-      <div class="email-field-val" style="font-size:12px;line-height:1.6">${emails.map((e,i) => `<span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 7px;margin:2px;font-size:11px">${escHtml(nomes[i]||e)}</span>`).join('')}</div>
-    </div>
-    <div class="email-field">
-      <label>Corpo do email</label>
-      <div class="email-body-preview" style="font-size:13px;line-height:1.7;color:#374151;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:8px;padding:14px">${corpoHtml}</div>
-    </div>`;
-
-  // Atualiza footer (existe no HTML fixo)
-  document.getElementById('email-footer-info').textContent = `${emails.length} destinatário(s)`;
+  // Inicia o wizard
+  _emailWizPasso = 0;
+  renderizarWizardEmail();
 }
 
 function fecharEmailAviso() {
   document.getElementById('email-overlay').classList.remove('aberto');
 }
 
-function enviarEmailOutlook() {
-  const { emails, assunto, corpo } = window._emailAvisoData || {};
-  if (!emails || !emails.length) return;
+// ── WIZARD EMAIL ─────────────────────────────────────
+let _emailWizPasso = 0;
 
-  const para    = emails.join(';');
-  const mailUrl = `mailto:${encodeURIComponent(para)}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
-  window.location.href = mailUrl;
-  fecharEmailAviso();
-  cobToast('✅ Outlook aberto com o email preenchido!');
+const _emailWizPassos = [
+  {
+    label: '1 · Destinatários',
+    instrucao: 'Copie os <strong>endereços de email</strong> abaixo e cole no campo <strong>Para:</strong> do seu webmail.',
+    tipo: 'emails',
+    dica: '💡 No webmail, abra um Novo Email e cole no campo "Para".'
+  },
+  {
+    label: '2 · Assunto',
+    instrucao: 'Copie o <strong>assunto</strong> abaixo e cole no campo <strong>Assunto</strong> do email.',
+    tipo: 'assunto',
+    dica: '💡 Cole no campo "Assunto" do email.'
+  },
+  {
+    label: '3 · Corpo',
+    instrucao: 'Copie o <strong>corpo do email</strong> abaixo e cole no corpo do email. A formatação será mantida.',
+    tipo: 'corpo',
+    dica: '💡 Cole com Ctrl+V no corpo do email. Depois é só revisar e enviar!'
+  },
+  {
+    label: '4 · Enviar ✓',
+    instrucao: 'Tudo pronto! Revise o email no webmail e clique em <strong>Enviar</strong>.',
+    tipo: 'fim',
+    dica: null
+  }
+];
+
+function renderizarWizardEmail() {
+  const { emails, nomes, assunto, corpo, corpoHtml } = window._emailAvisoData || {};
+  const passo = _emailWizPassos[_emailWizPasso];
+  const total = _emailWizPassos.length;
+
+  // Steps indicator
+  const dotsHtml = _emailWizPassos.map((p, i) => {
+    const cls = i < _emailWizPasso ? 'feito' : i === _emailWizPasso ? 'ativo' : '';
+    return `<div class="email-step-dot ${cls}">${i < _emailWizPasso ? '✓ ' : ''}${p.label}</div>`;
+  }).join('');
+  document.getElementById('email-steps').innerHTML = dotsHtml;
+
+  // Conteúdo do passo
+  let conteudoHtml = '';
+  let valorCopiar  = '';
+
+  if (passo.tipo === 'emails') {
+    valorCopiar  = emails.join('; ');
+    conteudoHtml = `<div class="email-wiz-box" style="font-size:12px;line-height:1.8">${emails.map((e,i) => `<span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">${escHtml(nomes[i]||e)}<span style="opacity:.6;margin-left:4px">&lt;${escHtml(e)}&gt;</span></span>`).join(' ')}</div>`;
+  } else if (passo.tipo === 'assunto') {
+    valorCopiar  = assunto;
+    conteudoHtml = `<div class="email-wiz-box"><strong>${escHtml(assunto)}</strong></div>`;
+  } else if (passo.tipo === 'corpo') {
+    valorCopiar  = corpo; // texto puro para clipboard
+    conteudoHtml = `<div class="email-wiz-box html-preview">${corpoHtml}</div>`;
+  } else if (passo.tipo === 'fim') {
+    conteudoHtml = `<div style="text-align:center;padding:20px 0">
+      <div style="font-size:48px;margin-bottom:12px">✅</div>
+      <div style="font-size:15px;font-weight:700;color:#16a34a;margin-bottom:8px">Todos os dados foram copiados!</div>
+      <div style="font-size:13px;color:#6b7280">Revise o email no webmail e clique em Enviar.</div>
+    </div>`;
+  }
+
+  const btnCopiarHtml = passo.tipo !== 'fim' ? `
+    <button class="btn-copiar-passo" id="btn-copiar-passo" onclick="copiarPassoEmail(${JSON.stringify(valorCopiar).replace(/</g,'\u003c')})">
+      📋 Copiar
+    </button>` : '';
+
+  const dicaHtml = passo.dica ? `<div class="email-wiz-dica">${passo.dica}</div>` : '';
+
+  document.getElementById('email-wiz-body').innerHTML = `
+    <div class="email-wiz-instrucao">${passo.instrucao}</div>
+    ${conteudoHtml}
+    ${btnCopiarHtml}
+    ${dicaHtml}
+  `;
+
+  // Footer
+  const isUltimo = _emailWizPasso === total - 1;
+  document.getElementById('email-wiz-footer-info').textContent = `Passo ${_emailWizPasso + 1} de ${total}`;
+  document.getElementById('btn-email-wiz-proximo').textContent = isUltimo ? 'Fechar' : 'Próximo →';
+  document.getElementById('btn-email-wiz-proximo').onclick = isUltimo ? fecharEmailAviso : avancarWizardEmail;
 }
+
+async function copiarPassoEmail(valor) {
+  try {
+    // Tenta copiar HTML (passo do corpo)
+    const passo = _emailWizPassos[_emailWizPasso];
+    if (passo.tipo === 'corpo') {
+      const { corpoHtml } = window._emailAvisoData || {};
+      const blobHtml = new Blob([corpoHtml], { type: 'text/html' });
+      const blobTxt  = new Blob([valor],    { type: 'text/plain' });
+      await navigator.clipboard.write([new ClipboardItem({ 'text/html': blobHtml, 'text/plain': blobTxt })]);
+    } else {
+      await navigator.clipboard.writeText(valor);
+    }
+  } catch(e) {
+    try { await navigator.clipboard.writeText(valor); } catch(e2) {}
+  }
+  const btn = document.getElementById('btn-copiar-passo');
+  if (btn) { btn.textContent = '✅ Copiado!'; btn.classList.add('copiado'); }
+}
+
+function avancarWizardEmail() {
+  if (_emailWizPasso < _emailWizPassos.length - 1) {
+    _emailWizPasso++;
+    renderizarWizardEmail();
+  }
+}
+
+function fecharEmailAviso() {
+  document.getElementById('email-overlay').classList.remove('aberto');
+  _emailWizPasso = 0;
+}
+
+// mantido para compatibilidade (não usado mais)
+async function enviarEmailOutlook() { fecharEmailAviso(); }
 
 
 
 </script>
 
-<!-- ── MODAL EMAIL AVISO ───────────────────────────── -->
+<!-- ── MODAL EMAIL WIZARD ──────────────────────────── -->
 <div class="email-overlay" id="email-overlay" onclick="if(event.target===this)fecharEmailAviso()">
   <div class="email-modal">
     <div class="email-header">
       <div>
         <h2>✉️ Avisar Representantes</h2>
-        <p>Email de aviso de prazo para envio dos relatórios</p>
+        <p>Siga os passos para enviar o email pelo webmail</p>
       </div>
       <button class="cob-close" onclick="fecharEmailAviso()">✕</button>
     </div>
-    <div class="email-body" id="email-body-content"><div style="text-align:center;padding:40px;color:#6b7280">⚠️ Nenhum email encontrado na aba Representantes (coluna C).</div></div>
-    <div class="email-footer">
-      <span class="email-footer-info" id="email-footer-info"></span>
+    <div class="email-steps" id="email-steps"></div>
+    <div class="email-wiz-body" id="email-wiz-body">
+      <div style="text-align:center;padding:40px;color:#6b7280">⏳ Carregando...</div>
+    </div>
+    <div class="email-wiz-footer">
+      <span class="email-wiz-footer-info" id="email-wiz-footer-info"></span>
       <button class="btn-email-cancelar" onclick="fecharEmailAviso()">Fechar</button>
-      <button class="btn-email-enviar" id="btn-enviar-email" onclick="enviarEmailOutlook()" disabled="">
-        📧 Abrir no Outlook
-      </button>
+      <button class="btn-email-proximo" id="btn-email-wiz-proximo">Próximo →</button>
     </div>
   </div>
 </div>
