@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_8.html -->
+<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_9.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -177,6 +177,24 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 .page-btn.active { border: 2px solid #3f51b5; background: #3f51b5; color: #fff; font-weight: 700; }
 .hidden { display: none !important; }
 
+
+/* ── CARD AVISOS ────────────────────────────────────── */
+.avisos-card {
+  background: #fff; border-radius: 12px; padding: 12px 18px;
+  margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  display: flex; gap: 16px; flex-wrap: wrap; align-items: stretch;
+}
+.aviso-item {
+  flex: 1; min-width: 220px; border-radius: 10px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.aviso-item.email { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #3b82f6; }
+.aviso-item.whatsapp { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-left: 4px solid #16a34a; }
+.aviso-icon { font-size: 24px; }
+.aviso-info {}
+.aviso-titulo { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #6b7280; margin-bottom: 3px; }
+.aviso-data { font-size: 14px; font-weight: 800; color: #111827; }
+.aviso-sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
 
 /* ── BOTÃO EMAIL AVISO ──────────────────────────────── */
 .btn-email-aviso {
@@ -505,6 +523,26 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <span style="color:#ef5350;font-weight:700">⏳ 9 Aguardando</span>
     <span style="color:#9c27b0;font-weight:700">📈 0 No BI</span></div>
     </div>
+    <!-- Card Último Aviso -->
+    <div class="avisos-card" id="avisos-card">
+      <div class="aviso-item email">
+        <div class="aviso-icon">✉️</div>
+        <div class="aviso-info">
+          <div class="aviso-titulo">Último Aviso por Email</div>
+          <div class="aviso-data" id="aviso-email-data">—</div>
+          <div class="aviso-sub" id="aviso-email-sub">Nenhum aviso registrado</div>
+        </div>
+      </div>
+      <div class="aviso-item whatsapp">
+        <div class="aviso-icon">📲</div>
+        <div class="aviso-info">
+          <div class="aviso-titulo">Última Cobrança WhatsApp</div>
+          <div class="aviso-data" id="aviso-whatsapp-data">—</div>
+          <div class="aviso-sub" id="aviso-whatsapp-sub">Nenhuma cobrança registrada</div>
+        </div>
+      </div>
+    </div>
+
     <div class="filters-card">
       <div class="filters-header">
         <span class="filters-title">🔍 Filtros de coluna</span>
@@ -754,6 +792,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
       Situação <span style="opacity:.28">⇅</span>
     </th><th style="min-width:110px" class="" onclick="toggleSort(&#39;Dashboard Totvs&#39;)">
       Dash Totvs <span style="opacity:.28">⇅</span>
+    </th><th style="min-width:130px" class="" onclick="toggleSort(&#39;Ultima Cobrança&#39;)">
+      Últ. Cobrança <span style="opacity:.28">⇅</span>
     </th>
   </tr></thead>
           <tbody id="table-body"><tr>
@@ -766,7 +806,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;Larissa Antunez&#39;) " title="Clique para filtrar por este valor">Larissa Antunez</span>
           </td><td style="max-width:180px" title="ANA KAROLINA DE SOUZA">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;ANA KAROLINA DE SOUZA&#39;) " title="Clique para filtrar por este valor">ANA KAROLINA DE SOUZA</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
+          </td>
       </tr><tr>
         <td class="num">2</td>
         <td style="max-width:220px" title="Aflore Comercio De Cosmeticos Ltda">
@@ -777,7 +819,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;Larissa Antunez&#39;) " title="Clique para filtrar por este valor">Larissa Antunez</span>
           </td><td style="max-width:180px" title="ANA MARGARIDA VELOZO B. CIARVI">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;ANA MARGARIDA VELOZO B. CIARVI&#39;) " title="Clique para filtrar por este valor">ANA MARGARIDA VELOZO B. CIARVI</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
+          </td>
       </tr><tr>
         <td class="num">3</td>
         <td style="max-width:220px" title="Akai Kb Magazine E Cosmeticos Ltda">
@@ -788,7 +832,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
+            10/03/2026
+          </td>
       </tr><tr>
         <td class="num">4</td>
         <td style="max-width:220px" title="Akai Kb Magazine E Cosmeticos Ltda">
@@ -799,7 +845,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="KELLY APARECIDA RODRIGUES LEIT">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;KELLY APARECIDA RODRIGUES LEIT&#39;) " title="Clique para filtrar por este valor">KELLY APARECIDA RODRIGUES LEIT</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
+            10/03/2026
+          </td>
       </tr><tr>
         <td class="num">5</td>
         <td style="max-width:220px" title="Akai Kb Magazine E Cosmeticos Ltda">
@@ -810,7 +858,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
+            10/03/2026
+          </td>
       </tr><tr>
         <td class="num">6</td>
         <td style="max-width:220px" title="B.B Cosmeticos Ltda">
@@ -821,7 +871,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
+            10/03/2026
+          </td>
       </tr><tr>
         <td class="num">7</td>
         <td style="max-width:220px" title="Amore Comercio de Cosmeticos e Bijuteria">
@@ -832,7 +884,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
+            10/03/2026
+          </td>
       </tr><tr>
         <td class="num">8</td>
         <td style="max-width:220px" title="Andreia Onaga Perfumaria">
@@ -843,7 +897,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
+            10/03/2026
+          </td>
       </tr><tr>
         <td class="num">9</td>
         <td style="max-width:220px" title="Angela Maria De Barros Cruz Perfumaria">
@@ -854,7 +910,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td>
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
+            10/03/2026
+          </td>
       </tr></tbody>
         </table>
       </div>
@@ -880,6 +938,7 @@ const COLS = [
   {key:'Recebido',        label:'Recebido',         w:110, badge:true},
   {key:'Situacao',        label:'Situação',         w:115, badge:true},
   {key:'Dashboard Totvs', label:'Dash Totvs',       w:110, badge:true},
+  {key:'Ultima Cobrança', label:'Últ. Cobrança',   w:130},
 ];
 
 const BADGE = {
@@ -1000,7 +1059,48 @@ function pct(v,t) { return t?Math.round(v/t*100):0; }
 function uniq(col) { return [...new Set(allData.map(r=>r[col]).filter(v=>v&&v.trim()))].sort((a,b)=>a.localeCompare(b,'pt')); }
 
 // ── Render all ────────────────────────────────────────────────────────────────
-function renderAll() { applyFilters(); renderKPIs(); renderProgress(); renderFilters(); renderActivePills(); renderTable(); showState('dashboard'); atualizarBotaoCob(); }
+function renderAll() { applyFilters(); renderKPIs(); renderProgress(); renderFilters(); renderActivePills(); renderTable(); showState('dashboard'); atualizarBotaoCob(); renderCardAvisos(); }
+
+// ── Card de avisos (email + whatsapp) ────────────────
+function getChaveAviso(tipo) {
+  // Chave por aba ativa para separar avisos por mês
+  return `sellout_${tipo}_${activeSheet}`;
+}
+
+function gravarAvisoEmail() {
+  const agora = new Date();
+  const fmt = agora.toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  localStorage.setItem(getChaveAviso('email'), fmt);
+  renderCardAvisos();
+}
+
+function gravarAvisoWhatsapp() {
+  const agora = new Date();
+  const fmt = agora.toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  localStorage.setItem(getChaveAviso('whatsapp'), fmt);
+  renderCardAvisos();
+}
+
+function renderCardAvisos() {
+  const tabLabel = TABS.find(t => t.sheet === activeSheet)?.label || activeSheet;
+
+  const emailData = localStorage.getItem(getChaveAviso('email'));
+  const wppData   = localStorage.getItem(getChaveAviso('whatsapp'));
+
+  const elEmailData = document.getElementById('aviso-email-data');
+  const elEmailSub  = document.getElementById('aviso-email-sub');
+  const elWppData   = document.getElementById('aviso-whatsapp-data');
+  const elWppSub    = document.getElementById('aviso-whatsapp-sub');
+
+  if (elEmailData) {
+    elEmailData.textContent = emailData || '—';
+    elEmailSub.textContent  = emailData ? `Aviso enviado em ${tabLabel}` : 'Nenhum aviso registrado';
+  }
+  if (elWppData) {
+    elWppData.textContent = wppData || '—';
+    elWppSub.textContent  = wppData ? `Cobrança feita em ${tabLabel}` : 'Nenhuma cobrança registrada';
+  }
+}
 
 function applyFilters() {
   let rows=allData;
@@ -1379,6 +1479,8 @@ if (API_URL) {
 } else {
   showState('error', 'URL não configurada.');
 }
+// Renderiza card de avisos logo no boot (mesmo antes de carregar dados)
+setTimeout(() => { try { renderCardAvisos(); } catch(e) {} }, 300);
 
 // ══════════════════════════════════════════════════════
 // MÓDULO COBRANÇAS
@@ -1658,6 +1760,7 @@ function avancarDisparo(proxIdx) {
 // ── Conclui o disparo ─────────────────────────────────
 function concluirDisparo() {
   const total = _cobGrupos.filter(g => _cobTelefones[g.representante]).length;
+  gravarAvisoWhatsapp();
   fecharCob();
   cobToast(`✅ Disparo concluído! ${total} representante(s) notificado(s).`);
 }
@@ -1936,6 +2039,10 @@ function avancarWizardEmail() {
 }
 
 function fecharEmailAviso() {
+  // Se chegou ao último passo (fim), registra o aviso
+  if (_emailWizPasso === _emailWizPassos.length - 1) {
+    gravarAvisoEmail();
+  }
   document.getElementById('email-overlay').classList.remove('aberto');
   _emailWizPasso = 0;
 }
@@ -1957,12 +2064,18 @@ async function enviarEmailOutlook() { fecharEmailAviso(); }
       </div>
       <button class="cob-close" onclick="fecharEmailAviso()">✕</button>
     </div>
-    <div class="email-steps" id="email-steps"></div>
+    <div class="email-steps" id="email-steps"><div class="email-step-dot ativo">1 · Destinatários</div><div class="email-step-dot ">2 · Assunto</div><div class="email-step-dot ">3 · Corpo</div><div class="email-step-dot ">4 · Enviar ✓</div></div>
     <div class="email-wiz-body" id="email-wiz-body">
-      <div style="text-align:center;padding:40px;color:#6b7280">⏳ Carregando...</div>
-    </div>
+    <div class="email-wiz-instrucao">Copie os <strong>endereços de email</strong> abaixo e cole no campo <strong>Para:</strong> do seu webmail.</div>
+    <div class="email-wiz-box" style="font-size:12px;line-height:1.8"><span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">Larissa Antunez<span style="opacity:.6;margin-left:4px">&lt;analytics@chercom.com.br&gt;</span></span> <span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">larissa<span style="opacity:.6;margin-left:4px">&lt;analytics@chercom.com.br&gt;</span></span> <span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">Larissa Botelho<span style="opacity:.6;margin-left:4px">&lt;analytics@chercom.com.br&gt;</span></span> <span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">Douglas<span style="opacity:.6;margin-left:4px">&lt;analytics@chercom.com.br&gt;</span></span></div>
+    
+    <button class="btn-copiar-passo" id="btn-copiar-passo" onclick="copiarPassoEmail()">
+      📋 Copiar
+    </button>
+    <div class="email-wiz-dica">💡 No webmail, abra um Novo Email e cole no campo "Para".</div>
+  </div>
     <div class="email-wiz-footer">
-      <span class="email-wiz-footer-info" id="email-wiz-footer-info"></span>
+      <span class="email-wiz-footer-info" id="email-wiz-footer-info">Passo 1 de 4</span>
       <button class="btn-email-cancelar" onclick="fecharEmailAviso()">Fechar</button>
       <button class="btn-email-proximo" id="btn-email-wiz-proximo">Próximo →</button>
     </div>
