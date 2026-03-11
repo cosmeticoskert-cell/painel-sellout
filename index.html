@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_7.html -->
+<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_8.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1858,8 +1858,11 @@ function renderizarWizardEmail() {
     </div>`;
   }
 
+  // Salva o valor a copiar no dataset do botão para evitar problemas com JSON/escape
+  window._emailWizValorCopiar = valorCopiar;
+
   const btnCopiarHtml = passo.tipo !== 'fim' ? `
-    <button class="btn-copiar-passo" id="btn-copiar-passo" onclick="copiarPassoEmail(${JSON.stringify(valorCopiar).replace(/</g,'\u003c')})">
+    <button class="btn-copiar-passo" id="btn-copiar-passo" onclick="copiarPassoEmail()">
       📋 Copiar
     </button>` : '';
 
@@ -1879,7 +1882,8 @@ function renderizarWizardEmail() {
   document.getElementById('btn-email-wiz-proximo').onclick = isUltimo ? fecharEmailAviso : avancarWizardEmail;
 }
 
-async function copiarPassoEmail(valor) {
+async function copiarPassoEmail() {
+  const valor = window._emailWizValorCopiar || '';
   const btn = document.getElementById('btn-copiar-passo');
   const passo = _emailWizPassos[_emailWizPasso];
 
