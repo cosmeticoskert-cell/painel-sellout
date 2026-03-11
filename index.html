@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_3.html -->
+<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_4.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1720,13 +1720,9 @@ Dúvidas estou à disposição.`;
   // Salva para uso no envio
   window._emailAvisoData = { emails, nomes, assunto, corpo };
 
-  document.getElementById('email-assunto-val').textContent  = assunto;
-  document.getElementById('email-para-val').textContent     = emails.join('; ');
-  document.getElementById('email-body-preview').textContent = corpo;
-  document.getElementById('email-footer-info').textContent  = `${emails.length} destinatário(s)`;
-  document.getElementById('btn-enviar-email').disabled      = false;
+  document.getElementById('btn-enviar-email').disabled = false;
 
-  // Renderiza lista de nomes
+  // Renderiza HTML primeiro, depois seta os valores
   document.getElementById('email-body-content').innerHTML = `
     <div class="email-field">
       <label>Assunto</label>
@@ -1740,6 +1736,9 @@ Dúvidas estou à disposição.`;
       <label>Corpo do email</label>
       <div class="email-body-preview">${escHtml(corpo)}</div>
     </div>`;
+
+  // Atualiza footer (existe no HTML fixo)
+  document.getElementById('email-footer-info').textContent = `${emails.length} destinatário(s)`;
 }
 
 function fecharEmailAviso() {
