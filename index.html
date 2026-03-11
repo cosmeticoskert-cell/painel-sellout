@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_6.html -->
+<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_7.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1880,22 +1880,48 @@ function renderizarWizardEmail() {
 }
 
 async function copiarPassoEmail(valor) {
-  try {
-    // Tenta copiar HTML (passo do corpo)
-    const passo = _emailWizPassos[_emailWizPasso];
-    if (passo.tipo === 'corpo') {
+  const btn = document.getElementById('btn-copiar-passo');
+  const passo = _emailWizPassos[_emailWizPasso];
+
+  let copiou = false;
+
+  // Tenta ClipboardItem com HTML (passo corpo)
+  if (passo.tipo === 'corpo') {
+    try {
       const { corpoHtml } = window._emailAvisoData || {};
       const blobHtml = new Blob([corpoHtml], { type: 'text/html' });
-      const blobTxt  = new Blob([valor],    { type: 'text/plain' });
+      const blobTxt  = new Blob([valor],     { type: 'text/plain' });
       await navigator.clipboard.write([new ClipboardItem({ 'text/html': blobHtml, 'text/plain': blobTxt })]);
-    } else {
-      await navigator.clipboard.writeText(valor);
-    }
-  } catch(e) {
-    try { await navigator.clipboard.writeText(valor); } catch(e2) {}
+      copiou = true;
+    } catch(e) {}
   }
-  const btn = document.getElementById('btn-copiar-passo');
-  if (btn) { btn.textContent = '✅ Copiado!'; btn.classList.add('copiado'); }
+
+  // Tenta writeText (todos os passos)
+  if (!copiou) {
+    try {
+      await navigator.clipboard.writeText(valor);
+      copiou = true;
+    } catch(e) {}
+  }
+
+  // Fallback execCommand (navegadores antigos / sem permissão)
+  if (!copiou) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = valor;
+      ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      copiou = true;
+    } catch(e) {}
+  }
+
+  if (btn) {
+    btn.textContent = copiou ? '✅ Copiado!' : '❌ Falhou — selecione e copie manualmente';
+    btn.classList.toggle('copiado', copiou);
+  }
 }
 
 function avancarWizardEmail() {
