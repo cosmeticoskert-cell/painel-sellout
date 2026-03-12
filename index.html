@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Analytics/Downloads/dashboard_9.html -->
+<!-- saved from url=(0062)file:///C:/Users/Analytics/Downloads/dashboard-sellout_21.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle SellOut</title>
 <style>
@@ -11,8 +10,18 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: #eef0f8; colo
 .header { background: linear-gradient(135deg, #1a237e 0%, #283593 55%, #3949ab 100%); padding: 18px 28px; color: #fff; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .header h1 { font-size: 21px; font-weight: 900; letter-spacing: -.4px; }
 .header p { font-size: 12px; opacity: .6; margin-top: 2px; }
-.btn-refresh { margin-left: auto; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); color: #fff; border-radius: 8px; padding: 7px 16px; cursor: pointer; font-size: 12.5px; font-weight: 600; }
-.btn-refresh:hover { background: rgba(255,255,255,.22); }
+/* Auto-refresh indicator */
+.refresh-indicator {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.20);
+  border-radius: 8px; padding: 6px 14px; font-size: 11px; color: rgba(255,255,255,.75);
+  cursor: pointer; transition: background .15s;
+}
+.refresh-indicator:hover { background: rgba(255,255,255,.18); }
+.refresh-dot { width: 6px; height: 6px; border-radius: 50%; background: #4caf50; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+.refresh-dot.loading { background: #ffc107; animation: spin2 1s linear infinite; border-radius: 0; width: 8px; height: 8px; border: 2px solid #ffc107; border-top-color: transparent; border-radius: 50%; }
+@keyframes spin2 { to { transform: rotate(360deg); } }
 
 #setup-banner { display: none !important; background: #fff8e1; border-bottom: 3px solid #ffc107; padding: 12px 28px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 #setup-banner.hidden { display: none !important; }
@@ -177,7 +186,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 .page-btn.active { border: 2px solid #3f51b5; background: #3f51b5; color: #fff; font-weight: 700; }
 .hidden { display: none !important; }
 
-
 /* ── CARD AVISOS ────────────────────────────────────── */
 .avisos-card {
   background: #fff; border-radius: 12px; padding: 12px 18px;
@@ -227,7 +235,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 }
 .email-header h2 { font-size: 16px; font-weight: 800; color: #1e40af; margin: 0 0 2px; }
 .email-header p  { font-size: 12px; color: #3b82f6; margin: 0; }
-/* steps indicator */
 .email-steps {
   display: flex; gap: 0; border-bottom: 1px solid #e5e7eb;
   background: #f8fafc;
@@ -239,7 +246,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 }
 .email-step-dot.ativo { color: #1e40af; border-bottom-color: #3b82f6; }
 .email-step-dot.feito { color: #16a34a; border-bottom-color: #22c55e; }
-/* body */
 .email-wiz-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
 .email-wiz-instrucao {
   font-size: 13px; color: #374151; margin-bottom: 14px; line-height: 1.6;
@@ -268,7 +274,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
   background: #fef9c3; border-radius: 7px; padding: 8px 12px;
   border-left: 3px solid #eab308;
 }
-/* footer */
 .email-wiz-footer {
   padding: 12px 20px; border-top: 1px solid #e5e7eb;
   display: flex; align-items: center; gap: 10px; background: #fafafa;
@@ -295,7 +300,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
   padding: 1px 6px; font-size: 11px; font-weight: 800;
 }
 
-/* Overlay */
 .cob-overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,.52); z-index: 900;
@@ -303,7 +307,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 }
 .cob-overlay.aberto { display: flex; }
 
-/* Modal */
 .cob-modal {
   background: #fff; border-radius: 14px;
   width: 700px; max-width: 96vw; max-height: 88vh;
@@ -321,7 +324,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 .cob-close:hover { background: rgba(0,0,0,.16); }
 .cob-body { padding: 16px 20px; overflow-y: auto; flex: 1; }
 
-/* Cards representante */
 .rep-card {
   border: 1.5px solid #e5e7eb; border-radius: 10px;
   padding: 13px 16px; margin-bottom: 10px; cursor: default;
@@ -338,10 +340,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 .rep-loja-tag { background: #f3f4f6; border-radius: 6px; padding: 2px 8px; font-size: 11px; color: #374151; }
 .rep-ult-cob { font-size: 10.5px; color: #9ca3af; margin-top: 7px; }
 
-/* Estado vazio/loading */
 .cob-estado { text-align: center; padding: 48px 0; color: #6b7280; font-size: 14px; }
 
-/* Preview mensagem */
 .msg-preview {
   background: #f0fdf4; border: 1.5px solid #bbf7d0;
   border-radius: 10px; padding: 12px 16px;
@@ -350,7 +350,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 }
 .msg-preview-title { font-size: 11px; font-weight: 700; color: #16a34a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .4px; }
 
-/* Footer */
 .cob-footer {
   padding: 14px 20px; border-top: 1px solid #e5e7eb;
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -363,7 +362,6 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 .btn-cob-gerar:hover { opacity: .9; }
 .btn-cob-gerar:disabled { background: #9ca3af; cursor: not-allowed; opacity: 1; }
 
-/* Toast */
 .cob-toast {
   position: fixed; bottom: 24px; right: 24px; z-index: 1100;
   background: #111827; color: #fff; border-radius: 10px;
@@ -382,10 +380,14 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <h1>Controle SellOut</h1>
     <p id="header-sub">Acompanhamento de relatórios · Mar/26</p>
   </div>
-  <button class="btn-refresh" onclick="refreshData()">🔄 Atualizar</button>
+  <div class="refresh-indicator" id="refresh-indicator" onclick="refreshData()" title="Clique para atualizar agora">
+    <span class="refresh-dot" id="refresh-dot"></span>
+    <span id="refresh-label">Atualizado às 16:55:50</span>
+    <span style="opacity:.5;margin-left:2px">· 🔄</span>
+  </div>
 </div>
 
-<div id="setup-banner">
+<div id="setup-banner" class="hidden">
   <span class="setup-label">⚙️ Apps Script URL:</span>
   <input id="api-url-input" type="text" placeholder="Cole a URL do Apps Script (https://script.google.com/macros/s/.../exec)">
   <button id="btn-save-url" onclick="saveApiUrl()">✅ Conectar</button>
@@ -428,7 +430,24 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
       <div class="kpi-label">Total de Relatórios</div>
       <div class="kpi-value">9</div>
       <div class="kpi-sub">Mar/26</div>
-      
+      <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recSim&#39;,&#39;No Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;" title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#0d47a1">✅ No prazo</span>
+          <span style="font-size:15px;font-weight:900;color:#0d47a1">0</span>
+        </div>
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recFora&#39;,&#39;Fora do Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;" title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#e65100">⏰ Fora do prazo</span>
+          <span style="font-size:15px;font-weight:900;color:#e65100">0</span>
+        </div>
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;semVendas&#39;,&#39;Sem Vendas&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#f3e5f5;" title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#4a148c">📭 Sem vendas</span>
+          <span style="font-size:15px;font-weight:900;color:#4a148c">0</span>
+        </div>
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;faltam&#39;,&#39;Aguardando&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fce4ec;" title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#880e4f">⏳ Aguardando</span>
+          <span style="font-size:15px;font-weight:900;color:#880e4f">9</span>
+        </div>
+      </div>
     </div>
     <div class="kpi-card" style="border-top:4px solid #2196f3" onclick="toggleKpiFilter(&#39;recebidos&#39;,&#39;Recebidos&#39;)">
       <span class="kpi-icon">📥</span>
@@ -438,15 +457,11 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
       <div class="kpi-pct">0% · Faltam: 9</div>
       <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
         <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recSim&#39;,&#39;No Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#0d47a1">No prazo</span>
+          <span style="font-size:11px;font-weight:700;color:#0d47a1">✅ No prazo</span>
           <span style="font-size:15px;font-weight:900;color:#0d47a1">0</span>
         </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recSemVend&#39;,&#39;Sem Vendas&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#f3e5f5;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#4a148c">Sem vendas</span>
-          <span style="font-size:15px;font-weight:900;color:#4a148c">0</span>
-        </div>
         <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recFora&#39;,&#39;Fora do Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#e65100">Fora do prazo</span>
+          <span style="font-size:11px;font-weight:700;color:#e65100">⏰ Fora do prazo</span>
           <span style="font-size:15px;font-weight:900;color:#e65100">0</span>
         </div>
       </div>
@@ -457,30 +472,18 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
       <div class="kpi-value">0</div>
       <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#4caf50"></div></div>
       <div class="kpi-pct">0%</div>
-      <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;concSimConc&#39;,&#39;Recebido + Concluído&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e8f5e9;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#2e7d32">Concluídos</span>
-          <span style="font-size:15px;font-weight:900;color:#2e7d32">0</span>
-        </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;concSemVNI&#39;,&#39;Sem Vendas&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#f3e5f5;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#4a148c">Sem vendas</span>
-          <span style="font-size:15px;font-weight:900;color:#4a148c">0</span>
-        </div>
-      </div>
-    </div>
-    <div class="kpi-card" style="border-top:4px solid #ff9800" onclick="toggleKpiFilter(&#39;pausados&#39;,&#39;Pausados&#39;)">
+    </div><div class="kpi-card" style="border-top:4px solid #ff9800" onclick="toggleKpiFilter(&#39;pausados&#39;,&#39;Pausados&#39;)">
       <span class="kpi-icon">⏸</span>
       <div class="kpi-label">Pausados</div>
       <div class="kpi-value">0</div>
-      
-      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#ff9800"></div></div><div class="kpi-pct">0%</div>
-    </div>
-    <div class="kpi-card" style="border-top:4px solid #9c27b0" onclick="toggleKpiFilter(&#39;noBi&#39;,&#39;No BI (Totvs)&#39;)">
+      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#ff9800"></div></div>
+      <div class="kpi-pct">0%</div>
+    </div><div class="kpi-card" style="border-top:4px solid #9c27b0" onclick="toggleKpiFilter(&#39;noBi&#39;,&#39;No BI (Totvs)&#39;)">
       <span class="kpi-icon">📈</span>
       <div class="kpi-label">No BI (Totvs)</div>
       <div class="kpi-value">0</div>
-      
-      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#9c27b0"></div></div><div class="kpi-pct">0%</div>
+      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#9c27b0"></div></div>
+      <div class="kpi-pct">0%</div>
     </div><div class="meninas-card">
       <div class="meninas-title">👩 Relatórios com Demonstradora</div>
       <div class="meninas-total" style="cursor:pointer" onclick="toggleKpiFilter(&#39;comMenina&#39;,&#39;Com Demonstradora&#39;)">3 total</div>
@@ -529,16 +532,16 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
         <div class="aviso-icon">✉️</div>
         <div class="aviso-info">
           <div class="aviso-titulo">Último Aviso por Email</div>
-          <div class="aviso-data" id="aviso-email-data">—</div>
-          <div class="aviso-sub" id="aviso-email-sub">Nenhum aviso registrado</div>
+          <div class="aviso-data" id="aviso-email-data">11/03/2026, 16:06</div>
+          <div class="aviso-sub" id="aviso-email-sub">Aviso enviado em Mar/26</div>
         </div>
       </div>
       <div class="aviso-item whatsapp">
         <div class="aviso-icon">📲</div>
         <div class="aviso-info">
           <div class="aviso-titulo">Última Cobrança WhatsApp</div>
-          <div class="aviso-data" id="aviso-whatsapp-data">—</div>
-          <div class="aviso-sub" id="aviso-whatsapp-sub">Nenhuma cobrança registrada</div>
+          <div class="aviso-data" id="aviso-whatsapp-data">11/03/2026, 16:06</div>
+          <div class="aviso-sub" id="aviso-whatsapp-sub">Cobrança feita em Mar/26</div>
         </div>
       </div>
     </div>
@@ -832,8 +835,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
-            10/03/2026
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
           </td>
       </tr><tr>
         <td class="num">4</td>
@@ -845,8 +848,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="KELLY APARECIDA RODRIGUES LEIT">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;KELLY APARECIDA RODRIGUES LEIT&#39;) " title="Clique para filtrar por este valor">KELLY APARECIDA RODRIGUES LEIT</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
-            10/03/2026
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
           </td>
       </tr><tr>
         <td class="num">5</td>
@@ -858,8 +861,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
-            10/03/2026
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
           </td>
       </tr><tr>
         <td class="num">6</td>
@@ -871,8 +874,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
-            10/03/2026
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
           </td>
       </tr><tr>
         <td class="num">7</td>
@@ -884,8 +887,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
-            10/03/2026
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
           </td>
       </tr><tr>
         <td class="num">8</td>
@@ -897,8 +900,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
-            10/03/2026
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
           </td>
       </tr><tr>
         <td class="num">9</td>
@@ -910,8 +913,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="10/03/2026">
-            10/03/2026
+          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:130px" title="11/03/2026">
+            11/03/2026
           </td>
       </tr></tbody>
         </table>
@@ -925,11 +928,12 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 </div>
 
 <script>
-// TABS carregado dinamicamente do Apps Script
+// ══════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════
 let TABS = [];
 let activeSheet = '';
 
-// Colunas na nova ordem, sem Nome_Arquivo
 const COLS = [
   {key:'Razão Social',    label:'Razão Social',     w:220},
   {key:'Nome Fantasia',   label:'Nome Fantasia',    w:170},
@@ -947,13 +951,14 @@ const BADGE = {
   'Não Iniciado': {bg:'#fce4ec',c:'#b71c1c',d:'#ef5350'},
   'Sim':          {bg:'#e3f2fd',c:'#0d47a1',d:'#2196f3'},
   'Sem Vendas':   {bg:'#f3e5f5',c:'#4a148c',d:'#9c27b0'},
+  'Fora do Prazo':{bg:'#fff3e0',c:'#e65100',d:'#ff9800'},
   'Aguardando R.':{bg:'#fff8e1',c:'#e65100',d:'#ffc107'},
   'Disponível':   {bg:'#e8f5e9',c:'#2e7d32',d:'#4caf50'},
   'Indisponivel': {bg:'#fce4ec',c:'#b71c1c',d:'#ef5350'},
+  'Não':          {bg:'#f5f5f5',c:'#666',d:'#ccc'},
   '-sem menina-': {bg:'#f5f5f5',c:'#9e9e9e',d:'#e0e0e0'},
 };
 
-// Filter defs for column filters — values are now arrays for multi-select
 const FDEFS = [
   {id:'search', col:null,              label:'🔎 Busca geral...', type:'text'},
   {id:'RS',     col:'Razão Social',    label:'Razão Social'},
@@ -965,35 +970,76 @@ const FDEFS = [
   {id:'Rep',    col:'Representante',   label:'Representante'},
 ];
 
-// KPI filters — separate from column filters, applied as AND logic
-// kpiFilter: { type, value, label }  — null = none
 let kpiFilter = null;
-
 let allData=[], filteredData=[], cache={};
-// colFilters: text filters are strings, multiselect filters are arrays
 let colFilters = {}; FDEFS.forEach(f=>colFilters[f.id]= f.type==='text' ? '' : []);
 let sortCol=null, sortDir='asc', currentPage=1;
 const PER_PAGE = 50;
-let API_URL = 'https://script.google.com/macros/s/AKfycbwMGrBEH6Je0C2WZJ_py6ZzYSlInS3YegMkjbu5InBeJRmS9Tk74DCLXfKa471PmK6h/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwMGrBEH6Je0C2WZJ_py6ZzYSlInS3YegMkjbu5InBeJRmS9Tk74DCLXfKa471PmK6h/exec';
 
+// ══════════════════════════════════════════════════════
+// AUTO-REFRESH em tempo real — polling a cada 5s, silencioso
+// ══════════════════════════════════════════════════════
+const POLL_INTERVAL = 5000; // 5 segundos
+let _pollTimer = null;
+let _polling   = false; // lock: evita requisições paralelas
+let _lastUpdate = null;
 
-// ── Setup ─────────────────────────────────────────────────────────────────────
-function initBanner() {
-  if (API_URL) { document.getElementById('api-url-input').value=API_URL; document.getElementById('setup-banner').classList.add('hidden'); }
-}
-function saveApiUrl() {
-  const v=document.getElementById('api-url-input').value.trim();
-  if (!v.startsWith('https://')) { alert('URL inválida.'); return; }
-  API_URL=v; localStorage.setItem('sellout_api_url',v);
-  document.getElementById('setup-banner').classList.add('hidden');
-  cache={};
-  showState('spinner','Carregando abas...');
-  loadSheetList();
+function startAutoRefresh() {
+  stopAutoRefresh();
+  _pollTimer = setInterval(() => { silentRefresh(); }, POLL_INTERVAL);
 }
 
-// ── Month select ──────────────────────────────────────────────────────────────
+function stopAutoRefresh() {
+  if (_pollTimer) { clearInterval(_pollTimer); _pollTimer = null; }
+}
+
+function updateRefreshIndicator(loading) {
+  const dot = document.getElementById('refresh-dot');
+  const lbl = document.getElementById('refresh-label');
+  if (dot) { if (loading) dot.classList.add('loading'); else dot.classList.remove('loading'); }
+  if (lbl && !loading) {
+    lbl.textContent = _lastUpdate ? `Atualizado às ${_lastUpdate}` : 'Tempo real · 5s';
+  }
+}
+
+// Refresh silencioso: busca dados novos sem apagar filtros nem mudar aba
+async function silentRefresh() {
+  if (!API_URL || !activeSheet || _polling) return;
+  _polling = true;
+  updateRefreshIndicator(true);
+  try {
+    const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(activeSheet)}&_t=${Date.now()}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const j = await res.json();
+    if (j.error) throw new Error(j.error);
+    const rows = j.rows || [];
+    if (rows.length) {
+      cache[activeSheet] = rows;
+      allData = rows;
+      const agora = new Date();
+      _lastUpdate = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+      document.getElementById('month-info').textContent = `(${rows.length} registros)`;
+      applyFilters();
+      renderKPIs();
+      renderProgress();
+      renderFilters();
+      renderActivePills();
+      renderTable();
+      atualizarBotaoCob();
+      renderCardAvisos();
+    }
+  } catch(e) {
+    console.warn('Polling falhou:', e.message);
+  }
+  _polling = false;
+  updateRefreshIndicator(false);
+}
+
+// ══════════════════════════════════════════════════════
+// SETUP & LOAD
+// ══════════════════════════════════════════════════════
 function sheetToLabel(name) {
-  // "26_Mar" → "Mar/26" | "25_Fev" → "Fev/25"
   const [yy, mon] = name.split('_');
   return mon ? `${mon}/${yy}` : name;
 }
@@ -1007,7 +1053,7 @@ async function loadSheetList() {
       TABS = j.sheets.map(s => ({ sheet: s, label: sheetToLabel(s) }));
       activeSheet = TABS[TABS.length - 1].sheet;
       initMonthSelect();
-      loadTab(activeSheet);
+      await loadTab(activeSheet);
     } else {
       showState('error', 'Nenhuma aba encontrada na planilha.');
     }
@@ -1020,50 +1066,63 @@ function initMonthSelect() {
   document.getElementById('month-select').innerHTML =
     TABS.map(t=>`<option value="${t.sheet}"${t.sheet===activeSheet?' selected':''}>${t.label}</option>`).join('');
 }
+
 function switchTab(sheet) {
-  activeSheet=sheet; FDEFS.forEach(f=>colFilters[f.id]= f.type==='text' ? '' : []);
-  kpiFilter=null; sortCol=null; sortDir='asc'; currentPage=1;
+  activeSheet = sheet;
+  FDEFS.forEach(f=>colFilters[f.id]= f.type==='text' ? '' : []);
+  kpiFilter = null; sortCol = null; sortDir = 'asc'; currentPage = 1;
   loadTab(sheet);
 }
 
-// ── Fetch ─────────────────────────────────────────────────────────────────────
 async function fetchData(sheet) {
   if (!API_URL) throw new Error('URL não configurada.');
-  const res=await fetch(`${API_URL}?sheet=${encodeURIComponent(sheet)}`);
+  const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(sheet)}&_t=${Date.now()}`);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const j=await res.json(); if (j.error) throw new Error(j.error);
-  return j.rows||[];
+  const j = await res.json(); if (j.error) throw new Error(j.error);
+  return j.rows || [];
 }
+
 async function loadTab(sheet) {
-  const tab=TABS.find(t=>t.sheet===sheet)||TABS[TABS.length-1];
-  document.getElementById('header-sub').textContent=`Acompanhamento de relatórios · ${tab.label}`;
-  if (cache[sheet]) { allData=cache[sheet]; renderAll(); return; }
-  showState('spinner',`Carregando ${tab.label}...`);
+  const tab = TABS.find(t=>t.sheet===sheet) || TABS[TABS.length-1];
+  document.getElementById('header-sub').textContent = `Acompanhamento de relatórios · ${tab.label}`;
+  showState('spinner', `Carregando ${tab.label}...`);
+  stopAutoRefresh();
   try {
-    const rows=await fetchData(sheet);
+    const rows = await fetchData(sheet);
     if (!rows.length) throw new Error('Nenhum dado nesta aba.');
-    cache[sheet]=rows; allData=rows;
-    document.getElementById('month-info').textContent=`(${rows.length} registros)`;
+    cache[sheet] = rows; allData = rows;
+    document.getElementById('month-info').textContent = `(${rows.length} registros)`;
     renderAll();
-  } catch(e) { showState('error',e.message); }
+    startAutoRefresh();
+  } catch(e) {
+    showState('error', e.message);
+    startAutoRefresh();
+  }
 }
+
 function refreshData() {
+  stopAutoRefresh();
   cache = {};
   showState('spinner', 'Atualizando...');
   loadSheetList();
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════
 function hasMenina(r) { const v=(r['Fluxo Agenda']||'').trim().toLowerCase(); return v&&v!=='-sem menina-'&&!v.startsWith('-sem')&&v.length>1; }
 function pct(v,t) { return t?Math.round(v/t*100):0; }
 function uniq(col) { return [...new Set(allData.map(r=>r[col]).filter(v=>v&&v.trim()))].sort((a,b)=>a.localeCompare(b,'pt')); }
 
-// ── Render all ────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// RENDER ALL
+// ══════════════════════════════════════════════════════
 function renderAll() { applyFilters(); renderKPIs(); renderProgress(); renderFilters(); renderActivePills(); renderTable(); showState('dashboard'); atualizarBotaoCob(); renderCardAvisos(); }
 
-// ── Card de avisos (email + whatsapp) ────────────────
+// ══════════════════════════════════════════════════════
+// CARD AVISOS — localStorage por aba
+// ══════════════════════════════════════════════════════
 function getChaveAviso(tipo) {
-  // Chave por aba ativa para separar avisos por mês
   return `sellout_${tipo}_${activeSheet}`;
 }
 
@@ -1082,6 +1141,8 @@ function gravarAvisoWhatsapp() {
 }
 
 function renderCardAvisos() {
+  // Garante que activeSheet está disponível
+  if (!activeSheet) return;
   const tabLabel = TABS.find(t => t.sheet === activeSheet)?.label || activeSheet;
 
   const emailData = localStorage.getItem(getChaveAviso('email'));
@@ -1102,81 +1163,124 @@ function renderCardAvisos() {
   }
 }
 
+// ══════════════════════════════════════════════════════
+// FILTERS
+// ══════════════════════════════════════════════════════
 function applyFilters() {
-  let rows=allData;
-  // Column filters
+  let rows = allData;
   FDEFS.forEach(f=>{
-    const val=colFilters[f.id];
+    const val = colFilters[f.id];
     if (f.type==='text') {
       if (!val) return;
-      const s=val.toLowerCase(); rows=rows.filter(r=>Object.values(r).some(v=>v&&v.toLowerCase().includes(s)));
+      const s = val.toLowerCase(); rows = rows.filter(r=>Object.values(r).some(v=>v&&v.toLowerCase().includes(s)));
     } else {
       if (!val||!val.length) return;
-      rows=rows.filter(r=>val.includes(r[f.col]));
+      rows = rows.filter(r=>val.includes(r[f.col]));
     }
   });
   // KPI filter
   if (kpiFilter) {
-    if (kpiFilter.type==='recebidos')        rows=rows.filter(r=>r['Recebido']==='Sim'||r['Recebido']==='Fora do Prazo'||r['Recebido']==='Sem Vendas');
-    else if (kpiFilter.type==='recSim')      rows=rows.filter(r=>r['Recebido']==='Sim');
-    else if (kpiFilter.type==='recSemVend')  rows=rows.filter(r=>r['Recebido']==='Sem Vendas');
-    else if (kpiFilter.type==='recFora')     rows=rows.filter(r=>r['Recebido']==='Fora do Prazo');
-    else if (kpiFilter.type==='concluidos')  rows=rows.filter(r=>r['Situacao']==='Concluído');
-    else if (kpiFilter.type==='concSimConc') rows=rows.filter(r=>r['Recebido']==='Sim'&&r['Situacao']==='Concluído');
-    else if (kpiFilter.type==='concSemVNI')  rows=rows.filter(r=>r['Recebido']==='Sem Vendas'&&r['Situacao']==='Não Iniciado');
-    else if (kpiFilter.type==='pausados')    rows=rows.filter(r=>r['Situacao']==='Pausado');
-    else if (kpiFilter.type==='noBi')        rows=rows.filter(r=>r['Dashboard Totvs']==='Disponível');
-    else if (kpiFilter.type==='faltam')      rows=rows.filter(r=>r['Recebido']!=='Sim'&&r['Recebido']!=='Sem Vendas');
-    else if (kpiFilter.type==='mChegaram')   rows=rows.filter(r=>hasMenina(r)&&r['Recebido']==='Sim');
-    else if (kpiFilter.type==='mPendentes')  rows=rows.filter(r=>hasMenina(r)&&r['Recebido']!=='Sim');
-    else if (kpiFilter.type==='mConcluidos') rows=rows.filter(r=>hasMenina(r)&&r['Situacao']==='Concluído');
-    else if (kpiFilter.type==='mPausados')   rows=rows.filter(r=>hasMenina(r)&&r['Situacao']==='Pausado');
-    else if (kpiFilter.type==='comMenina')   rows=rows.filter(r=>hasMenina(r));
+    // ── RECEBIDOS: Sim + Fora do Prazo ──
+    if      (kpiFilter.type==='recebidos')      rows=rows.filter(r=>r['Recebido']==='Sim'||r['Recebido']==='Fora do Prazo');
+    else if (kpiFilter.type==='recSim')          rows=rows.filter(r=>r['Recebido']==='Sim');
+    else if (kpiFilter.type==='recFora')         rows=rows.filter(r=>r['Recebido']==='Fora do Prazo');
+    else if (kpiFilter.type==='semVendas')        rows=rows.filter(r=>r['Recebido']==='Sem Vendas');
+    else if (kpiFilter.type==='concluidos')      rows=rows.filter(r=>r['Situacao']==='Concluído');
+    else if (kpiFilter.type==='concSimConc')     rows=rows.filter(r=>r['Recebido']==='Sim'&&r['Situacao']==='Concluído');
+    else if (kpiFilter.type==='concSemVNI')      rows=rows.filter(r=>r['Recebido']==='Sem Vendas'&&r['Situacao']==='Não Iniciado');
+    else if (kpiFilter.type==='pausados')        rows=rows.filter(r=>r['Situacao']==='Pausado');
+    else if (kpiFilter.type==='noBi')            rows=rows.filter(r=>r['Dashboard Totvs']==='Disponível');
+    else if (kpiFilter.type==='faltam')          rows=rows.filter(r=>r['Recebido']!=='Sim'&&r['Recebido']!=='Sem Vendas'&&r['Recebido']!=='Fora do Prazo');
+    else if (kpiFilter.type==='mChegaram')       rows=rows.filter(r=>hasMenina(r)&&r['Recebido']==='Sim');
+    else if (kpiFilter.type==='mPendentes')      rows=rows.filter(r=>hasMenina(r)&&r['Recebido']!=='Sim');
+    else if (kpiFilter.type==='mConcluidos')     rows=rows.filter(r=>hasMenina(r)&&r['Situacao']==='Concluído');
+    else if (kpiFilter.type==='mPausados')       rows=rows.filter(r=>hasMenina(r)&&r['Situacao']==='Pausado');
+    else if (kpiFilter.type==='comMenina')       rows=rows.filter(r=>hasMenina(r));
   }
   if (sortCol) rows=[...rows].sort((a,b)=>{
     const av=a[sortCol]||'',bv=b[sortCol]||'';
     return sortDir==='asc'?av.localeCompare(bv,'pt'):bv.localeCompare(av,'pt');
   });
-  filteredData=rows; currentPage=1;
+  filteredData = rows; currentPage = 1;
 }
 
-// ── KPI filter toggle ─────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// KPI FILTER TOGGLE
+// ══════════════════════════════════════════════════════
 function toggleKpiFilter(type, label) {
   if (kpiFilter&&kpiFilter.type===type) kpiFilter=null;
   else kpiFilter={type,label};
   applyFilters(); renderKPIs(); renderActivePills(); renderTable();
 }
 
-// ── KPIs ──────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// RENDER KPIs
+// ══════════════════════════════════════════════════════
 function renderKPIs() {
-  const n=allData.length;
-  // Recebidos breakdown
+  const n = allData.length;
+
+  // ── Recebidos: Sim + Fora do Prazo (Sem Vendas NÃO entra no total) ──
   const recSim     = allData.filter(r=>r['Recebido']==='Sim').length;
   const recFora    = allData.filter(r=>r['Recebido']==='Fora do Prazo').length;
-  const recSemVend = allData.filter(r=>r['Recebido']==='Sem Vendas').length;
-  const rec        = recSim + recFora + recSemVend;
+  const rec        = recSim + recFora;   // ← TOTAL = Sim + Fora do Prazo
   const falt       = n - rec;
-  // Concluídos breakdown
-  const concSimConc   = allData.filter(r=>r['Recebido']==='Sim'      && r['Situacao']==='Concluído').length;
-  const concSemVNI    = allData.filter(r=>r['Recebido']==='Sem Vendas'&& r['Situacao']==='Não Iniciado').length;
-  const conc          = allData.filter(r=>r['Situacao']==='Concluído').length;
-  const paus          = allData.filter(r=>r['Situacao']==='Pausado').length;
-  const bi            = allData.filter(r=>r['Dashboard Totvs']==='Disponível').length;
-  const comM=allData.filter(hasMenina);
-  const mTot=comM.length, mCheg=comM.filter(r=>r['Recebido']==='Sim').length, mPend=mTot-mCheg, mConc=comM.filter(r=>r['Situacao']==='Concluído').length, mPaus=comM.filter(r=>r['Situacao']==='Pausado').length;
-  window._K={n,rec,conc,paus,bi,falt};
-  const isActive=(t)=>kpiFilter&&kpiFilter.type===t;
-  const tabLabel=TABS.find(t=>t.sheet===activeSheet)?.label||'';
-  const kpiHtml = (type, icon, label, value, color, sub, barVal, barMax) => `
-    <div class="kpi-card${isActive(type)?' active-filter':''}" style="border-top:4px solid ${color}" onclick="toggleKpiFilter('${type}','${label}')">
-      <span class="kpi-icon">${icon}</span>
-      <div class="kpi-label">${label}</div>
-      <div class="kpi-value">${value}</div>
-      ${sub?`<div class="kpi-sub">${sub}</div>`:''}
-      ${barMax?`<div class="kpi-bar-wrap"><div class="kpi-bar" style="width:${pct(barVal,barMax)}%;background:${color}"></div></div><div class="kpi-pct">${pct(barVal,barMax)}%</div>`:''}
+
+  // Concluídos
+  const concSimConc = allData.filter(r=>r['Recebido']==='Sim'&&r['Situacao']==='Concluído').length;
+  const concSemVNI  = allData.filter(r=>r['Recebido']==='Sem Vendas'&&r['Situacao']==='Não Iniciado').length;
+  const conc        = allData.filter(r=>r['Situacao']==='Concluído').length;
+  const paus        = allData.filter(r=>r['Situacao']==='Pausado').length;
+  const bi          = allData.filter(r=>r['Dashboard Totvs']==='Disponível').length;
+
+  const comM    = allData.filter(hasMenina);
+  const mTot    = comM.length;
+  const mCheg   = comM.filter(r=>r['Recebido']==='Sim').length;
+  const mPend   = mTot - mCheg;
+  const mConc   = comM.filter(r=>r['Situacao']==='Concluído').length;
+  const mPaus   = comM.filter(r=>r['Situacao']==='Pausado').length;
+
+  window._K = {n, rec, conc, paus, bi, falt};
+  const isActive = (t) => kpiFilter && kpiFilter.type===t;
+  const tabLabel = TABS.find(t=>t.sheet===activeSheet)?.label || '';
+
+  // Card Total — com breakdown No Prazo / Fora do Prazo / Não Recebido
+  const semVendas = allData.filter(r=>r['Recebido']==='Sem Vendas').length;
+  const naoRecebido = n - rec - semVendas; // aguardando (nem recebido nem sem vendas)
+  const cardTotal = `
+    <div class="kpi-card${isActive('total')?' active-filter':''}" style="border-top:4px solid #3f51b5" onclick="toggleKpiFilter('total','Total de Relatórios')">
+      <span class="kpi-icon">📋</span>
+      <div class="kpi-label">Total de Relatórios</div>
+      <div class="kpi-value">${n}</div>
+      <div class="kpi-sub">${tabLabel}</div>
+      <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('recSim','No Prazo')"
+          style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;${isActive('recSim')?'outline:2px solid #2196f3;':''}"
+          title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#0d47a1">✅ No prazo</span>
+          <span style="font-size:15px;font-weight:900;color:#0d47a1">${recSim}</span>
+        </div>
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('recFora','Fora do Prazo')"
+          style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;${isActive('recFora')?'outline:2px solid #ff9800;':''}"
+          title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#e65100">⏰ Fora do prazo</span>
+          <span style="font-size:15px;font-weight:900;color:#e65100">${recFora}</span>
+        </div>
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('semVendas','Sem Vendas')"
+          style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#f3e5f5;${isActive('semVendas')?'outline:2px solid #9c27b0;':''}"
+          title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#4a148c">📭 Sem vendas</span>
+          <span style="font-size:15px;font-weight:900;color:#4a148c">${semVendas}</span>
+        </div>
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('faltam','Aguardando')"
+          style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fce4ec;${isActive('faltam')?'outline:2px solid #e91e63;':''}"
+          title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#880e4f">⏳ Aguardando</span>
+          <span style="font-size:15px;font-weight:900;color:#880e4f">${naoRecebido}</span>
+        </div>
+      </div>
     </div>`;
 
-  // Card Recebidos — total + breakdown No prazo / Sem Vendas / Fora do Prazo
+  // Card Recebidos — total (Sim + Fora Prazo) + breakdown No Prazo / Fora do Prazo
   const cardRecebidos = `
     <div class="kpi-card${isActive('recebidos')?' active-filter':''}" style="border-top:4px solid #2196f3" onclick="toggleKpiFilter('recebidos','Recebidos')">
       <span class="kpi-icon">📥</span>
@@ -1185,22 +1289,22 @@ function renderKPIs() {
       <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:${pct(rec,n)}%;background:#2196f3"></div></div>
       <div class="kpi-pct">${pct(rec,n)}% · Faltam: ${falt}</div>
       <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('recSim','No Prazo')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;${isActive('recSim')?'outline:2px solid #2196f3;':''}" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#0d47a1">No prazo</span>
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('recSim','No Prazo')"
+          style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;${isActive('recSim')?'outline:2px solid #2196f3;':''}"
+          title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#0d47a1">✅ No prazo</span>
           <span style="font-size:15px;font-weight:900;color:#0d47a1">${recSim}</span>
         </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('recSemVend','Sem Vendas')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#f3e5f5;${isActive('recSemVend')?'outline:2px solid #9c27b0;':''}" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#4a148c">Sem vendas</span>
-          <span style="font-size:15px;font-weight:900;color:#4a148c">${recSemVend}</span>
-        </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('recFora','Fora do Prazo')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;${isActive('recFora')?'outline:2px solid #ff9800;':''}" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#e65100">Fora do prazo</span>
+        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('recFora','Fora do Prazo')"
+          style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;${isActive('recFora')?'outline:2px solid #ff9800;':''}"
+          title="Clique para filtrar">
+          <span style="font-size:11px;font-weight:700;color:#e65100">⏰ Fora do prazo</span>
           <span style="font-size:15px;font-weight:900;color:#e65100">${recFora}</span>
         </div>
       </div>
     </div>`;
 
-  // Card Concluídos — Concluídos / Sem Vendas
+  // Card Concluídos — sem "Sem Vendas", apenas concluídos efetivos
   const cardConcluidos = `
     <div class="kpi-card${isActive('concluidos')?' active-filter':''}" style="border-top:4px solid #4caf50" onclick="toggleKpiFilter('concluidos','Concluídos')">
       <span class="kpi-icon">✅</span>
@@ -1208,24 +1312,26 @@ function renderKPIs() {
       <div class="kpi-value">${conc}</div>
       <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:${pct(conc,n)}%;background:#4caf50"></div></div>
       <div class="kpi-pct">${pct(conc,n)}%</div>
-      <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('concSimConc','Recebido + Concluído')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e8f5e9;${isActive('concSimConc')?'outline:2px solid #4caf50;':''}" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#2e7d32">Concluídos</span>
-          <span style="font-size:15px;font-weight:900;color:#2e7d32">${concSimConc}</span>
-        </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter('concSemVNI','Sem Vendas')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#f3e5f5;${isActive('concSemVNI')?'outline:2px solid #9c27b0;':''}" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#4a148c">Sem vendas</span>
-          <span style="font-size:15px;font-weight:900;color:#4a148c">${concSemVNI}</span>
-        </div>
-      </div>
     </div>`;
 
   document.getElementById('kpis').innerHTML =
-    kpiHtml('total','📋','Total de Relatórios',n,'#3f51b5',tabLabel,0,0) +
+    cardTotal +
     cardRecebidos +
     cardConcluidos +
-    kpiHtml('pausados','⏸','Pausados',paus,'#ff9800','',paus,n) +
-    kpiHtml('noBi','📈','No BI (Totvs)',bi,'#9c27b0','',bi,n) +
+    `<div class="kpi-card${isActive('pausados')?' active-filter':''}" style="border-top:4px solid #ff9800" onclick="toggleKpiFilter('pausados','Pausados')">
+      <span class="kpi-icon">⏸</span>
+      <div class="kpi-label">Pausados</div>
+      <div class="kpi-value">${paus}</div>
+      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:${pct(paus,n)}%;background:#ff9800"></div></div>
+      <div class="kpi-pct">${pct(paus,n)}%</div>
+    </div>` +
+    `<div class="kpi-card${isActive('noBi')?' active-filter':''}" style="border-top:4px solid #9c27b0" onclick="toggleKpiFilter('noBi','No BI (Totvs)')">
+      <span class="kpi-icon">📈</span>
+      <div class="kpi-label">No BI (Totvs)</div>
+      <div class="kpi-value">${bi}</div>
+      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:${pct(bi,n)}%;background:#9c27b0"></div></div>
+      <div class="kpi-pct">${pct(bi,n)}%</div>
+    </div>` +
     `<div class="meninas-card">
       <div class="meninas-title">👩 Relatórios com Demonstradora</div>
       <div class="meninas-total" style="cursor:pointer" onclick="toggleKpiFilter('comMenina','Com Demonstradora')">${mTot} total${isActive('comMenina')?' ✓':''}</div>
@@ -1254,17 +1360,19 @@ function renderKPIs() {
     </div>`;
 }
 
-// ── Progress ───────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// PROGRESS
+// ══════════════════════════════════════════════════════
 function renderProgress() {
-  const {n,rec,conc,paus,bi,falt}=window._K;
-  const tabLabel=TABS.find(t=>t.sheet===activeSheet)?.label||'';
-  document.getElementById('progress-title').textContent=`Progresso — ${tabLabel}`;
-  document.getElementById('progress-pct').textContent=`${pct(conc,n)}% concluídos`;
-  document.getElementById('progress-bar').innerHTML=`
+  const {n,rec,conc,paus,bi,falt} = window._K;
+  const tabLabel = TABS.find(t=>t.sheet===activeSheet)?.label || '';
+  document.getElementById('progress-title').textContent = `Progresso — ${tabLabel}`;
+  document.getElementById('progress-pct').textContent = `${pct(conc,n)}% concluídos`;
+  document.getElementById('progress-bar').innerHTML = `
     <div style="height:100%;width:${pct(conc,n)}%;background:#4caf50"></div>
     <div style="height:100%;width:${pct(paus,n)}%;background:#ff9800"></div>
     <div style="height:100%;width:${pct(falt,n)}%;background:#ffcdd2"></div>`;
-  document.getElementById('progress-legend').innerHTML=`
+  document.getElementById('progress-legend').innerHTML = `
     <span style="color:#4caf50;font-weight:700">✅ ${conc} Concluídos</span>
     <span style="color:#ff9800;font-weight:700">⏸ ${paus} Pausados</span>
     <span style="color:#2196f3;font-weight:700">📥 ${rec} Recebidos</span>
@@ -1272,23 +1380,25 @@ function renderProgress() {
     <span style="color:#9c27b0;font-weight:700">📈 ${bi} No BI</span>`;
 }
 
-// ── Active filter pills ───────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ACTIVE PILLS
+// ══════════════════════════════════════════════════════
 function renderActivePills() {
-  const wrap=document.getElementById('active-filters');
-  const pills=document.getElementById('filter-pills');
-  const active=[];
+  const wrap = document.getElementById('active-filters');
+  const pills = document.getElementById('filter-pills');
+  const active = [];
   FDEFS.forEach(f=>{
-    const v=colFilters[f.id];
+    const v = colFilters[f.id];
     if (f.type==='text' && v) active.push({label:`${f.label}: "${v}"`, onRemove:`clearColFilter('${f.id}')`});
     else if (Array.isArray(v) && v.length) {
-      const preview=v.length===1?v[0]:v.slice(0,2).join(', ')+(v.length>2?` +${v.length-2}`:'');
+      const preview = v.length===1?v[0]:v.slice(0,2).join(', ')+(v.length>2?` +${v.length-2}`:'');
       active.push({label:`${f.label}: ${preview}`, onRemove:`clearColFilter('${f.id}')`});
     }
   });
   if (kpiFilter) active.push({label:kpiFilter.label, onRemove:`clearKpiFilter()`});
   if (!active.length) { wrap.classList.add('empty'); return; }
   wrap.classList.remove('empty');
-  pills.innerHTML=active.map(a=>`<span class="filter-pill">${a.label}<button onclick="${a.onRemove}" title="Remover">✕</button></span>`).join('');
+  pills.innerHTML = active.map(a=>`<span class="filter-pill">${a.label}<button onclick="${a.onRemove}" title="Remover">✕</button></span>`).join('');
 }
 
 function clearColFilter(id) {
@@ -1303,7 +1413,9 @@ function clearAllFilters() {
   applyFilters(); renderKPIs(); renderFilters(); renderActivePills(); renderTable();
 }
 
-// ── Multiselect dropdown helpers ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// MULTISELECT DROPDOWN
+// ══════════════════════════════════════════════════════
 function closeAllDropdowns() {
   document.querySelectorAll('.ms-dropdown.open').forEach(d=>d.classList.remove('open'));
   document.querySelectorAll('.ms-btn.open').forEach(b=>b.classList.remove('open'));
@@ -1313,62 +1425,64 @@ document.addEventListener('click', e=>{
 });
 
 function toggleDropdown(id) {
-  const dd=document.getElementById(`dd-${id}`), btn=document.getElementById(`msb-${id}`);
-  const isOpen=dd.classList.contains('open');
+  const dd = document.getElementById(`dd-${id}`), btn = document.getElementById(`msb-${id}`);
+  const isOpen = dd.classList.contains('open');
   closeAllDropdowns();
   if (!isOpen) { dd.classList.add('open'); btn.classList.add('open'); }
 }
 
 function msToggle(id, val) {
-  const arr=colFilters[id]; const idx=arr.indexOf(val);
+  const arr = colFilters[id]; const idx = arr.indexOf(val);
   if (idx>=0) arr.splice(idx,1); else arr.push(val);
   updateMsBtn(id);
   applyFilters(); renderActivePills(); renderTable();
-  document.getElementById('filter-count').textContent=`${filteredData.length} de ${allData.length} registros`;
+  document.getElementById('filter-count').textContent = `${filteredData.length} de ${allData.length} registros`;
 }
 function msSelectAll(id) {
-  colFilters[id]=[...uniq(FDEFS.find(f=>f.id===id).col)];
+  colFilters[id] = [...uniq(FDEFS.find(f=>f.id===id).col)];
   updateMsBtn(id); refreshDropdownChecks(id);
   applyFilters(); renderActivePills(); renderTable();
-  document.getElementById('filter-count').textContent=`${filteredData.length} de ${allData.length} registros`;
+  document.getElementById('filter-count').textContent = `${filteredData.length} de ${allData.length} registros`;
 }
 function msClearSel(id) {
-  colFilters[id]=[];
+  colFilters[id] = [];
   updateMsBtn(id); refreshDropdownChecks(id);
   applyFilters(); renderActivePills(); renderTable();
-  document.getElementById('filter-count').textContent=`${filteredData.length} de ${allData.length} registros`;
+  document.getElementById('filter-count').textContent = `${filteredData.length} de ${allData.length} registros`;
 }
 function msSearch(id) {
-  const q=document.getElementById(`ms-search-${id}`).value.toLowerCase();
+  const q = document.getElementById(`ms-search-${id}`).value.toLowerCase();
   document.querySelectorAll(`#dd-${id} .ms-option`).forEach(el=>{
-    el.style.display=el.dataset.val.toLowerCase().includes(q)?'':'none';
+    el.style.display = el.dataset.val.toLowerCase().includes(q)?'':'none';
   });
 }
 function updateMsBtn(id) {
-  const arr=colFilters[id], btn=document.getElementById(`msb-${id}`);
-  const lbl=document.getElementById(`msb-lbl-${id}`), bdg=document.getElementById(`msb-bdg-${id}`);
-  const fdef=FDEFS.find(f=>f.id===id);
+  const arr = colFilters[id], btn = document.getElementById(`msb-${id}`);
+  const lbl = document.getElementById(`msb-lbl-${id}`), bdg = document.getElementById(`msb-bdg-${id}`);
+  const fdef = FDEFS.find(f=>f.id===id);
   if (!arr.length) { lbl.textContent=fdef.label; bdg.style.display='none'; btn.classList.remove('active'); }
   else { lbl.textContent=arr.length===1?arr[0]:fdef.label; bdg.textContent=arr.length; bdg.style.display=''; btn.classList.add('active'); }
 }
 function refreshDropdownChecks(id) {
-  const arr=colFilters[id];
+  const arr = colFilters[id];
   document.querySelectorAll(`#dd-${id} .ms-option input`).forEach(cb=>{
-    cb.checked=arr.includes(cb.dataset.val);
+    cb.checked = arr.includes(cb.dataset.val);
   });
 }
 
-// ── Column filters render ─────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// COLUMN FILTERS
+// ══════════════════════════════════════════════════════
 function renderFilters() {
-  document.getElementById('filters-row').innerHTML=FDEFS.map(f=>{
-    const val=colFilters[f.id];
+  document.getElementById('filters-row').innerHTML = FDEFS.map(f=>{
+    const val = colFilters[f.id];
     if (f.type==='text') return `
       <div class="filter-search-wrap">
         <input class="filter-input${val?' active':''}" id="fi-${f.id}" placeholder="${f.label}" value="${val||''}" oninput="setColF('${f.id}',this.value)">
         <button class="filter-x${val?' show':''}" id="fx-${f.id}" onclick="clearColFilter('${f.id}')">✕</button>
       </div>`;
-    const opts=uniq(f.col);
-    const sel=Array.isArray(val)?val:[];
+    const opts = uniq(f.col);
+    const sel = Array.isArray(val)?val:[];
     return `
       <div class="ms-wrap">
         <div class="ms-btn${sel.length?' active':''}" id="msb-${f.id}" onclick="toggleDropdown('${f.id}')">
@@ -1392,31 +1506,32 @@ function renderFilters() {
         </div>
       </div>`;
   }).join('');
-  document.getElementById('filter-count').textContent=`${filteredData.length} de ${allData.length} registros`;
+  document.getElementById('filter-count').textContent = `${filteredData.length} de ${allData.length} registros`;
 }
 
-function setColF(id,val) {
-  colFilters[id]=val;
-  const el=document.getElementById(`fi-${id}`), btn=document.getElementById(`fx-${id}`);
+function setColF(id, val) {
+  colFilters[id] = val;
+  const el = document.getElementById(`fi-${id}`), btn = document.getElementById(`fx-${id}`);
   if(el) el.classList.toggle('active',!!val);
   if(btn) btn.classList.toggle('show',!!val);
   applyFilters(); renderActivePills(); renderTable();
-  document.getElementById('filter-count').textContent=`${filteredData.length} de ${allData.length} registros`;
+  document.getElementById('filter-count').textContent = `${filteredData.length} de ${allData.length} registros`;
 }
 
-// ── Table ─────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// TABLE
+// ══════════════════════════════════════════════════════
 function bdg(text) {
-  const s=BADGE[text]||{bg:'#f5f5f5',c:'#666',d:'#ccc'};
+  const s = BADGE[text]||{bg:'#f5f5f5',c:'#666',d:'#ccc'};
   return `<span class="badge" style="background:${s.bg};color:${s.c}"><span class="badge-dot" style="background:${s.d}"></span>${text||'—'}</span>`;
 }
 
-// Clickable text cell — toggle value in multiselect filter
 function clickCell(col, val) {
   if (!val || val==='—') return;
-  const fdef=FDEFS.find(f=>f.col===col);
+  const fdef = FDEFS.find(f=>f.col===col);
   if (!fdef) return;
-  const arr=colFilters[fdef.id];
-  const idx=arr.indexOf(val);
+  const arr = colFilters[fdef.id];
+  const idx = arr.indexOf(val);
   if (idx>=0) arr.splice(idx,1); else arr.push(val);
   applyFilters(); renderFilters(); renderActivePills(); renderTable();
 }
@@ -1428,16 +1543,16 @@ function renderTable() {
       ${c.label} <span style="opacity:.28">${sortCol===c.key?(sortDir==='asc'?'↑':'↓'):'⇅'}</span>
     </th>`).join('')}
   </tr>`;
-  const s=(currentPage-1)*PER_PAGE;
-  const rows=filteredData.slice(s,s+PER_PAGE);
-  document.getElementById('table-body').innerHTML=rows.length===0
+  const s = (currentPage-1)*PER_PAGE;
+  const rows = filteredData.slice(s, s+PER_PAGE);
+  document.getElementById('table-body').innerHTML = rows.length===0
     ?`<tr><td class="empty" colspan="${COLS.length+1}">Nenhum resultado encontrado</td></tr>`
     :rows.map((r,i)=>`<tr>
         <td class="num">${s+i+1}</td>
         ${COLS.map(c=>{
           if (c.badge) return `<td style="max-width:${c.w}px">${bdg(r[c.key])}</td>`;
-          const val=r[c.key]||'';
-          const hasFdef=FDEFS.some(f=>f.col===c.key);
+          const val = r[c.key]||'';
+          const hasFdef = FDEFS.some(f=>f.col===c.key);
           return `<td style="max-width:${c.w}px" title="${val.replace(/"/g,'&quot;')}">
             ${val ? (hasFdef ? `<span class="clickable" onclick="clickCell('${c.key}','${val.replace(/'/g,"\\'")}') " title="Clique para filtrar por este valor">${val}</span>` : val) : '<span style="color:#e0e0e0">—</span>'}
           </td>`;
@@ -1447,62 +1562,49 @@ function renderTable() {
 }
 
 function renderPagination() {
-  const total=filteredData.length, tp=Math.ceil(total/PER_PAGE);
-  const pag=document.getElementById('pagination');
+  const total = filteredData.length, tp = Math.ceil(total/PER_PAGE);
+  const pag = document.getElementById('pagination');
   if (tp<=1) { pag.classList.add('hidden'); return; }
   pag.classList.remove('hidden');
-  const s=(currentPage-1)*PER_PAGE;
-  document.getElementById('pag-info').textContent=`${s+1}–${Math.min(s+PER_PAGE,total)} de ${total}`;
-  const sp=Math.max(1,Math.min(tp-4,currentPage-2));
-  let b=`<button class="page-btn" onclick="gp(1)" ${currentPage===1?'disabled':''}>«</button>
+  const s = (currentPage-1)*PER_PAGE;
+  document.getElementById('pag-info').textContent = `${s+1}–${Math.min(s+PER_PAGE,total)} de ${total}`;
+  const sp = Math.max(1, Math.min(tp-4, currentPage-2));
+  let b = `<button class="page-btn" onclick="gp(1)" ${currentPage===1?'disabled':''}>«</button>
     <button class="page-btn" onclick="gp(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
-  for(let p=sp;p<=Math.min(sp+4,tp);p++) b+=`<button class="page-btn${p===currentPage?' active':''}" onclick="gp(${p})">${p}</button>`;
+  for(let p=sp; p<=Math.min(sp+4,tp); p++) b+=`<button class="page-btn${p===currentPage?' active':''}" onclick="gp(${p})">${p}</button>`;
   b+=`<button class="page-btn" onclick="gp(${currentPage+1})" ${currentPage===tp?'disabled':''}>›</button>
     <button class="page-btn" onclick="gp(${tp})" ${currentPage===tp?'disabled':''}>»</button>`;
-  document.getElementById('pag-btns').innerHTML=b;
+  document.getElementById('pag-btns').innerHTML = b;
 }
 
 function gp(p) { currentPage=p; renderTable(); window.scrollTo(0,0); }
 function toggleSort(col) { sortDir=sortCol===col?(sortDir==='asc'?'desc':'asc'):'asc'; sortCol=col; applyFilters(); renderTable(); }
 
-function showState(state,msg) {
+function showState(state, msg) {
   ['spinner','error-box','dashboard'].forEach(id=>document.getElementById(id).classList.add('hidden'));
   document.getElementById(state).classList.remove('hidden');
-  if(state==='spinner') document.getElementById('spinner-msg').textContent=msg||'';
-  if(state==='error') document.getElementById('error-msg').textContent=msg||'';
+  if(state==='spinner') document.getElementById('spinner-msg').textContent = msg||'';
+  if(state==='error') document.getElementById('error-msg').textContent = msg||'';
 }
-
-// Boot
-if (API_URL) {
-  showState('spinner', 'Carregando abas...');
-  loadSheetList();
-} else {
-  showState('error', 'URL não configurada.');
-}
-// Renderiza card de avisos logo no boot (mesmo antes de carregar dados)
-setTimeout(() => { try { renderCardAvisos(); } catch(e) {} }, 300);
 
 // ══════════════════════════════════════════════════════
 // MÓDULO COBRANÇAS
 // ══════════════════════════════════════════════════════
-
-let _cobGrupos   = [];   // lista de representantes com pendências
-let _cobIdx      = 0;    // índice atual no disparo
-let _cobTelefones = {};  // { NomeRep: telefone }
+let _cobGrupos   = [];
+let _cobIdx      = 0;
+let _cobTelefones = {};
 let _cobDisparando = false;
 
-// ── Filtra pendentes da aba ativa ─────────────────────
 function getPendentesAba() {
   return allData.filter(r => {
     const v = (r['Recebido'] || '').toString().trim().toUpperCase();
-    return v === 'NÃO' || v === 'NAO' || v === 'N';
+    return v === 'NÃO' || v === 'NAO' || v === 'N' || v === 'NÃO';
   });
 }
 
-// ── Atualiza badge no botão ───────────────────────────
 function atualizarBotaoCob() {
   const n = getPendentesAba().length;
-  const btn   = document.getElementById('btn-cob');
+  const btn = document.getElementById('btn-cob');
   const badge = document.getElementById('cob-badge-count');
   const btnEmail = document.getElementById('btn-email-aviso');
   if (allData.length > 0) {
@@ -1513,7 +1615,6 @@ function atualizarBotaoCob() {
   }
 }
 
-// ── Monta texto da mensagem ───────────────────────────
 function montarMsgCob(g) {
   const lista = g.lojas.map(l => `  • ${l}`).join('\n');
   return `Oi ${g.representante}, tudo bem?\nEstou passando para avisar que ainda não recebemos esses relatórios:\n\n${lista}\n\nPoderia nos enviar o quanto antes? 😊`;
@@ -1523,16 +1624,12 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ── Abre modal principal ──────────────────────────────
 async function abrirCob() {
-  _cobDisparando = false;
-  _cobIdx = 0;
-
-  const tabLabel = TABS.find(t => t.sheet === activeSheet)?.label || activeSheet;
+  _cobDisparando = false; _cobIdx = 0;
+  const tabLabel = TABS.find(t=>t.sheet===activeSheet)?.label || activeSheet;
   document.getElementById('cob-overlay').classList.add('aberto');
   document.getElementById('cob-tab-label').textContent = tabLabel;
 
-  // Agrupa pendentes por representante
   const pendentes = getPendentesAba();
   const mapa = {};
   pendentes.forEach(r => {
@@ -1545,37 +1642,26 @@ async function abrirCob() {
   _cobGrupos = Object.values(mapa);
 
   if (!_cobGrupos.length) {
-    document.getElementById('cob-body').innerHTML =
-      '<div class="cob-estado">✅ Nenhum relatório pendente nesta aba!</div>';
-    document.getElementById('cob-footer').innerHTML =
-      '<button class="btn-cob-cancelar" onclick="fecharCob()">Fechar</button>';
+    document.getElementById('cob-body').innerHTML = '<div class="cob-estado">✅ Nenhum relatório pendente nesta aba!</div>';
+    document.getElementById('cob-footer').innerHTML = '<button class="btn-cob-cancelar" onclick="fecharCob()">Fechar</button>';
     return;
   }
 
-  // Mostra loading enquanto busca telefones
-  document.getElementById('cob-body').innerHTML =
-    '<div class="cob-estado">⏳ Buscando telefones dos representantes...</div>';
-  document.getElementById('cob-footer').innerHTML =
-    '<span class="cob-footer-info">Aguarde...</span>';
+  document.getElementById('cob-body').innerHTML = '<div class="cob-estado">⏳ Buscando telefones dos representantes...</div>';
+  document.getElementById('cob-footer').innerHTML = '<span class="cob-footer-info">Aguarde...</span>';
 
   try {
     const resp = await fetch(`${API_URL}?action=telefones`);
     const data = await resp.json();
     _cobTelefones = data.telefones || {};
-  } catch(e) {
-    _cobTelefones = {};
-  }
+  } catch(e) { _cobTelefones = {}; }
 
   renderTelaLista();
 }
 
-// ── Tela 1: lista de representantes ──────────────────
 function renderTelaLista() {
-  const tabLabel = TABS.find(t => t.sheet === activeSheet)?.label || activeSheet;
-  const totalLojas = _cobGrupos.reduce((acc, g) => acc + g.lojas.length, 0);
+  const totalLojas = _cobGrupos.reduce((acc,g) => acc + g.lojas.length, 0);
   const semTel = _cobGrupos.filter(g => !_cobTelefones[g.representante]).length;
-
-  // Monta preview da mensagem do primeiro
   const ex = _cobGrupos[0];
   const msgEx = montarMsgCob(ex);
 
@@ -1586,19 +1672,19 @@ function renderTelaLista() {
       📋 ${_cobGrupos.length} representante(s) · ${totalLojas} loja(s) pendente(s)
       ${semTel ? `<span style="color:#ef4444;font-weight:600;margin-left:8px">⚠️ ${semTel} sem telefone</span>` : ''}
     </div>
-    ${_cobGrupos.map((g, i) => {
+    ${_cobGrupos.map((g,i) => {
       const tel = _cobTelefones[g.representante];
       return `
-      <div class="rep-card" style="${!tel ? 'border-color:#fecaca' : ''}">
+      <div class="rep-card" style="${!tel?'border-color:#fecaca':''}">
         <div class="rep-card-top">
           <span class="rep-nome">${escHtml(g.representante)}</span>
-          <span class="rep-badge">${g.lojas.length} pendente${g.lojas.length > 1 ? 's' : ''}</span>
+          <span class="rep-badge">${g.lojas.length} pendente${g.lojas.length>1?'s':''}</span>
         </div>
-        <div class="rep-tel ${tel ? '' : 'sem-tel'}">
-          ${tel ? '📱 ' + tel : '⚠️ Telefone não encontrado — será pulado'}
+        <div class="rep-tel ${tel?'':'sem-tel'}">
+          ${tel ? '📱 '+tel : '⚠️ Telefone não encontrado — será pulado'}
         </div>
         <div class="rep-lojas-lista">
-          ${g.lojas.map(l => `<span class="rep-loja-tag">${escHtml(l)}</span>`).join('')}
+          ${g.lojas.map(l=>`<span class="rep-loja-tag">${escHtml(l)}</span>`).join('')}
         </div>
       </div>`;
     }).join('')}`;
@@ -1607,37 +1693,27 @@ function renderTelaLista() {
   document.getElementById('cob-footer').innerHTML = `
     <span class="cob-footer-info">${comTel} envio(s) com telefone</span>
     <button class="btn-cob-cancelar" onclick="fecharCob()">Fechar</button>
-    <button class="btn-cob-gerar" onclick="iniciarDisparo()" ${comTel === 0 ? 'disabled' : ''}>
+    <button class="btn-cob-gerar" onclick="iniciarDisparo()" ${comTel===0?'disabled':''}>
       🚀 Iniciar Disparo
     </button>`;
 }
 
-// ── Inicia o disparo sequencial ───────────────────────
 function iniciarDisparo() {
-  _cobDisparando = true;
-  _cobIdx = 0;
-  // Pula representantes sem telefone
-  while (_cobIdx < _cobGrupos.length && !_cobTelefones[_cobGrupos[_cobIdx].representante]) {
-    _cobIdx++;
-  }
-  if (_cobIdx >= _cobGrupos.length) {
-    cobToast('⚠️ Nenhum representante com telefone cadastrado.');
-    return;
-  }
+  _cobDisparando = true; _cobIdx = 0;
+  while (_cobIdx < _cobGrupos.length && !_cobTelefones[_cobGrupos[_cobIdx].representante]) _cobIdx++;
+  if (_cobIdx >= _cobGrupos.length) { cobToast('⚠️ Nenhum representante com telefone cadastrado.'); return; }
   renderTelaDisparo();
 }
 
-// ── Tela 2: disparo um a um ───────────────────────────
 function renderTelaDisparo() {
-  const total  = _cobGrupos.filter(g => _cobTelefones[g.representante]).length;
+  const total    = _cobGrupos.filter(g => _cobTelefones[g.representante]).length;
   const enviados = _cobGrupos.slice(0, _cobIdx).filter(g => _cobTelefones[g.representante]).length;
-  const g      = _cobGrupos[_cobIdx];
-  const tel    = _cobTelefones[g.representante];
-  const msg    = montarMsgCob(g);
-  const progPct = total > 0 ? Math.round(enviados / total * 100) : 0;
+  const g        = _cobGrupos[_cobIdx];
+  const tel      = _cobTelefones[g.representante];
+  const msg      = montarMsgCob(g);
+  const progPct  = total > 0 ? Math.round(enviados/total*100) : 0;
 
   document.getElementById('cob-body').innerHTML = `
-    <!-- Progresso -->
     <div style="margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:4px">
         <span>Progresso do disparo</span>
@@ -1647,8 +1723,6 @@ function renderTelaDisparo() {
         <div style="height:100%;width:${progPct}%;background:#16a34a;border-radius:6px;transition:width .4s"></div>
       </div>
     </div>
-
-    <!-- Card atual -->
     <div style="background:#f0fdf4;border:2px solid #bbf7d0;border-radius:12px;padding:16px;margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <div>
@@ -1656,23 +1730,21 @@ function renderTelaDisparo() {
           <div style="font-size:11.5px;color:#16a34a;margin-top:2px">📱 ${tel}</div>
         </div>
         <div style="background:#dcfce7;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;color:#15803d">
-          ${enviados + 1}/${total}
+          ${enviados+1}/${total}
         </div>
       </div>
       <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px">Lojas pendentes:</div>
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px">
-        ${g.lojas.map(l => `<span class="rep-loja-tag">${escHtml(l)}</span>`).join('')}
+        ${g.lojas.map(l=>`<span class="rep-loja-tag">${escHtml(l)}</span>`).join('')}
       </div>
       <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px">Mensagem que será enviada:</div>
       <div class="msg-preview" style="margin:0;font-size:11.5px">${escHtml(msg)}</div>
     </div>
-
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e;text-align:center">
       👆 Clique em <strong>"Enviar agora"</strong> para abrir o WhatsApp Web com esta mensagem pronta.<br>
       Depois pressione <strong>Enter</strong> no WhatsApp e volte aqui para continuar.
     </div>`;
 
-  // Próximo com telefone (para saber se tem mais)
   let proxIdx = _cobIdx + 1;
   while (proxIdx < _cobGrupos.length && !_cobTelefones[_cobGrupos[proxIdx].representante]) proxIdx++;
   const temProximo = proxIdx < _cobGrupos.length;
@@ -1685,79 +1757,53 @@ function renderTelaDisparo() {
     </button>`;
 }
 
-// ── Abre WhatsApp e avança ────────────────────────────
 function abrirWhatsApp(idx, proxIdx, temProximo) {
   const g   = _cobGrupos[idx];
   const tel = _cobTelefones[g.representante];
   const msg = montarMsgCob(g);
-
-  // Formata número: garante 55 + DDD + número, só dígitos
-  let num = tel.replace(/\D/g, '');
+  let num = tel.replace(/\D/g,'');
   if (!num.startsWith('55')) num = '55' + num;
-
   const url = `https://web.whatsapp.com/send?phone=${num}&text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
 
-  // Atualiza botão para "Próximo / Concluir" — gravar ao confirmar
   if (temProximo) {
     document.getElementById('cob-footer').innerHTML = `
       <span class="cob-footer-info">📲 WhatsApp aberto — pressione Enter lá e volte aqui</span>
       <button class="btn-cob-cancelar" onclick="fecharCob()">Fechar</button>
-      <button class="btn-cob-gerar" onclick="gravarEAvancar(${idx}, ${proxIdx})">
-        ➡️ Próximo
-      </button>`;
+      <button class="btn-cob-gerar" onclick="gravarEAvancar(${idx}, ${proxIdx})">➡️ Próximo</button>`;
   } else {
     document.getElementById('cob-footer').innerHTML = `
       <span class="cob-footer-info">📲 Último! Pressione Enter no WhatsApp e confirme</span>
       <button class="btn-cob-cancelar" onclick="fecharCob()">Fechar</button>
-      <button class="btn-cob-gerar" style="background:linear-gradient(135deg,#16a34a,#15803d)" onclick="gravarEConcluir(${idx})">
-        ✅ Concluir
-      </button>`;
+      <button class="btn-cob-gerar" style="background:linear-gradient(135deg,#16a34a,#15803d)" onclick="gravarEConcluir(${idx})">✅ Concluir</button>`;
   }
 }
 
-// ── Grava cobrança no Sheets e avança ────────────────
 async function gravarEAvancar(idx, proxIdx) {
   const g = _cobGrupos[idx];
-  document.getElementById('cob-footer').innerHTML =
-    `<span class="cob-footer-info">💾 Gravando cobrança...</span>`;
-
+  document.getElementById('cob-footer').innerHTML = `<span class="cob-footer-info">💾 Gravando cobrança...</span>`;
   await registrarCobrancaSheets(g.representante);
   avancarDisparo(proxIdx);
 }
 
-// ── Grava cobrança no Sheets e conclui ───────────────
 async function gravarEConcluir(idx) {
   const g = _cobGrupos[idx];
-  document.getElementById('cob-footer').innerHTML =
-    `<span class="cob-footer-info">💾 Gravando cobrança...</span>`;
-
+  document.getElementById('cob-footer').innerHTML = `<span class="cob-footer-info">💾 Gravando cobrança...</span>`;
   await registrarCobrancaSheets(g.representante);
   concluirDisparo();
 }
 
-// ── Chama Apps Script para gravar data/hora ───────────
 async function registrarCobrancaSheets(nomeRep) {
   try {
     const params = new URLSearchParams({action:'registrarCobranca', sheet:activeSheet, representante:nomeRep});
     const resp = await fetch(`${API_URL}?${params}`);
     const data = await resp.json();
-    if (data.ok) {
-      cobToast(`💾 Cobrança registrada para ${nomeRep} (${data.gravadas} linha(s) — ${data.data})`);
-    }
-  } catch(e) {
-    // Silencia erro — não bloqueia o fluxo
-    console.warn('Erro ao registrar cobrança:', e);
-  }
+    if (data.ok) cobToast(`💾 Cobrança registrada para ${nomeRep} (${data.gravadas} linha(s) — ${data.data})`);
+  } catch(e) { console.warn('Erro ao registrar cobrança:', e); }
 }
 
-// ── Avança para o próximo ─────────────────────────────
-function avancarDisparo(proxIdx) {
-  _cobIdx = proxIdx;
-  renderTelaDisparo();
-}
+function avancarDisparo(proxIdx) { _cobIdx = proxIdx; renderTelaDisparo(); }
 
-// ── Conclui o disparo ─────────────────────────────────
 function concluirDisparo() {
   const total = _cobGrupos.filter(g => _cobTelefones[g.representante]).length;
   gravarAvisoWhatsapp();
@@ -1772,35 +1818,29 @@ function fecharCob() {
 
 function cobToast(msg) {
   const t = document.getElementById('cob-toast');
-  t.textContent = msg;
-  t.classList.add('on');
+  t.textContent = msg; t.classList.add('on');
   setTimeout(() => t.classList.remove('on'), 4500);
 }
 
 // ══════════════════════════════════════════════════════
-// MÓDULO EMAIL AVISO REPRESENTANTES
+// MÓDULO EMAIL AVISO
 // ══════════════════════════════════════════════════════
-
 function getMesPassadoAnoAtual() {
-  const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
-                 'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
   const hoje = new Date();
-  const mesPassado = new Date(hoje.getFullYear(), hoje.getMonth() - 1, 1);
+  const mesPassado = new Date(hoje.getFullYear(), hoje.getMonth()-1, 1);
   return { mes: meses[mesPassado.getMonth()], ano: mesPassado.getFullYear() };
 }
 
 function getTextoDataLimite() {
-  const hoje = new Date();
-  hoje.setHours(0,0,0,0);
-  const dia10 = new Date(hoje.getFullYear(), hoje.getMonth(), 10);
-  dia10.setHours(0,0,0,0);
-  const diffDias = Math.round((dia10 - hoje) / (1000*60*60*24));
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const dia10 = new Date(hoje.getFullYear(), hoje.getMonth(), 10); dia10.setHours(0,0,0,0);
+  const diffDias = Math.round((dia10-hoje)/(1000*60*60*24));
   const dia10Fmt = `10/${String(hoje.getMonth()+1).padStart(2,'0')}/${hoje.getFullYear()}`;
-
-  if (diffDias === 0)  return { texto: 'hoje',   data: dia10Fmt, situacao: 'hoje' };
-  if (diffDias === 1)  return { texto: 'amanha',  data: dia10Fmt, situacao: 'amanha' };
-  if (diffDias < 0)    return { texto: dia10Fmt,  data: dia10Fmt, situacao: 'atrasado' };
-  return { texto: dia10Fmt, data: dia10Fmt, situacao: 'futuro' };
+  if (diffDias===0) return { texto:'hoje',  data:dia10Fmt, situacao:'hoje' };
+  if (diffDias===1) return { texto:'amanha', data:dia10Fmt, situacao:'amanha' };
+  if (diffDias<0)  return { texto:dia10Fmt, data:dia10Fmt, situacao:'atrasado' };
+  return { texto:dia10Fmt, data:dia10Fmt, situacao:'futuro' };
 }
 
 async function abrirEmailAviso() {
@@ -1811,19 +1851,16 @@ async function abrirEmailAviso() {
   document.getElementById('email-wiz-footer-info').textContent = '';
   document.getElementById('btn-email-wiz-proximo').disabled = true;
 
-  // Busca emails da aba Representantes
-  let emails = [];
-  let nomes  = [];
+  let emails = [], nomes = [];
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
     const resp = await fetch(`${API_URL}?action=emailsRepresentantes`, { signal: controller.signal });
     clearTimeout(timeout);
     const data = await resp.json();
-    emails = data.emails || [];
-    nomes  = data.nomes  || [];
+    emails = data.emails || []; nomes = data.nomes || [];
   } catch(e) {
-    const msg = e.name === 'AbortError'
+    const msg = e.name==='AbortError'
       ? '⏱️ Tempo esgotado ao buscar emails. Verifique se o Apps Script foi republicado.'
       : '❌ Erro ao buscar emails. Verifique a URL do Apps Script.';
     document.getElementById('email-wiz-body').innerHTML =
@@ -1842,10 +1879,8 @@ async function abrirEmailAviso() {
   const { mes, ano } = getMesPassadoAnoAtual();
   const { texto: textoData, situacao } = getTextoDataLimite();
   const refMes = `${mes}/${ano}`;
-
   const assunto = `RELATÓRIO SELL OUT - ${refMes}`;
 
-  // Bloco fixo de rodapé — texto puro e HTML
   const rodapeTxt = `\n__ATENÇÃO NOVO EMAIL PARA ENVIO DOS RELATÓRIOS.__\n\nNovos Canais para Envio dos Relatórios:\n• E-mail: trade@chercom.com.br   (favor enviar nesse email os relatórios)\n• WhatsApp: (11) 98860-3143`;
   const rodapeHtml = `
     <p style="margin:18px 0 6px"><a href="mailto:trade@chercom.com.br" style="color:#c0392b;font-weight:700;text-decoration:none">ATENÇÃO NOVO EMAIL PARA ENVIO DOS RELATÓRIOS.</a></p>
@@ -1856,76 +1891,37 @@ async function abrirEmailAviso() {
     </ul>`;
 
   let corpo, corpoHtml;
-
-  if (situacao === 'amanha') {
+  if (situacao==='amanha') {
     corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até amanhã para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
-    corpoHtml = `<p>Boa tarde, Srs.</p>
-    <p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">AMANHÃ</strong> para podermos calcular a premiação das demonstradoras.</p>
-    ${rodapeHtml}
-    <p>Duvidas estou à disposição.</p>`;
-
-  } else if (situacao === 'hoje') {
+    corpoHtml = `<p>Boa tarde, Srs.</p><p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">AMANHÃ</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
+  } else if (situacao==='hoje') {
     corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até hoje para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
-    corpoHtml = `<p>Boa tarde, Srs.</p>
-    <p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">HOJE</strong> para podermos calcular a premiação das demonstradoras.</p>
-    ${rodapeHtml}
-    <p>Duvidas estou à disposição.</p>`;
-
-  } else if (situacao === 'atrasado') {
+    corpoHtml = `<p>Boa tarde, Srs.</p><p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">HOJE</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
+  } else if (situacao==='atrasado') {
     corpo = `Boa tarde, Srs.\n\nAinda não recebemos todos os relatórios de vendas referente ao mês de ${refMes}, precisamos o quanto antes para podermos calcular a premiação das demonstradoras em tempo hábil.\n\nA partir de amanhã farei a cobrança individualmente.${rodapeTxt}`;
-    corpoHtml = `<p>Boa tarde, Srs.</p>
-    <p>Ainda não recebemos todos os relatórios de vendas referente ao mês de <strong>${refMes}</strong>, precisamos <strong>o quanto antes</strong> para podermos calcular a premiação das demonstradoras em tempo hábil.</p>
-    <p><strong>A partir de amanhã farei a cobrança individualmente.</strong></p>
-    ${rodapeHtml}`;
-
+    corpoHtml = `<p>Boa tarde, Srs.</p><p>Ainda não recebemos todos os relatórios de vendas referente ao mês de <strong>${refMes}</strong>, precisamos <strong>o quanto antes</strong> para podermos calcular a premiação das demonstradoras em tempo hábil.</p><p><strong>A partir de amanhã farei a cobrança individualmente.</strong></p>${rodapeHtml}`;
   } else {
     corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até ${textoData} para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
-    corpoHtml = `<p>Boa tarde, Srs.</p>
-    <p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">${textoData}</strong> para podermos calcular a premiação das demonstradoras.</p>
-    ${rodapeHtml}
-    <p>Duvidas estou à disposição.</p>`;
+    corpoHtml = `<p>Boa tarde, Srs.</p><p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">${textoData}</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
   }
 
-  // Salva para uso no envio
   window._emailAvisoData = { emails, nomes, assunto, corpo, corpoHtml };
-
-  // Inicia o wizard
   _emailWizPasso = 0;
   renderizarWizardEmail();
 }
 
 function fecharEmailAviso() {
+  if (_emailWizPasso === _emailWizPassos.length - 1) gravarAvisoEmail();
   document.getElementById('email-overlay').classList.remove('aberto');
+  _emailWizPasso = 0;
 }
 
-// ── WIZARD EMAIL ─────────────────────────────────────
 let _emailWizPasso = 0;
-
 const _emailWizPassos = [
-  {
-    label: '1 · Destinatários',
-    instrucao: 'Copie os <strong>endereços de email</strong> abaixo e cole no campo <strong>Para:</strong> do seu webmail.',
-    tipo: 'emails',
-    dica: '💡 No webmail, abra um Novo Email e cole no campo "Para".'
-  },
-  {
-    label: '2 · Assunto',
-    instrucao: 'Copie o <strong>assunto</strong> abaixo e cole no campo <strong>Assunto</strong> do email.',
-    tipo: 'assunto',
-    dica: '💡 Cole no campo "Assunto" do email.'
-  },
-  {
-    label: '3 · Corpo',
-    instrucao: 'Copie o <strong>corpo do email</strong> abaixo e cole no corpo do email. A formatação será mantida.',
-    tipo: 'corpo',
-    dica: '💡 Cole com Ctrl+V no corpo do email. Depois é só revisar e enviar!'
-  },
-  {
-    label: '4 · Enviar ✓',
-    instrucao: 'Tudo pronto! Revise o email no webmail e clique em <strong>Enviar</strong>.',
-    tipo: 'fim',
-    dica: null
-  }
+  { label:'1 · Destinatários', instrucao:'Copie os <strong>endereços de email</strong> abaixo e cole no campo <strong>Para:</strong> do seu webmail.', tipo:'emails', dica:'💡 No webmail, abra um Novo Email e cole no campo "Para".' },
+  { label:'2 · Assunto', instrucao:'Copie o <strong>assunto</strong> abaixo e cole no campo <strong>Assunto</strong> do email.', tipo:'assunto', dica:'💡 Cole no campo "Assunto" do email.' },
+  { label:'3 · Corpo', instrucao:'Copie o <strong>corpo do email</strong> abaixo e cole no corpo do email. A formatação será mantida.', tipo:'corpo', dica:'💡 Cole com Ctrl+V no corpo do email. Depois é só revisar e enviar!' },
+  { label:'4 · Enviar ✓', instrucao:'Tudo pronto! Revise o email no webmail e clique em <strong>Enviar</strong>.', tipo:'fim', dica:null }
 ];
 
 function renderizarWizardEmail() {
@@ -1933,125 +1929,76 @@ function renderizarWizardEmail() {
   const passo = _emailWizPassos[_emailWizPasso];
   const total = _emailWizPassos.length;
 
-  // Steps indicator
-  const dotsHtml = _emailWizPassos.map((p, i) => {
-    const cls = i < _emailWizPasso ? 'feito' : i === _emailWizPasso ? 'ativo' : '';
-    return `<div class="email-step-dot ${cls}">${i < _emailWizPasso ? '✓ ' : ''}${p.label}</div>`;
+  const dotsHtml = _emailWizPassos.map((p,i) => {
+    const cls = i<_emailWizPasso?'feito':i===_emailWizPasso?'ativo':'';
+    return `<div class="email-step-dot ${cls}">${i<_emailWizPasso?'✓ ':''}${p.label}</div>`;
   }).join('');
   document.getElementById('email-steps').innerHTML = dotsHtml;
 
-  // Conteúdo do passo
-  let conteudoHtml = '';
-  let valorCopiar  = '';
-
-  if (passo.tipo === 'emails') {
+  let conteudoHtml = '', valorCopiar = '';
+  if (passo.tipo==='emails') {
     valorCopiar  = emails.join('; ');
-    conteudoHtml = `<div class="email-wiz-box" style="font-size:12px;line-height:1.8">${emails.map((e,i) => `<span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">${escHtml(nomes[i]||e)}<span style="opacity:.6;margin-left:4px">&lt;${escHtml(e)}&gt;</span></span>`).join(' ')}</div>`;
-  } else if (passo.tipo === 'assunto') {
+    conteudoHtml = `<div class="email-wiz-box" style="font-size:12px;line-height:1.8">${emails.map((e,i)=>`<span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">${escHtml(nomes[i]||e)}<span style="opacity:.6;margin-left:4px">&lt;${escHtml(e)}&gt;</span></span>`).join(' ')}</div>`;
+  } else if (passo.tipo==='assunto') {
     valorCopiar  = assunto;
     conteudoHtml = `<div class="email-wiz-box"><strong>${escHtml(assunto)}</strong></div>`;
-  } else if (passo.tipo === 'corpo') {
-    valorCopiar  = corpo; // texto puro para clipboard
+  } else if (passo.tipo==='corpo') {
+    valorCopiar  = corpo;
     conteudoHtml = `<div class="email-wiz-box html-preview">${corpoHtml}</div>`;
-  } else if (passo.tipo === 'fim') {
-    conteudoHtml = `<div style="text-align:center;padding:20px 0">
-      <div style="font-size:48px;margin-bottom:12px">✅</div>
-      <div style="font-size:15px;font-weight:700;color:#16a34a;margin-bottom:8px">Todos os dados foram copiados!</div>
-      <div style="font-size:13px;color:#6b7280">Revise o email no webmail e clique em Enviar.</div>
-    </div>`;
+  } else if (passo.tipo==='fim') {
+    conteudoHtml = `<div style="text-align:center;padding:20px 0"><div style="font-size:48px;margin-bottom:12px">✅</div><div style="font-size:15px;font-weight:700;color:#16a34a;margin-bottom:8px">Todos os dados foram copiados!</div><div style="font-size:13px;color:#6b7280">Revise o email no webmail e clique em Enviar.</div></div>`;
   }
 
-  // Salva o valor a copiar no dataset do botão para evitar problemas com JSON/escape
   window._emailWizValorCopiar = valorCopiar;
-
-  const btnCopiarHtml = passo.tipo !== 'fim' ? `
-    <button class="btn-copiar-passo" id="btn-copiar-passo" onclick="copiarPassoEmail()">
-      📋 Copiar
-    </button>` : '';
-
+  const btnCopiarHtml = passo.tipo!=='fim' ? `<button class="btn-copiar-passo" id="btn-copiar-passo" onclick="copiarPassoEmail()">📋 Copiar</button>` : '';
   const dicaHtml = passo.dica ? `<div class="email-wiz-dica">${passo.dica}</div>` : '';
 
   document.getElementById('email-wiz-body').innerHTML = `
     <div class="email-wiz-instrucao">${passo.instrucao}</div>
-    ${conteudoHtml}
-    ${btnCopiarHtml}
-    ${dicaHtml}
-  `;
+    ${conteudoHtml}${btnCopiarHtml}${dicaHtml}`;
 
-  // Footer
-  const isUltimo = _emailWizPasso === total - 1;
-  document.getElementById('email-wiz-footer-info').textContent = `Passo ${_emailWizPasso + 1} de ${total}`;
+  const isUltimo = _emailWizPasso === total-1;
+  document.getElementById('email-wiz-footer-info').textContent = `Passo ${_emailWizPasso+1} de ${total}`;
   document.getElementById('btn-email-wiz-proximo').textContent = isUltimo ? 'Fechar' : 'Próximo →';
   document.getElementById('btn-email-wiz-proximo').onclick = isUltimo ? fecharEmailAviso : avancarWizardEmail;
 }
 
 async function copiarPassoEmail() {
   const valor = window._emailWizValorCopiar || '';
-  const btn = document.getElementById('btn-copiar-passo');
+  const btn   = document.getElementById('btn-copiar-passo');
   const passo = _emailWizPassos[_emailWizPasso];
+  let copiou  = false;
 
-  let copiou = false;
-
-  // Tenta ClipboardItem com HTML (passo corpo)
-  if (passo.tipo === 'corpo') {
+  if (passo.tipo==='corpo') {
     try {
       const { corpoHtml } = window._emailAvisoData || {};
-      const blobHtml = new Blob([corpoHtml], { type: 'text/html' });
-      const blobTxt  = new Blob([valor],     { type: 'text/plain' });
-      await navigator.clipboard.write([new ClipboardItem({ 'text/html': blobHtml, 'text/plain': blobTxt })]);
+      const blobHtml = new Blob([corpoHtml], { type:'text/html' });
+      const blobTxt  = new Blob([valor],     { type:'text/plain' });
+      await navigator.clipboard.write([new ClipboardItem({ 'text/html':blobHtml, 'text/plain':blobTxt })]);
       copiou = true;
     } catch(e) {}
   }
-
-  // Tenta writeText (todos os passos)
-  if (!copiou) {
-    try {
-      await navigator.clipboard.writeText(valor);
-      copiou = true;
-    } catch(e) {}
-  }
-
-  // Fallback execCommand (navegadores antigos / sem permissão)
+  if (!copiou) { try { await navigator.clipboard.writeText(valor); copiou=true; } catch(e){} }
   if (!copiou) {
     try {
       const ta = document.createElement('textarea');
-      ta.value = valor;
-      ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
-      document.body.appendChild(ta);
-      ta.focus(); ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      copiou = true;
+      ta.value = valor; ta.style.cssText='position:fixed;top:-9999px;left:-9999px;opacity:0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); copiou=true;
     } catch(e) {}
   }
-
-  if (btn) {
-    btn.textContent = copiou ? '✅ Copiado!' : '❌ Falhou — selecione e copie manualmente';
-    btn.classList.toggle('copiado', copiou);
-  }
+  if (btn) { btn.textContent=copiou?'✅ Copiado!':'❌ Falhou — selecione e copie manualmente'; btn.classList.toggle('copiado',copiou); }
 }
 
 function avancarWizardEmail() {
-  if (_emailWizPasso < _emailWizPassos.length - 1) {
-    _emailWizPasso++;
-    renderizarWizardEmail();
-  }
+  if (_emailWizPasso < _emailWizPassos.length-1) { _emailWizPasso++; renderizarWizardEmail(); }
 }
 
-function fecharEmailAviso() {
-  // Se chegou ao último passo (fim), registra o aviso
-  if (_emailWizPasso === _emailWizPassos.length - 1) {
-    gravarAvisoEmail();
-  }
-  document.getElementById('email-overlay').classList.remove('aberto');
-  _emailWizPasso = 0;
-}
-
-// mantido para compatibilidade (não usado mais)
-async function enviarEmailOutlook() { fecharEmailAviso(); }
-
-
-
+// ══════════════════════════════════════════════════════
+// BOOT
+// ══════════════════════════════════════════════════════
+showState('spinner', 'Carregando abas...');
+loadSheetList();
 </script>
 
 <!-- ── MODAL EMAIL WIZARD ──────────────────────────── -->
@@ -2064,24 +2011,15 @@ async function enviarEmailOutlook() { fecharEmailAviso(); }
       </div>
       <button class="cob-close" onclick="fecharEmailAviso()">✕</button>
     </div>
-    <div class="email-steps" id="email-steps"><div class="email-step-dot ativo">1 · Destinatários</div><div class="email-step-dot ">2 · Assunto</div><div class="email-step-dot ">3 · Corpo</div><div class="email-step-dot ">4 · Enviar ✓</div></div>
-    <div class="email-wiz-body" id="email-wiz-body">
-    <div class="email-wiz-instrucao">Copie os <strong>endereços de email</strong> abaixo e cole no campo <strong>Para:</strong> do seu webmail.</div>
-    <div class="email-wiz-box" style="font-size:12px;line-height:1.8"><span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">Larissa Antunez<span style="opacity:.6;margin-left:4px">&lt;analytics@chercom.com.br&gt;</span></span> <span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">larissa<span style="opacity:.6;margin-left:4px">&lt;analytics@chercom.com.br&gt;</span></span> <span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">Larissa Botelho<span style="opacity:.6;margin-left:4px">&lt;analytics@chercom.com.br&gt;</span></span> <span style="display:inline-block;background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 8px;margin:2px;font-size:12px">Douglas<span style="opacity:.6;margin-left:4px">&lt;analytics@chercom.com.br&gt;</span></span></div>
-    
-    <button class="btn-copiar-passo" id="btn-copiar-passo" onclick="copiarPassoEmail()">
-      📋 Copiar
-    </button>
-    <div class="email-wiz-dica">💡 No webmail, abra um Novo Email e cole no campo "Para".</div>
-  </div>
+    <div class="email-steps" id="email-steps"></div>
+    <div class="email-wiz-body" id="email-wiz-body"></div>
     <div class="email-wiz-footer">
-      <span class="email-wiz-footer-info" id="email-wiz-footer-info">Passo 1 de 4</span>
+      <span class="email-wiz-footer-info" id="email-wiz-footer-info"></span>
       <button class="btn-email-cancelar" onclick="fecharEmailAviso()">Fechar</button>
-      <button class="btn-email-proximo" id="btn-email-wiz-proximo">Próximo →</button>
+      <button class="btn-email-proximo" id="btn-email-wiz-proximo" disabled="">Próximo →</button>
     </div>
   </div>
 </div>
-
 
 <!-- ── MODAL COBRANÇAS ─────────────────────────────── -->
 <div class="cob-overlay" id="cob-overlay" onclick="if(event.target===this&amp;&amp;!_cobDisparando)fecharCob()">
@@ -2093,9 +2031,7 @@ async function enviarEmailOutlook() { fecharEmailAviso(); }
       </div>
       <button class="cob-close" onclick="fecharCob()">✕</button>
     </div>
-    <div class="cob-body" id="cob-body">
-      <div class="cob-estado">Carregando...</div>
-    </div>
+    <div class="cob-body" id="cob-body"><div class="cob-estado">Carregando...</div></div>
     <div class="cob-footer" id="cob-footer">
       <button class="btn-cob-cancelar" onclick="fecharCob()">Fechar</button>
     </div>
@@ -2104,7 +2040,6 @@ async function enviarEmailOutlook() { fecharEmailAviso(); }
 
 <!-- Toast -->
 <div class="cob-toast" id="cob-toast"></div>
-
 
 
 </body></html>
