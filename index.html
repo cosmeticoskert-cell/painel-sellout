@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0062)file:///C:/Users/Analytics/Downloads/dashboard-sellout_28.html -->
+<!-- saved from url=(0062)file:///C:/Users/Analytics/Downloads/dashboard-sellout_29.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle SellOut</title>
@@ -433,8 +433,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <p id="header-sub">Acompanhamento de relatórios · Mar/26</p>
   </div>
   <div class="refresh-indicator" id="refresh-indicator" onclick="refreshData()" title="Clique para atualizar agora">
-    <span class="refresh-dot loading" id="refresh-dot"></span>
-    <span id="refresh-label">Atualizado às 09:43:18</span>
+    <span class="refresh-dot" id="refresh-dot"></span>
+    <span id="refresh-label">Tempo real · 5s</span>
     <span style="opacity:.5;margin-left:2px">· 🔄</span>
   </div>
 </div>
@@ -448,14 +448,14 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
 <div class="month-bar">
   <label>📅 Mês:</label>
   <select class="month-select" id="month-select" onchange="switchTab(this.value)"><option value="25_Fev">Fev/25</option><option value="25_Mar">Mar/25</option><option value="25_Abr">Abr/25</option><option value="25_Mai">Mai/25</option><option value="25_Jun">Jun/25</option><option value="25_Jul">Jul/25</option><option value="25_Ago">Ago/25</option><option value="25_Set">Set/25</option><option value="25_Out">Out/25</option><option value="25_Nov">Nov/25</option><option value="25_Dez">Dez/25</option><option value="26_Jan">Jan/26</option><option value="26_Fev">Fev/26</option><option value="26_Mar" selected="">Mar/26</option></select>
-  <span class="month-info" id="month-info">(9 registros)</span>
-  <button class="btn-cobrancas" onclick="abrirCob()" id="btn-cob" style="">
-    📲 Cobrar Relatórios Pendentes <span class="cob-badge" id="cob-badge-count" style="background: rgba(0, 0, 0, 0.22);">6</span>
+  <span class="month-info" id="month-info"></span>
+  <button class="btn-cobrancas" onclick="abrirCob()" id="btn-cob" style="display:none">
+    📲 Cobrar Relatórios Pendentes <span class="cob-badge" id="cob-badge-count"></span>
   </button>
-  <button class="btn-email-aviso" onclick="abrirEmailAviso()" id="btn-email-aviso" style="">
+  <button class="btn-email-aviso" onclick="abrirEmailAviso()" id="btn-email-aviso" style="display:none">
     ✉️ Avisar Representantes
   </button>
-  <button class="btn-exportar" onclick="abrirExportar()" id="btn-exportar" style="" title="Exportar dados">
+  <button class="btn-exportar" onclick="abrirExportar()" id="btn-exportar" style="display:none" title="Exportar dados">
     ⬇️ Exportar
   </button>
 </div>
@@ -478,108 +478,15 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <div id="error-msg" style="font-size:12.5px;color:#888;max-width:500px;margin:8px auto"></div>
     <button class="btn-retry" onclick="loadTab(activeSheet)">Tentar novamente</button>
   </div>
-  <div id="dashboard" class="">
-    <div class="kpis" id="kpis">
-    <div class="kpi-card" style="border-top:4px solid #3f51b5" onclick="toggleKpiFilter(&#39;total&#39;,&#39;Total de Relatórios&#39;)">
-      <span class="kpi-icon">📋</span>
-      <div class="kpi-label">Total de Relatórios</div>
-      <div class="kpi-value">9</div>
-      <div class="kpi-sub">Mar/26</div>
-      <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recSim&#39;,&#39;No Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#0d47a1">✅ No prazo</span>
-          <span style="font-size:15px;font-weight:900;color:#0d47a1">3</span>
-        </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recFora&#39;,&#39;Fora do Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#e65100">⏰ Fora do prazo</span>
-          <span style="font-size:15px;font-weight:900;color:#e65100">0</span>
-        </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;semVendas&#39;,&#39;Sem Vendas&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#f3e5f5;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#4a148c">📭 Sem vendas</span>
-          <span style="font-size:15px;font-weight:900;color:#4a148c">0</span>
-        </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;faltam&#39;,&#39;Aguardando&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fce4ec;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#880e4f">⏳ Aguardando</span>
-          <span style="font-size:15px;font-weight:900;color:#880e4f">6</span>
-        </div>
-      </div>
-    </div>
-    <div class="kpi-card" style="border-top:4px solid #2196f3" onclick="toggleKpiFilter(&#39;recebidos&#39;,&#39;Recebidos&#39;)">
-      <span class="kpi-icon">📥</span>
-      <div class="kpi-label">Recebidos</div>
-      <div class="kpi-value">3</div>
-      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:33%;background:#2196f3"></div></div>
-      <div class="kpi-pct">33% · Faltam: 6</div>
-      <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recSim&#39;,&#39;No Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#0d47a1">✅ No prazo</span>
-          <span style="font-size:15px;font-weight:900;color:#0d47a1">3</span>
-        </div>
-        <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recFora&#39;,&#39;Fora do Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;" title="Clique para filtrar">
-          <span style="font-size:11px;font-weight:700;color:#e65100">⏰ Fora do prazo</span>
-          <span style="font-size:15px;font-weight:900;color:#e65100">0</span>
-        </div>
-      </div>
-    </div>
-    <div class="kpi-card" style="border-top:4px solid #4caf50" onclick="toggleKpiFilter(&#39;concluidos&#39;,&#39;Concluídos&#39;)">
-      <span class="kpi-icon">✅</span>
-      <div class="kpi-label">Concluídos</div>
-      <div class="kpi-value">3</div>
-      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:33%;background:#4caf50"></div></div>
-      <div class="kpi-pct">33%</div>
-    </div><div class="kpi-card" style="border-top:4px solid #ff9800" onclick="toggleKpiFilter(&#39;pausados&#39;,&#39;Pausados&#39;)">
-      <span class="kpi-icon">⏸</span>
-      <div class="kpi-label">Pausados</div>
-      <div class="kpi-value">0</div>
-      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#ff9800"></div></div>
-      <div class="kpi-pct">0%</div>
-    </div><div class="kpi-card" style="border-top:4px solid #9c27b0" onclick="toggleKpiFilter(&#39;noBi&#39;,&#39;No BI (Totvs)&#39;)">
-      <span class="kpi-icon">📈</span>
-      <div class="kpi-label">No BI (Totvs)</div>
-      <div class="kpi-value">0</div>
-      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#9c27b0"></div></div>
-      <div class="kpi-pct">0%</div>
-    </div><div class="meninas-card">
-      <div class="meninas-title">👩 Relatórios com Demonstradora</div>
-      <div class="meninas-total" style="cursor:pointer" onclick="toggleKpiFilter(&#39;comMenina&#39;,&#39;Com Demonstradora&#39;)">3 total</div>
-      <div class="meninas-stats">
-        <div class="meninas-stat" onclick="toggleKpiFilter(&#39;mChegaram&#39;,&#39;Demonstradora - Chegaram&#39;)">
-          <div class="meninas-stat-val">2</div>
-          <div class="meninas-stat-lbl">✅ Chegaram</div>
-        </div>
-        <div class="meninas-stat" onclick="toggleKpiFilter(&#39;mPendentes&#39;,&#39;Demonstradora - Pendentes&#39;)">
-          <div class="meninas-stat-val">1</div>
-          <div class="meninas-stat-lbl">⏳ Pendentes</div>
-        </div>
-        <div class="meninas-stat" onclick="toggleKpiFilter(&#39;mConcluidos&#39;,&#39;Demonstradora - Concluídos&#39;)">
-          <div class="meninas-stat-val">2</div>
-          <div class="meninas-stat-lbl">🏁 Concluídos</div>
-        </div>
-        <div class="meninas-stat" onclick="toggleKpiFilter(&#39;mPausados&#39;,&#39;Demonstradora - Pausados&#39;)">
-          <div class="meninas-stat-val">0</div>
-          <div class="meninas-stat-lbl">⏸ Pausados</div>
-        </div>
-        <div class="meninas-stat" style="cursor:default">
-          <div class="meninas-stat-val">67%</div>
-          <div class="meninas-stat-lbl">📊 Recebido</div>
-        </div>
-      </div>
-    </div></div>
+  <div id="dashboard" class="hidden">
+    <div class="kpis" id="kpis"></div>
     <div class="progress-card">
       <div class="progress-header">
-        <span id="progress-title">Progresso — Mar/26</span>
-        <span id="progress-pct" style="color:#4caf50">33% concluídos</span>
+        <span id="progress-title">Progresso</span>
+        <span id="progress-pct" style="color:#4caf50"></span>
       </div>
-      <div class="progress-bar-wrap" id="progress-bar">
-    <div style="height:100%;width:33%;background:#4caf50"></div>
-    <div style="height:100%;width:0%;background:#ff9800"></div>
-    <div style="height:100%;width:67%;background:#ffcdd2"></div></div>
-      <div class="progress-legend" id="progress-legend">
-    <span style="color:#4caf50;font-weight:700">✅ 3 Concluídos</span>
-    <span style="color:#ff9800;font-weight:700">⏸ 0 Pausados</span>
-    <span style="color:#2196f3;font-weight:700">📥 3 Recebidos</span>
-    <span style="color:#ef5350;font-weight:700">⏳ 6 Aguardando</span>
-    <span style="color:#9c27b0;font-weight:700">📈 0 No BI</span></div>
+      <div class="progress-bar-wrap" id="progress-bar"></div>
+      <div class="progress-legend" id="progress-legend"></div>
     </div>
     <!-- Card Último Aviso -->
     <div class="avisos-card" id="avisos-card">
@@ -587,16 +494,16 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
         <div class="aviso-icon">✉️</div>
         <div class="aviso-info">
           <div class="aviso-titulo">Último Aviso por Email</div>
-          <div class="aviso-data" id="aviso-email-data">13/03/2026</div>
-          <div class="aviso-sub" id="aviso-email-sub">Aviso enviado em Mar/26</div>
+          <div class="aviso-data" id="aviso-email-data">—</div>
+          <div class="aviso-sub" id="aviso-email-sub">Nenhum aviso registrado</div>
         </div>
       </div>
       <div class="aviso-item whatsapp">
         <div class="aviso-icon">📲</div>
         <div class="aviso-info">
           <div class="aviso-titulo">Última Cobrança WhatsApp</div>
-          <div class="aviso-data" id="aviso-whatsapp-data">13/03/2026</div>
-          <div class="aviso-sub" id="aviso-whatsapp-sub">Cobrança feita em Mar/26</div>
+          <div class="aviso-data" id="aviso-whatsapp-data">—</div>
+          <div class="aviso-sub" id="aviso-whatsapp-sub">Nenhuma cobrança registrada</div>
         </div>
       </div>
     </div>
@@ -604,402 +511,15 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <div class="filters-card">
       <div class="filters-header">
         <span class="filters-title">🔍 Filtros de coluna</span>
-        <span class="filters-count" id="filter-count">9 de 9 registros</span>
+        <span class="filters-count" id="filter-count"></span>
       </div>
-      <div class="filters-row" id="filters-row">
-      <div class="filter-search-wrap">
-        <input class="filter-input" id="fi-search" placeholder="🔎 Busca geral..." value="" oninput="setColF(&#39;search&#39;,this.value)">
-        <button class="filter-x" id="fx-search" onclick="clearColFilter(&#39;search&#39;)">✕</button>
-      </div>
-      <div class="ms-wrap">
-        <div class="ms-btn" id="msb-RS" onclick="toggleDropdown(&#39;RS&#39;)">
-          <span class="ms-btn-label" id="msb-lbl-RS">Razão Social</span>
-          <span class="ms-badge" id="msb-bdg-RS" style="display:none"></span>
-          <span class="ms-btn-arrow">▾</span>
-        </div>
-        <div class="ms-dropdown" id="dd-RS">
-          <div class="ms-search"><input id="ms-search-RS" placeholder="Buscar..." oninput="msSearch(&#39;RS&#39;)"></div>
-          <div class="ms-options">
-            
-              <div class="ms-option" data-val="Aflore Comercio De Cosmeticos Ltda">
-                <input type="checkbox" id="cb-RS-Aflore_Comercio_De_Cosmeticos_Ltda" data-val="Aflore Comercio De Cosmeticos Ltda" onclick="msToggle(&#39;RS&#39;,&#39;Aflore Comercio De Cosmeticos Ltda&#39;)">
-                <label for="cb-RS-Aflore_Comercio_De_Cosmeticos_Ltda">Aflore Comercio De Cosmeticos Ltda</label>
-              </div>
-              <div class="ms-option" data-val="Akai Kb Magazine E Cosmeticos Ltda">
-                <input type="checkbox" id="cb-RS-Akai_Kb_Magazine_E_Cosmeticos_Ltda" data-val="Akai Kb Magazine E Cosmeticos Ltda" onclick="msToggle(&#39;RS&#39;,&#39;Akai Kb Magazine E Cosmeticos Ltda&#39;)">
-                <label for="cb-RS-Akai_Kb_Magazine_E_Cosmeticos_Ltda">Akai Kb Magazine E Cosmeticos Ltda</label>
-              </div>
-              <div class="ms-option" data-val="Amore Comercio de Cosmeticos e Bijuteria ">
-                <input type="checkbox" id="cb-RS-Amore_Comercio_de_Cosmeticos_e_Bijuteria_" data-val="Amore Comercio de Cosmeticos e Bijuteria " onclick="msToggle(&#39;RS&#39;,&#39;Amore Comercio de Cosmeticos e Bijuteria &#39;)">
-                <label for="cb-RS-Amore_Comercio_de_Cosmeticos_e_Bijuteria_">Amore Comercio de Cosmeticos e Bijuteria </label>
-              </div>
-              <div class="ms-option" data-val="Andreia Onaga Perfumaria">
-                <input type="checkbox" id="cb-RS-Andreia_Onaga_Perfumaria" data-val="Andreia Onaga Perfumaria" onclick="msToggle(&#39;RS&#39;,&#39;Andreia Onaga Perfumaria&#39;)">
-                <label for="cb-RS-Andreia_Onaga_Perfumaria">Andreia Onaga Perfumaria</label>
-              </div>
-              <div class="ms-option" data-val="Angela Maria De Barros Cruz Perfumaria">
-                <input type="checkbox" id="cb-RS-Angela_Maria_De_Barros_Cruz_Perfumaria" data-val="Angela Maria De Barros Cruz Perfumaria" onclick="msToggle(&#39;RS&#39;,&#39;Angela Maria De Barros Cruz Perfumaria&#39;)">
-                <label for="cb-RS-Angela_Maria_De_Barros_Cruz_Perfumaria">Angela Maria De Barros Cruz Perfumaria</label>
-              </div>
-              <div class="ms-option" data-val="B.B Cosmeticos Ltda">
-                <input type="checkbox" id="cb-RS-B_B_Cosmeticos_Ltda" data-val="B.B Cosmeticos Ltda" onclick="msToggle(&#39;RS&#39;,&#39;B.B Cosmeticos Ltda&#39;)">
-                <label for="cb-RS-B_B_Cosmeticos_Ltda">B.B Cosmeticos Ltda</label>
-              </div>
-              <div class="ms-option" data-val="Kobashi Itaqua Cosmeticos LTDA">
-                <input type="checkbox" id="cb-RS-Kobashi_Itaqua_Cosmeticos_LTDA" data-val="Kobashi Itaqua Cosmeticos LTDA" onclick="msToggle(&#39;RS&#39;,&#39;Kobashi Itaqua Cosmeticos LTDA&#39;)">
-                <label for="cb-RS-Kobashi_Itaqua_Cosmeticos_LTDA">Kobashi Itaqua Cosmeticos LTDA</label>
-              </div>
-          </div>
-          <div class="ms-footer">
-            <button class="ms-footer-btn ms-sel-all" onclick="msSelectAll(&#39;RS&#39;)">Selecionar todos</button>
-            <button class="ms-footer-btn ms-clear-sel" onclick="msClearSel(&#39;RS&#39;)">Limpar</button>
-          </div>
-        </div>
-      </div>
-      <div class="ms-wrap">
-        <div class="ms-btn" id="msb-NF" onclick="toggleDropdown(&#39;NF&#39;)">
-          <span class="ms-btn-label" id="msb-lbl-NF">Nome Fantasia</span>
-          <span class="ms-badge" id="msb-bdg-NF" style="display:none"></span>
-          <span class="ms-btn-arrow">▾</span>
-        </div>
-        <div class="ms-dropdown" id="dd-NF">
-          <div class="ms-search"><input id="ms-search-NF" placeholder="Buscar..." oninput="msSearch(&#39;NF&#39;)"></div>
-          <div class="ms-options">
-            
-              <div class="ms-option" data-val="Aflore Cosmeticos - Lj01">
-                <input type="checkbox" id="cb-NF-Aflore_Cosmeticos___Lj01" data-val="Aflore Cosmeticos - Lj01" onclick="msToggle(&#39;NF&#39;,&#39;Aflore Cosmeticos - Lj01&#39;)">
-                <label for="cb-NF-Aflore_Cosmeticos___Lj01">Aflore Cosmeticos - Lj01</label>
-              </div>
-              <div class="ms-option" data-val="Aflore Cosmeticos - Lj02">
-                <input type="checkbox" id="cb-NF-Aflore_Cosmeticos___Lj02" data-val="Aflore Cosmeticos - Lj02" onclick="msToggle(&#39;NF&#39;,&#39;Aflore Cosmeticos - Lj02&#39;)">
-                <label for="cb-NF-Aflore_Cosmeticos___Lj02">Aflore Cosmeticos - Lj02</label>
-              </div>
-              <div class="ms-option" data-val="Akai Campinas II">
-                <input type="checkbox" id="cb-NF-Akai_Campinas_II" data-val="Akai Campinas II" onclick="msToggle(&#39;NF&#39;,&#39;Akai Campinas II&#39;)">
-                <label for="cb-NF-Akai_Campinas_II">Akai Campinas II</label>
-              </div>
-              <div class="ms-option" data-val="Akai Sao Jose Dos Campos">
-                <input type="checkbox" id="cb-NF-Akai_Sao_Jose_Dos_Campos" data-val="Akai Sao Jose Dos Campos" onclick="msToggle(&#39;NF&#39;,&#39;Akai Sao Jose Dos Campos&#39;)">
-                <label for="cb-NF-Akai_Sao_Jose_Dos_Campos">Akai Sao Jose Dos Campos</label>
-              </div>
-              <div class="ms-option" data-val="Akai Sao Vicente">
-                <input type="checkbox" id="cb-NF-Akai_Sao_Vicente" data-val="Akai Sao Vicente" onclick="msToggle(&#39;NF&#39;,&#39;Akai Sao Vicente&#39;)">
-                <label for="cb-NF-Akai_Sao_Vicente">Akai Sao Vicente</label>
-              </div>
-              <div class="ms-option" data-val="Amore 2">
-                <input type="checkbox" id="cb-NF-Amore_2" data-val="Amore 2" onclick="msToggle(&#39;NF&#39;,&#39;Amore 2&#39;)">
-                <label for="cb-NF-Amore_2">Amore 2</label>
-              </div>
-              <div class="ms-option" data-val="Amore Comercio de Co">
-                <input type="checkbox" id="cb-NF-Amore_Comercio_de_Co" data-val="Amore Comercio de Co" onclick="msToggle(&#39;NF&#39;,&#39;Amore Comercio de Co&#39;)">
-                <label for="cb-NF-Amore_Comercio_de_Co">Amore Comercio de Co</label>
-              </div>
-              <div class="ms-option" data-val="Andreia Onaga Perfum">
-                <input type="checkbox" id="cb-NF-Andreia_Onaga_Perfum" data-val="Andreia Onaga Perfum" onclick="msToggle(&#39;NF&#39;,&#39;Andreia Onaga Perfum&#39;)">
-                <label for="cb-NF-Andreia_Onaga_Perfum">Andreia Onaga Perfum</label>
-              </div>
-              <div class="ms-option" data-val="Aroma Perfumaria">
-                <input type="checkbox" id="cb-NF-Aroma_Perfumaria" data-val="Aroma Perfumaria" onclick="msToggle(&#39;NF&#39;,&#39;Aroma Perfumaria&#39;)">
-                <label for="cb-NF-Aroma_Perfumaria">Aroma Perfumaria</label>
-              </div>
-          </div>
-          <div class="ms-footer">
-            <button class="ms-footer-btn ms-sel-all" onclick="msSelectAll(&#39;NF&#39;)">Selecionar todos</button>
-            <button class="ms-footer-btn ms-clear-sel" onclick="msClearSel(&#39;NF&#39;)">Limpar</button>
-          </div>
-        </div>
-      </div>
-      <div class="ms-wrap">
-        <div class="ms-btn" id="msb-Rec" onclick="toggleDropdown(&#39;Rec&#39;)">
-          <span class="ms-btn-label" id="msb-lbl-Rec">Recebido</span>
-          <span class="ms-badge" id="msb-bdg-Rec" style="display:none"></span>
-          <span class="ms-btn-arrow">▾</span>
-        </div>
-        <div class="ms-dropdown" id="dd-Rec">
-          <div class="ms-search"><input id="ms-search-Rec" placeholder="Buscar..." oninput="msSearch(&#39;Rec&#39;)"></div>
-          <div class="ms-options">
-            
-              <div class="ms-option" data-val="Não">
-                <input type="checkbox" id="cb-Rec-N_o" data-val="Não" onclick="msToggle(&#39;Rec&#39;,&#39;Não&#39;)">
-                <label for="cb-Rec-N_o">Não</label>
-              </div>
-              <div class="ms-option" data-val="Sim">
-                <input type="checkbox" id="cb-Rec-Sim" data-val="Sim" onclick="msToggle(&#39;Rec&#39;,&#39;Sim&#39;)">
-                <label for="cb-Rec-Sim">Sim</label>
-              </div>
-          </div>
-          <div class="ms-footer">
-            <button class="ms-footer-btn ms-sel-all" onclick="msSelectAll(&#39;Rec&#39;)">Selecionar todos</button>
-            <button class="ms-footer-btn ms-clear-sel" onclick="msClearSel(&#39;Rec&#39;)">Limpar</button>
-          </div>
-        </div>
-      </div>
-      <div class="ms-wrap">
-        <div class="ms-btn" id="msb-Fluxo" onclick="toggleDropdown(&#39;Fluxo&#39;)">
-          <span class="ms-btn-label" id="msb-lbl-Fluxo">Demonstradora</span>
-          <span class="ms-badge" id="msb-bdg-Fluxo" style="display:none"></span>
-          <span class="ms-btn-arrow">▾</span>
-        </div>
-        <div class="ms-dropdown" id="dd-Fluxo">
-          <div class="ms-search"><input id="ms-search-Fluxo" placeholder="Buscar..." oninput="msSearch(&#39;Fluxo&#39;)"></div>
-          <div class="ms-options">
-            
-              <div class="ms-option" data-val="-sem menina-">
-                <input type="checkbox" id="cb-Fluxo-_sem_menina_" data-val="-sem menina-" onclick="msToggle(&#39;Fluxo&#39;,&#39;-sem menina-&#39;)">
-                <label for="cb-Fluxo-_sem_menina_">-sem menina-</label>
-              </div>
-              <div class="ms-option" data-val="ANA KAROLINA DE SOUZA">
-                <input type="checkbox" id="cb-Fluxo-ANA_KAROLINA_DE_SOUZA" data-val="ANA KAROLINA DE SOUZA" onclick="msToggle(&#39;Fluxo&#39;,&#39;ANA KAROLINA DE SOUZA&#39;)">
-                <label for="cb-Fluxo-ANA_KAROLINA_DE_SOUZA">ANA KAROLINA DE SOUZA</label>
-              </div>
-              <div class="ms-option" data-val="ANA MARGARIDA VELOZO B. CIARVI">
-                <input type="checkbox" id="cb-Fluxo-ANA_MARGARIDA_VELOZO_B__CIARVI" data-val="ANA MARGARIDA VELOZO B. CIARVI" onclick="msToggle(&#39;Fluxo&#39;,&#39;ANA MARGARIDA VELOZO B. CIARVI&#39;)">
-                <label for="cb-Fluxo-ANA_MARGARIDA_VELOZO_B__CIARVI">ANA MARGARIDA VELOZO B. CIARVI</label>
-              </div>
-              <div class="ms-option" data-val="KELLY APARECIDA RODRIGUES LEIT">
-                <input type="checkbox" id="cb-Fluxo-KELLY_APARECIDA_RODRIGUES_LEIT" data-val="KELLY APARECIDA RODRIGUES LEIT" onclick="msToggle(&#39;Fluxo&#39;,&#39;KELLY APARECIDA RODRIGUES LEIT&#39;)">
-                <label for="cb-Fluxo-KELLY_APARECIDA_RODRIGUES_LEIT">KELLY APARECIDA RODRIGUES LEIT</label>
-              </div>
-          </div>
-          <div class="ms-footer">
-            <button class="ms-footer-btn ms-sel-all" onclick="msSelectAll(&#39;Fluxo&#39;)">Selecionar todos</button>
-            <button class="ms-footer-btn ms-clear-sel" onclick="msClearSel(&#39;Fluxo&#39;)">Limpar</button>
-          </div>
-        </div>
-      </div>
-      <div class="ms-wrap">
-        <div class="ms-btn" id="msb-Sit" onclick="toggleDropdown(&#39;Sit&#39;)">
-          <span class="ms-btn-label" id="msb-lbl-Sit">Situação</span>
-          <span class="ms-badge" id="msb-bdg-Sit" style="display:none"></span>
-          <span class="ms-btn-arrow">▾</span>
-        </div>
-        <div class="ms-dropdown" id="dd-Sit">
-          <div class="ms-search"><input id="ms-search-Sit" placeholder="Buscar..." oninput="msSearch(&#39;Sit&#39;)"></div>
-          <div class="ms-options">
-            
-              <div class="ms-option" data-val="Concluído">
-                <input type="checkbox" id="cb-Sit-Conclu_do" data-val="Concluído" onclick="msToggle(&#39;Sit&#39;,&#39;Concluído&#39;)">
-                <label for="cb-Sit-Conclu_do">Concluído</label>
-              </div>
-              <div class="ms-option" data-val="Não Iniciado">
-                <input type="checkbox" id="cb-Sit-N_o_Iniciado" data-val="Não Iniciado" onclick="msToggle(&#39;Sit&#39;,&#39;Não Iniciado&#39;)">
-                <label for="cb-Sit-N_o_Iniciado">Não Iniciado</label>
-              </div>
-          </div>
-          <div class="ms-footer">
-            <button class="ms-footer-btn ms-sel-all" onclick="msSelectAll(&#39;Sit&#39;)">Selecionar todos</button>
-            <button class="ms-footer-btn ms-clear-sel" onclick="msClearSel(&#39;Sit&#39;)">Limpar</button>
-          </div>
-        </div>
-      </div>
-      <div class="ms-wrap">
-        <div class="ms-btn" id="msb-Dash" onclick="toggleDropdown(&#39;Dash&#39;)">
-          <span class="ms-btn-label" id="msb-lbl-Dash">Dashboard Totvs</span>
-          <span class="ms-badge" id="msb-bdg-Dash" style="display:none"></span>
-          <span class="ms-btn-arrow">▾</span>
-        </div>
-        <div class="ms-dropdown" id="dd-Dash">
-          <div class="ms-search"><input id="ms-search-Dash" placeholder="Buscar..." oninput="msSearch(&#39;Dash&#39;)"></div>
-          <div class="ms-options">
-            
-              <div class="ms-option" data-val="Indisponivel">
-                <input type="checkbox" id="cb-Dash-Indisponivel" data-val="Indisponivel" onclick="msToggle(&#39;Dash&#39;,&#39;Indisponivel&#39;)">
-                <label for="cb-Dash-Indisponivel">Indisponivel</label>
-              </div>
-          </div>
-          <div class="ms-footer">
-            <button class="ms-footer-btn ms-sel-all" onclick="msSelectAll(&#39;Dash&#39;)">Selecionar todos</button>
-            <button class="ms-footer-btn ms-clear-sel" onclick="msClearSel(&#39;Dash&#39;)">Limpar</button>
-          </div>
-        </div>
-      </div>
-      <div class="ms-wrap">
-        <div class="ms-btn" id="msb-Rep" onclick="toggleDropdown(&#39;Rep&#39;)">
-          <span class="ms-btn-label" id="msb-lbl-Rep">Representante</span>
-          <span class="ms-badge" id="msb-bdg-Rep" style="display:none"></span>
-          <span class="ms-btn-arrow">▾</span>
-        </div>
-        <div class="ms-dropdown" id="dd-Rep">
-          <div class="ms-search"><input id="ms-search-Rep" placeholder="Buscar..." oninput="msSearch(&#39;Rep&#39;)"></div>
-          <div class="ms-options">
-            
-              <div class="ms-option" data-val="larissa">
-                <input type="checkbox" id="cb-Rep-larissa" data-val="larissa" onclick="msToggle(&#39;Rep&#39;,&#39;larissa&#39;)">
-                <label for="cb-Rep-larissa">larissa</label>
-              </div>
-              <div class="ms-option" data-val="Larissa Antunez">
-                <input type="checkbox" id="cb-Rep-Larissa_Antunez" data-val="Larissa Antunez" onclick="msToggle(&#39;Rep&#39;,&#39;Larissa Antunez&#39;)">
-                <label for="cb-Rep-Larissa_Antunez">Larissa Antunez</label>
-              </div>
-          </div>
-          <div class="ms-footer">
-            <button class="ms-footer-btn ms-sel-all" onclick="msSelectAll(&#39;Rep&#39;)">Selecionar todos</button>
-            <button class="ms-footer-btn ms-clear-sel" onclick="msClearSel(&#39;Rep&#39;)">Limpar</button>
-          </div>
-        </div>
-      </div></div>
+      <div class="filters-row" id="filters-row"></div>
     </div>
     <div class="table-card">
       <div class="table-wrap">
         <table>
-          <thead id="table-head"><tr>
-    <th class="num">#</th>
-    <th style="min-width:220px" class="" onclick="toggleSort(&#39;Razão Social&#39;)">
-      Razão Social <span style="opacity:.28">⇅</span>
-    </th><th style="min-width:170px" class="" onclick="toggleSort(&#39;Nome Fantasia&#39;)">
-      Nome Fantasia <span style="opacity:.28">⇅</span>
-    </th><th style="min-width:160px" class="" onclick="toggleSort(&#39;Representante&#39;)">
-      Representante <span style="opacity:.28">⇅</span>
-    </th><th style="min-width:180px" class="" onclick="toggleSort(&#39;Fluxo Agenda&#39;)">
-      Demonstradora <span style="opacity:.28">⇅</span>
-    </th><th style="min-width:110px" class="" onclick="toggleSort(&#39;Recebido&#39;)">
-      Recebido <span style="opacity:.28">⇅</span>
-    </th><th style="min-width:115px" class="" onclick="toggleSort(&#39;Situacao&#39;)">
-      Situação <span style="opacity:.28">⇅</span>
-    </th><th style="min-width:110px" class="" onclick="toggleSort(&#39;Dashboard Totvs&#39;)">
-      Dash Totvs <span style="opacity:.28">⇅</span>
-    </th><th style="min-width:140px" class="" onclick="toggleSort(&#39;Ultima Cobrança&#39;)">
-      📲 Cob. WhatsApp <span style="opacity:.28">⇅</span>
-    </th><th style="min-width:140px" class="" onclick="toggleSort(&#39;Ultima Cobrança Email&#39;)">
-      ✉️ Cob. Email <span style="opacity:.28">⇅</span>
-    </th>
-  </tr></thead>
-          <tbody id="table-body"><tr>
-        <td class="num">1</td>
-        <td style="max-width:220px" title="Kobashi Itaqua Cosmeticos LTDA">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Kobashi Itaqua Cosmeticos LTDA&#39;) " title="Clique para filtrar por este valor">Kobashi Itaqua Cosmeticos LTDA</span>
-          </td><td style="max-width:170px" title="Aflore Cosmeticos - Lj01">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Aflore Cosmeticos - Lj01&#39;) " title="Clique para filtrar por este valor">Aflore Cosmeticos - Lj01</span>
-          </td><td style="max-width:160px" title="Larissa Antunez">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;Larissa Antunez&#39;) " title="Clique para filtrar por este valor">Larissa Antunez</span>
-          </td><td style="max-width:180px" title="ANA KAROLINA DE SOUZA">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;ANA KAROLINA DE SOUZA&#39;) " title="Clique para filtrar por este valor">ANA KAROLINA DE SOUZA</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#e3f2fd;color:#0d47a1"><span class="badge-dot" style="background:#2196f3"></span>Sim</span></td><td style="max-width:115px"><span class="badge" style="background:#e8f5e9;color:#2e7d32"><span class="badge-dot" style="background:#4caf50"></span>Concluído</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr><tr>
-        <td class="num">2</td>
-        <td style="max-width:220px" title="Aflore Comercio De Cosmeticos Ltda">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Aflore Comercio De Cosmeticos Ltda&#39;) " title="Clique para filtrar por este valor">Aflore Comercio De Cosmeticos Ltda</span>
-          </td><td style="max-width:170px" title="Aflore Cosmeticos - Lj02">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Aflore Cosmeticos - Lj02&#39;) " title="Clique para filtrar por este valor">Aflore Cosmeticos - Lj02</span>
-          </td><td style="max-width:160px" title="Larissa Antunez">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;Larissa Antunez&#39;) " title="Clique para filtrar por este valor">Larissa Antunez</span>
-          </td><td style="max-width:180px" title="ANA MARGARIDA VELOZO B. CIARVI">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;ANA MARGARIDA VELOZO B. CIARVI&#39;) " title="Clique para filtrar por este valor">ANA MARGARIDA VELOZO B. CIARVI</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#e3f2fd;color:#0d47a1"><span class="badge-dot" style="background:#2196f3"></span>Sim</span></td><td style="max-width:115px"><span class="badge" style="background:#e8f5e9;color:#2e7d32"><span class="badge-dot" style="background:#4caf50"></span>Concluído</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr><tr>
-        <td class="num">3</td>
-        <td style="max-width:220px" title="Akai Kb Magazine E Cosmeticos Ltda">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Akai Kb Magazine E Cosmeticos Ltda&#39;) " title="Clique para filtrar por este valor">Akai Kb Magazine E Cosmeticos Ltda</span>
-          </td><td style="max-width:170px" title="Akai Campinas II">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Akai Campinas II&#39;) " title="Clique para filtrar por este valor">Akai Campinas II</span>
-          </td><td style="max-width:160px" title="larissa">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
-          </td><td style="max-width:180px" title="-sem menina-">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#e3f2fd;color:#0d47a1"><span class="badge-dot" style="background:#2196f3"></span>Sim</span></td><td style="max-width:115px"><span class="badge" style="background:#e8f5e9;color:#2e7d32"><span class="badge-dot" style="background:#4caf50"></span>Concluído</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr><tr>
-        <td class="num">4</td>
-        <td style="max-width:220px" title="Akai Kb Magazine E Cosmeticos Ltda">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Akai Kb Magazine E Cosmeticos Ltda&#39;) " title="Clique para filtrar por este valor">Akai Kb Magazine E Cosmeticos Ltda</span>
-          </td><td style="max-width:170px" title="Akai Sao Jose Dos Campos">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Akai Sao Jose Dos Campos&#39;) " title="Clique para filtrar por este valor">Akai Sao Jose Dos Campos</span>
-          </td><td style="max-width:160px" title="larissa">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
-          </td><td style="max-width:180px" title="KELLY APARECIDA RODRIGUES LEIT">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;KELLY APARECIDA RODRIGUES LEIT&#39;) " title="Clique para filtrar por este valor">KELLY APARECIDA RODRIGUES LEIT</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr><tr>
-        <td class="num">5</td>
-        <td style="max-width:220px" title="Akai Kb Magazine E Cosmeticos Ltda">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Akai Kb Magazine E Cosmeticos Ltda&#39;) " title="Clique para filtrar por este valor">Akai Kb Magazine E Cosmeticos Ltda</span>
-          </td><td style="max-width:170px" title="Akai Sao Vicente">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Akai Sao Vicente&#39;) " title="Clique para filtrar por este valor">Akai Sao Vicente</span>
-          </td><td style="max-width:160px" title="larissa">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
-          </td><td style="max-width:180px" title="-sem menina-">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr><tr>
-        <td class="num">6</td>
-        <td style="max-width:220px" title="B.B Cosmeticos Ltda">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;B.B Cosmeticos Ltda&#39;) " title="Clique para filtrar por este valor">B.B Cosmeticos Ltda</span>
-          </td><td style="max-width:170px" title="Amore 2">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Amore 2&#39;) " title="Clique para filtrar por este valor">Amore 2</span>
-          </td><td style="max-width:160px" title="larissa">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
-          </td><td style="max-width:180px" title="-sem menina-">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr><tr>
-        <td class="num">7</td>
-        <td style="max-width:220px" title="Amore Comercio de Cosmeticos e Bijuteria ">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Amore Comercio de Cosmeticos e Bijuteria &#39;) " title="Clique para filtrar por este valor">Amore Comercio de Cosmeticos e Bijuteria </span>
-          </td><td style="max-width:170px" title="Amore Comercio de Co">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Amore Comercio de Co&#39;) " title="Clique para filtrar por este valor">Amore Comercio de Co</span>
-          </td><td style="max-width:160px" title="larissa">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
-          </td><td style="max-width:180px" title="-sem menina-">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr><tr>
-        <td class="num">8</td>
-        <td style="max-width:220px" title="Andreia Onaga Perfumaria">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Andreia Onaga Perfumaria&#39;) " title="Clique para filtrar por este valor">Andreia Onaga Perfumaria</span>
-          </td><td style="max-width:170px" title="Andreia Onaga Perfum">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Andreia Onaga Perfum&#39;) " title="Clique para filtrar por este valor">Andreia Onaga Perfum</span>
-          </td><td style="max-width:160px" title="larissa">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
-          </td><td style="max-width:180px" title="-sem menina-">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr><tr>
-        <td class="num">9</td>
-        <td style="max-width:220px" title="Angela Maria De Barros Cruz Perfumaria">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Angela Maria De Barros Cruz Perfumaria&#39;) " title="Clique para filtrar por este valor">Angela Maria De Barros Cruz Perfumaria</span>
-          </td><td style="max-width:170px" title="Aroma Perfumaria">
-            <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Aroma Perfumaria&#39;) " title="Clique para filtrar por este valor">Aroma Perfumaria</span>
-          </td><td style="max-width:160px" title="larissa">
-            <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
-          </td><td style="max-width:180px" title="-sem menina-">
-            <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td>
-      </tr></tbody>
+          <thead id="table-head"></thead>
+          <tbody id="table-body"></tbody>
         </table>
       </div>
       <div class="pagination hidden" id="pagination">
@@ -1726,9 +1246,13 @@ function atualizarBotaoCob() {
   }
 }
 
+function primeiroNome(nomeCompleto) {
+  return (nomeCompleto || '').trim().split(/\s+/)[0];
+}
+
 function montarMsgCob(g) {
   const lista = g.lojas.map(l => `  • ${l}`).join('\n');
-  return `Oi ${g.representante}, tudo bem?\nEstou passando para avisar que ainda não recebemos esses relatórios:\n\n${lista}\n\nPoderia nos enviar o quanto antes? 😊`;
+  return `Oi ${primeiroNome(g.representante)}, tudo bem?\nEstou passando para avisar que ainda não recebemos esses relatórios:\n\n${lista}\n\nPoderia nos enviar o quanto antes? 😊`;
 }
 
 function escHtml(s) {
@@ -2021,6 +1545,13 @@ async function abrirEmailAviso() {
   const refMes = `${mes}/${ano}`;
   const assunto = `RELATÓRIO SELL OUT - ${refMes}`;
 
+  // Monta saudação com primeiros nomes
+  const primeiroNomes = nomes.map(n => primeiroNome(n));
+  const saudacaoTxt  = primeiroNomes.length === 1
+    ? `Boa tarde, ${primeiroNomes[0]}.`
+    : `Boa tarde, ${primeiroNomes.slice(0,-1).join(', ')} e ${primeiroNomes[primeiroNomes.length-1]}.`;
+  const saudacaoHtml = `<p>${saudacaoTxt}</p>`;
+
   const rodapeTxt = `\n__ATENÇÃO NOVO EMAIL PARA ENVIO DOS RELATÓRIOS.__\n\nNovos Canais para Envio dos Relatórios:\n• E-mail: trade@chercom.com.br   (favor enviar nesse email os relatórios)\n• WhatsApp: (11) 98860-3143`;
   const rodapeHtml = `
     <p style="margin:18px 0 6px"><a href="mailto:trade@chercom.com.br" style="color:#c0392b;font-weight:700;text-decoration:none">ATENÇÃO NOVO EMAIL PARA ENVIO DOS RELATÓRIOS.</a></p>
@@ -2032,17 +1563,17 @@ async function abrirEmailAviso() {
 
   let corpo, corpoHtml;
   if (situacao==='amanha') {
-    corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até amanhã para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
-    corpoHtml = `<p>Boa tarde, Srs.</p><p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">AMANHÃ</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
+    corpo = `${saudacaoTxt}\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até amanhã para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
+    corpoHtml = `${saudacaoHtml}<p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">AMANHÃ</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
   } else if (situacao==='hoje') {
-    corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até hoje para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
-    corpoHtml = `<p>Boa tarde, Srs.</p><p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">HOJE</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
+    corpo = `${saudacaoTxt}\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até hoje para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
+    corpoHtml = `${saudacaoHtml}<p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">HOJE</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
   } else if (situacao==='atrasado') {
-    corpo = `Boa tarde, Srs.\n\nAinda não recebemos todos os relatórios de vendas referente ao mês de ${refMes}, precisamos o quanto antes para podermos calcular a premiação das demonstradoras em tempo hábil.\n\nA partir de amanhã farei a cobrança individualmente.${rodapeTxt}`;
-    corpoHtml = `<p>Boa tarde, Srs.</p><p>Ainda não recebemos todos os relatórios de vendas referente ao mês de <strong>${refMes}</strong>, precisamos <strong>o quanto antes</strong> para podermos calcular a premiação das demonstradoras em tempo hábil.</p><p><strong>A partir de amanhã farei a cobrança individualmente.</strong></p>${rodapeHtml}`;
+    corpo = `${saudacaoTxt}\n\nAinda não recebemos todos os relatórios de vendas referente ao mês de ${refMes}, precisamos o quanto antes para podermos calcular a premiação das demonstradoras em tempo hábil.\n\nA partir de amanhã farei a cobrança individualmente.${rodapeTxt}`;
+    corpoHtml = `${saudacaoHtml}<p>Ainda não recebemos todos os relatórios de vendas referente ao mês de <strong>${refMes}</strong>, precisamos <strong>o quanto antes</strong> para podermos calcular a premiação das demonstradoras em tempo hábil.</p><p><strong>A partir de amanhã farei a cobrança individualmente.</strong></p>${rodapeHtml}`;
   } else {
-    corpo = `Boa tarde, Srs.\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até ${textoData} para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
-    corpoHtml = `<p>Boa tarde, Srs.</p><p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">${textoData}</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
+    corpo = `${saudacaoTxt}\n\nOs relatórios de vendas referente ao mês de ${refMes} deverão ser enviados até ${textoData} para podermos calcular a premiação das demonstradoras.${rodapeTxt}\n\nDúvidas estou à disposição.`;
+    corpoHtml = `${saudacaoHtml}<p>Os relatórios de vendas referente ao mês de <strong>${refMes}</strong> deverão ser enviados até o dia <strong style="color:#c0392b">${textoData}</strong> para podermos calcular a premiação das demonstradoras.</p>${rodapeHtml}<p>Duvidas estou à disposição.</p>`;
   }
 
   window._emailAvisoData = { emails, nomes, assunto, corpo, corpoHtml };
@@ -2263,14 +1794,12 @@ function downloadBlob(blob, filename) {
       </div>
       <button class="cob-close" onclick="fecharEmailAviso()">✕</button>
     </div>
-    <div class="email-steps" id="email-steps"><div class="email-step-dot feito">✓ 1 · Destinatários</div><div class="email-step-dot feito">✓ 2 · Assunto</div><div class="email-step-dot feito">✓ 3 · Corpo</div><div class="email-step-dot ativo">4 · Enviar ✓</div></div>
-    <div class="email-wiz-body" id="email-wiz-body">
-    <div class="email-wiz-instrucao">Tudo pronto! Revise o email no webmail e clique em <strong>Enviar</strong>.</div>
-    <div style="text-align:center;padding:20px 0"><div style="font-size:48px;margin-bottom:12px">✅</div><div style="font-size:15px;font-weight:700;color:#16a34a;margin-bottom:8px">Todos os dados foram copiados!</div><div style="font-size:13px;color:#6b7280">Revise o email no webmail e clique em Enviar.</div></div></div>
+    <div class="email-steps" id="email-steps"></div>
+    <div class="email-wiz-body" id="email-wiz-body"></div>
     <div class="email-wiz-footer">
-      <span class="email-wiz-footer-info" id="email-wiz-footer-info">Passo 4 de 4</span>
+      <span class="email-wiz-footer-info" id="email-wiz-footer-info"></span>
       <button class="btn-email-cancelar" onclick="fecharEmailAviso()">Fechar</button>
-      <button class="btn-email-proximo" id="btn-email-wiz-proximo" disabled="">💾 Gravando...</button>
+      <button class="btn-email-proximo" id="btn-email-wiz-proximo" disabled="">Próximo →</button>
     </div>
   </div>
 </div>
@@ -2281,52 +1810,14 @@ function downloadBlob(blob, filename) {
     <div class="cob-header">
       <div class="cob-header-left">
         <h2>📲 Cobranças WhatsApp</h2>
-        <p id="cob-tab-label" style="font-size:12px;color:#b45309;margin-top:2px">Mar/26</p>
+        <p id="cob-tab-label" style="font-size:12px;color:#b45309;margin-top:2px"></p>
       </div>
       <button class="cob-close" onclick="fecharCob()">✕</button>
     </div>
-    <div class="cob-body" id="cob-body">
-    <div style="margin-bottom:14px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:4px">
-        <span>Progresso do disparo</span>
-        <span>0 de 1 enviados</span>
-      </div>
-      <div style="height:6px;background:#f0f0f0;border-radius:6px;overflow:hidden">
-        <div style="height:100%;width:0%;background:#16a34a;border-radius:6px;transition:width .4s"></div>
-      </div>
+    <div class="cob-body" id="cob-body"><div class="cob-estado">Carregando...</div></div>
+    <div class="cob-footer" id="cob-footer">
+      <button class="btn-cob-cancelar" onclick="fecharCob()">Fechar</button>
     </div>
-    <div style="background:#f0fdf4;border:2px solid #bbf7d0;border-radius:12px;padding:16px;margin-bottom:14px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <div>
-          <div style="font-size:13px;font-weight:800;color:#14532d">larissa</div>
-          <div style="font-size:11.5px;color:#16a34a;margin-top:2px">📱 5511959522699</div>
-        </div>
-        <div style="background:#dcfce7;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;color:#15803d">
-          1/1
-        </div>
-      </div>
-      <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px">Lojas pendentes:</div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px">
-        <span class="rep-loja-tag">Akai Sao Jose Dos Campos</span><span class="rep-loja-tag">Akai Sao Vicente</span><span class="rep-loja-tag">Amore 2</span><span class="rep-loja-tag">Amore Comercio de Co</span><span class="rep-loja-tag">Andreia Onaga Perfum</span><span class="rep-loja-tag">Aroma Perfumaria</span>
-      </div>
-      <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px">Mensagem que será enviada:</div>
-      <div class="msg-preview" style="margin:0;font-size:11.5px">Oi larissa, tudo bem?
-Estou passando para avisar que ainda não recebemos esses relatórios:
-
-  • Akai Sao Jose Dos Campos
-  • Akai Sao Vicente
-  • Amore 2
-  • Amore Comercio de Co
-  • Andreia Onaga Perfum
-  • Aroma Perfumaria
-
-Poderia nos enviar o quanto antes? 😊</div>
-    </div>
-    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e;text-align:center">
-      👆 Clique em <strong>"Enviar agora"</strong> para abrir o WhatsApp Web com esta mensagem pronta.<br>
-      Depois pressione <strong>Enter</strong> no WhatsApp e volte aqui para continuar.
-    </div></div>
-    <div class="cob-footer" id="cob-footer"><span class="cob-footer-info">💾 Gravando cobrança...</span></div>
   </div>
 </div>
 
@@ -2374,6 +1865,6 @@ Poderia nos enviar o quanto antes? 😊</div>
 </div>
 
 <!-- Toast -->
-<div class="cob-toast" id="cob-toast">✅ Cobrança por email registrada na planilha!</div>
+<div class="cob-toast" id="cob-toast"></div>
 
 </body></html>
