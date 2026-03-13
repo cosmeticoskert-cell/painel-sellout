@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0062)file:///C:/Users/Analytics/Downloads/dashboard-sellout_26.html -->
+<!-- saved from url=(0062)file:///C:/Users/Analytics/Downloads/dashboard-sellout_28.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle SellOut</title>
@@ -434,7 +434,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
   </div>
   <div class="refresh-indicator" id="refresh-indicator" onclick="refreshData()" title="Clique para atualizar agora">
     <span class="refresh-dot loading" id="refresh-dot"></span>
-    <span id="refresh-label">Tempo real · 5s</span>
+    <span id="refresh-label">Atualizado às 09:43:18</span>
     <span style="opacity:.5;margin-left:2px">· 🔄</span>
   </div>
 </div>
@@ -450,7 +450,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
   <select class="month-select" id="month-select" onchange="switchTab(this.value)"><option value="25_Fev">Fev/25</option><option value="25_Mar">Mar/25</option><option value="25_Abr">Abr/25</option><option value="25_Mai">Mai/25</option><option value="25_Jun">Jun/25</option><option value="25_Jul">Jul/25</option><option value="25_Ago">Ago/25</option><option value="25_Set">Set/25</option><option value="25_Out">Out/25</option><option value="25_Nov">Nov/25</option><option value="25_Dez">Dez/25</option><option value="26_Jan">Jan/26</option><option value="26_Fev">Fev/26</option><option value="26_Mar" selected="">Mar/26</option></select>
   <span class="month-info" id="month-info">(9 registros)</span>
   <button class="btn-cobrancas" onclick="abrirCob()" id="btn-cob" style="">
-    📲 Cobrar Relatórios Pendentes <span class="cob-badge" id="cob-badge-count" style="background: rgba(0, 0, 0, 0.22);">9</span>
+    📲 Cobrar Relatórios Pendentes <span class="cob-badge" id="cob-badge-count" style="background: rgba(0, 0, 0, 0.22);">6</span>
   </button>
   <button class="btn-email-aviso" onclick="abrirEmailAviso()" id="btn-email-aviso" style="">
     ✉️ Avisar Representantes
@@ -488,7 +488,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
       <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
         <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recSim&#39;,&#39;No Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;" title="Clique para filtrar">
           <span style="font-size:11px;font-weight:700;color:#0d47a1">✅ No prazo</span>
-          <span style="font-size:15px;font-weight:900;color:#0d47a1">0</span>
+          <span style="font-size:15px;font-weight:900;color:#0d47a1">3</span>
         </div>
         <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recFora&#39;,&#39;Fora do Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;" title="Clique para filtrar">
           <span style="font-size:11px;font-weight:700;color:#e65100">⏰ Fora do prazo</span>
@@ -500,20 +500,20 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
         </div>
         <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;faltam&#39;,&#39;Aguardando&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fce4ec;" title="Clique para filtrar">
           <span style="font-size:11px;font-weight:700;color:#880e4f">⏳ Aguardando</span>
-          <span style="font-size:15px;font-weight:900;color:#880e4f">9</span>
+          <span style="font-size:15px;font-weight:900;color:#880e4f">6</span>
         </div>
       </div>
     </div>
     <div class="kpi-card" style="border-top:4px solid #2196f3" onclick="toggleKpiFilter(&#39;recebidos&#39;,&#39;Recebidos&#39;)">
       <span class="kpi-icon">📥</span>
       <div class="kpi-label">Recebidos</div>
-      <div class="kpi-value">0</div>
-      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#2196f3"></div></div>
-      <div class="kpi-pct">0% · Faltam: 9</div>
+      <div class="kpi-value">3</div>
+      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:33%;background:#2196f3"></div></div>
+      <div class="kpi-pct">33% · Faltam: 6</div>
       <div style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px;display:flex;flex-direction:column;gap:5px;">
         <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recSim&#39;,&#39;No Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#e3f2fd;" title="Clique para filtrar">
           <span style="font-size:11px;font-weight:700;color:#0d47a1">✅ No prazo</span>
-          <span style="font-size:15px;font-weight:900;color:#0d47a1">0</span>
+          <span style="font-size:15px;font-weight:900;color:#0d47a1">3</span>
         </div>
         <div class="kpi-sub-row" onclick="event.stopPropagation();toggleKpiFilter(&#39;recFora&#39;,&#39;Fora do Prazo&#39;)" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:3px 6px;border-radius:6px;background:#fff3e0;" title="Clique para filtrar">
           <span style="font-size:11px;font-weight:700;color:#e65100">⏰ Fora do prazo</span>
@@ -524,9 +524,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <div class="kpi-card" style="border-top:4px solid #4caf50" onclick="toggleKpiFilter(&#39;concluidos&#39;,&#39;Concluídos&#39;)">
       <span class="kpi-icon">✅</span>
       <div class="kpi-label">Concluídos</div>
-      <div class="kpi-value">0</div>
-      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:0%;background:#4caf50"></div></div>
-      <div class="kpi-pct">0%</div>
+      <div class="kpi-value">3</div>
+      <div class="kpi-bar-wrap"><div class="kpi-bar" style="width:33%;background:#4caf50"></div></div>
+      <div class="kpi-pct">33%</div>
     </div><div class="kpi-card" style="border-top:4px solid #ff9800" onclick="toggleKpiFilter(&#39;pausados&#39;,&#39;Pausados&#39;)">
       <span class="kpi-icon">⏸</span>
       <div class="kpi-label">Pausados</div>
@@ -544,15 +544,15 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
       <div class="meninas-total" style="cursor:pointer" onclick="toggleKpiFilter(&#39;comMenina&#39;,&#39;Com Demonstradora&#39;)">3 total</div>
       <div class="meninas-stats">
         <div class="meninas-stat" onclick="toggleKpiFilter(&#39;mChegaram&#39;,&#39;Demonstradora - Chegaram&#39;)">
-          <div class="meninas-stat-val">0</div>
+          <div class="meninas-stat-val">2</div>
           <div class="meninas-stat-lbl">✅ Chegaram</div>
         </div>
         <div class="meninas-stat" onclick="toggleKpiFilter(&#39;mPendentes&#39;,&#39;Demonstradora - Pendentes&#39;)">
-          <div class="meninas-stat-val">3</div>
+          <div class="meninas-stat-val">1</div>
           <div class="meninas-stat-lbl">⏳ Pendentes</div>
         </div>
         <div class="meninas-stat" onclick="toggleKpiFilter(&#39;mConcluidos&#39;,&#39;Demonstradora - Concluídos&#39;)">
-          <div class="meninas-stat-val">0</div>
+          <div class="meninas-stat-val">2</div>
           <div class="meninas-stat-lbl">🏁 Concluídos</div>
         </div>
         <div class="meninas-stat" onclick="toggleKpiFilter(&#39;mPausados&#39;,&#39;Demonstradora - Pausados&#39;)">
@@ -560,7 +560,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
           <div class="meninas-stat-lbl">⏸ Pausados</div>
         </div>
         <div class="meninas-stat" style="cursor:default">
-          <div class="meninas-stat-val">0%</div>
+          <div class="meninas-stat-val">67%</div>
           <div class="meninas-stat-lbl">📊 Recebido</div>
         </div>
       </div>
@@ -568,17 +568,17 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <div class="progress-card">
       <div class="progress-header">
         <span id="progress-title">Progresso — Mar/26</span>
-        <span id="progress-pct" style="color:#4caf50">0% concluídos</span>
+        <span id="progress-pct" style="color:#4caf50">33% concluídos</span>
       </div>
       <div class="progress-bar-wrap" id="progress-bar">
-    <div style="height:100%;width:0%;background:#4caf50"></div>
+    <div style="height:100%;width:33%;background:#4caf50"></div>
     <div style="height:100%;width:0%;background:#ff9800"></div>
-    <div style="height:100%;width:100%;background:#ffcdd2"></div></div>
+    <div style="height:100%;width:67%;background:#ffcdd2"></div></div>
       <div class="progress-legend" id="progress-legend">
-    <span style="color:#4caf50;font-weight:700">✅ 0 Concluídos</span>
+    <span style="color:#4caf50;font-weight:700">✅ 3 Concluídos</span>
     <span style="color:#ff9800;font-weight:700">⏸ 0 Pausados</span>
-    <span style="color:#2196f3;font-weight:700">📥 0 Recebidos</span>
-    <span style="color:#ef5350;font-weight:700">⏳ 9 Aguardando</span>
+    <span style="color:#2196f3;font-weight:700">📥 3 Recebidos</span>
+    <span style="color:#ef5350;font-weight:700">⏳ 6 Aguardando</span>
     <span style="color:#9c27b0;font-weight:700">📈 0 No BI</span></div>
     </div>
     <!-- Card Último Aviso -->
@@ -587,7 +587,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
         <div class="aviso-icon">✉️</div>
         <div class="aviso-info">
           <div class="aviso-titulo">Último Aviso por Email</div>
-          <div class="aviso-data" id="aviso-email-data">13/03/2026, 08:40</div>
+          <div class="aviso-data" id="aviso-email-data">13/03/2026</div>
           <div class="aviso-sub" id="aviso-email-sub">Aviso enviado em Mar/26</div>
         </div>
       </div>
@@ -629,9 +629,9 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
                 <input type="checkbox" id="cb-RS-Akai_Kb_Magazine_E_Cosmeticos_Ltda" data-val="Akai Kb Magazine E Cosmeticos Ltda" onclick="msToggle(&#39;RS&#39;,&#39;Akai Kb Magazine E Cosmeticos Ltda&#39;)">
                 <label for="cb-RS-Akai_Kb_Magazine_E_Cosmeticos_Ltda">Akai Kb Magazine E Cosmeticos Ltda</label>
               </div>
-              <div class="ms-option" data-val="Amore Comercio de Cosmeticos e Bijuteria">
-                <input type="checkbox" id="cb-RS-Amore_Comercio_de_Cosmeticos_e_Bijuteria" data-val="Amore Comercio de Cosmeticos e Bijuteria" onclick="msToggle(&#39;RS&#39;,&#39;Amore Comercio de Cosmeticos e Bijuteria&#39;)">
-                <label for="cb-RS-Amore_Comercio_de_Cosmeticos_e_Bijuteria">Amore Comercio de Cosmeticos e Bijuteria</label>
+              <div class="ms-option" data-val="Amore Comercio de Cosmeticos e Bijuteria ">
+                <input type="checkbox" id="cb-RS-Amore_Comercio_de_Cosmeticos_e_Bijuteria_" data-val="Amore Comercio de Cosmeticos e Bijuteria " onclick="msToggle(&#39;RS&#39;,&#39;Amore Comercio de Cosmeticos e Bijuteria &#39;)">
+                <label for="cb-RS-Amore_Comercio_de_Cosmeticos_e_Bijuteria_">Amore Comercio de Cosmeticos e Bijuteria </label>
               </div>
               <div class="ms-option" data-val="Andreia Onaga Perfumaria">
                 <input type="checkbox" id="cb-RS-Andreia_Onaga_Perfumaria" data-val="Andreia Onaga Perfumaria" onclick="msToggle(&#39;RS&#39;,&#39;Andreia Onaga Perfumaria&#39;)">
@@ -723,6 +723,10 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
                 <input type="checkbox" id="cb-Rec-N_o" data-val="Não" onclick="msToggle(&#39;Rec&#39;,&#39;Não&#39;)">
                 <label for="cb-Rec-N_o">Não</label>
               </div>
+              <div class="ms-option" data-val="Sim">
+                <input type="checkbox" id="cb-Rec-Sim" data-val="Sim" onclick="msToggle(&#39;Rec&#39;,&#39;Sim&#39;)">
+                <label for="cb-Rec-Sim">Sim</label>
+              </div>
           </div>
           <div class="ms-footer">
             <button class="ms-footer-btn ms-sel-all" onclick="msSelectAll(&#39;Rec&#39;)">Selecionar todos</button>
@@ -773,6 +777,10 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
           <div class="ms-search"><input id="ms-search-Sit" placeholder="Buscar..." oninput="msSearch(&#39;Sit&#39;)"></div>
           <div class="ms-options">
             
+              <div class="ms-option" data-val="Concluído">
+                <input type="checkbox" id="cb-Sit-Conclu_do" data-val="Concluído" onclick="msToggle(&#39;Sit&#39;,&#39;Concluído&#39;)">
+                <label for="cb-Sit-Conclu_do">Concluído</label>
+              </div>
               <div class="ms-option" data-val="Não Iniciado">
                 <input type="checkbox" id="cb-Sit-N_o_Iniciado" data-val="Não Iniciado" onclick="msToggle(&#39;Sit&#39;,&#39;Não Iniciado&#39;)">
                 <label for="cb-Sit-N_o_Iniciado">Não Iniciado</label>
@@ -866,10 +874,10 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;Larissa Antunez&#39;) " title="Clique para filtrar por este valor">Larissa Antunez</span>
           </td><td style="max-width:180px" title="ANA KAROLINA DE SOUZA">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;ANA KAROLINA DE SOUZA&#39;) " title="Clique para filtrar por este valor">ANA KAROLINA DE SOUZA</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="">
+          </td><td style="max-width:110px"><span class="badge" style="background:#e3f2fd;color:#0d47a1"><span class="badge-dot" style="background:#2196f3"></span>Sim</span></td><td style="max-width:115px"><span class="badge" style="background:#e8f5e9;color:#2e7d32"><span class="badge-dot" style="background:#4caf50"></span>Concluído</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="">
             <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr><tr>
         <td class="num">2</td>
@@ -881,10 +889,10 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;Larissa Antunez&#39;) " title="Clique para filtrar por este valor">Larissa Antunez</span>
           </td><td style="max-width:180px" title="ANA MARGARIDA VELOZO B. CIARVI">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;ANA MARGARIDA VELOZO B. CIARVI&#39;) " title="Clique para filtrar por este valor">ANA MARGARIDA VELOZO B. CIARVI</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
-            13/03/2026
-          </td><td style="max-width:140px" title="">
+          </td><td style="max-width:110px"><span class="badge" style="background:#e3f2fd;color:#0d47a1"><span class="badge-dot" style="background:#2196f3"></span>Sim</span></td><td style="max-width:115px"><span class="badge" style="background:#e8f5e9;color:#2e7d32"><span class="badge-dot" style="background:#4caf50"></span>Concluído</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="">
             <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr><tr>
         <td class="num">3</td>
@@ -896,10 +904,10 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Representante&#39;,&#39;larissa&#39;) " title="Clique para filtrar por este valor">larissa</span>
           </td><td style="max-width:180px" title="-sem menina-">
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
-          </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
+          </td><td style="max-width:110px"><span class="badge" style="background:#e3f2fd;color:#0d47a1"><span class="badge-dot" style="background:#2196f3"></span>Sim</span></td><td style="max-width:115px"><span class="badge" style="background:#e8f5e9;color:#2e7d32"><span class="badge-dot" style="background:#4caf50"></span>Concluído</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
             13/03/2026
-          </td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr><tr>
         <td class="num">4</td>
@@ -913,8 +921,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;KELLY APARECIDA RODRIGUES LEIT&#39;) " title="Clique para filtrar por este valor">KELLY APARECIDA RODRIGUES LEIT</span>
           </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
             13/03/2026
-          </td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr><tr>
         <td class="num">5</td>
@@ -928,8 +936,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
           </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
             13/03/2026
-          </td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr><tr>
         <td class="num">6</td>
@@ -943,13 +951,13 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
           </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
             13/03/2026
-          </td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr><tr>
         <td class="num">7</td>
-        <td style="max-width:220px" title="Amore Comercio de Cosmeticos e Bijuteria">
-            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Amore Comercio de Cosmeticos e Bijuteria&#39;) " title="Clique para filtrar por este valor">Amore Comercio de Cosmeticos e Bijuteria</span>
+        <td style="max-width:220px" title="Amore Comercio de Cosmeticos e Bijuteria ">
+            <span class="clickable" onclick="clickCell(&#39;Razão Social&#39;,&#39;Amore Comercio de Cosmeticos e Bijuteria &#39;) " title="Clique para filtrar por este valor">Amore Comercio de Cosmeticos e Bijuteria </span>
           </td><td style="max-width:170px" title="Amore Comercio de Co">
             <span class="clickable" onclick="clickCell(&#39;Nome Fantasia&#39;,&#39;Amore Comercio de Co&#39;) " title="Clique para filtrar por este valor">Amore Comercio de Co</span>
           </td><td style="max-width:160px" title="larissa">
@@ -958,8 +966,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
           </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
             13/03/2026
-          </td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr><tr>
         <td class="num">8</td>
@@ -973,8 +981,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
           </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
             13/03/2026
-          </td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr><tr>
         <td class="num">9</td>
@@ -988,8 +996,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
             <span class="clickable" onclick="clickCell(&#39;Fluxo Agenda&#39;,&#39;-sem menina-&#39;) " title="Clique para filtrar por este valor">-sem menina-</span>
           </td><td style="max-width:110px"><span class="badge" style="background:#f5f5f5;color:#666"><span class="badge-dot" style="background:#ccc"></span>Não</span></td><td style="max-width:115px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Não Iniciado</span></td><td style="max-width:110px"><span class="badge" style="background:#fce4ec;color:#b71c1c"><span class="badge-dot" style="background:#ef5350"></span>Indisponivel</span></td><td style="max-width:140px" title="13/03/2026">
             13/03/2026
-          </td><td style="max-width:140px" title="">
-            <span style="color:#e0e0e0">—</span>
+          </td><td style="max-width:140px" title="13/03/2026">
+            13/03/2026
           </td>
       </tr></tbody>
         </table>
@@ -1910,10 +1918,28 @@ async function registrarCobrancaSheets(nomeRep, tipo) {
 
 // Grava cobrança de email para TODOS os representantes da aba
 async function registrarCobrancaEmailTodos() {
-  const reps = [...new Set(allData.map(r => (r['Representante']||'').trim()).filter(Boolean))];
+  // Pega representantes únicos com email disponível
+  const repsComEmail = [];
+  if (window._emailWizEmails) {
+    // Se temos os emails do wizard, filtra só quem tem email
+    Object.keys(window._emailWizEmails).forEach(rep => {
+      if (window._emailWizEmails[rep]) repsComEmail.push(rep);
+    });
+  }
+  // Fallback: todos os representantes únicos da aba
+  const reps = repsComEmail.length
+    ? repsComEmail
+    : [...new Set(allData.map(r => (r['Representante']||'').trim()).filter(Boolean))];
+
   for (const rep of reps) {
     await registrarCobrancaSheets(rep, 'email');
   }
+  // Força refresh silencioso para atualizar a tabela
+  try {
+    const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(activeSheet)}&_t=${Date.now()}`);
+    const j = await res.json();
+    if (j.rows && j.rows.length) { allData = j.rows; renderAll(); }
+  } catch(e) {}
 }
 
 function avancarDisparo(proxIdx) { _cobIdx = proxIdx; renderTelaDisparo(); }
@@ -2024,11 +2050,12 @@ async function abrirEmailAviso() {
   renderizarWizardEmail();
 }
 
-function fecharEmailAviso() {
+async function fecharEmailAviso() {
   if (_emailWizPasso === _emailWizPassos.length - 1) {
     gravarAvisoEmail();
-    // Grava cobrança de email na planilha para todos os representantes
-    registrarCobrancaEmailTodos();
+    // Grava cobrança de email na planilha para os representantes do wizard
+    await registrarCobrancaEmailTodos();
+    cobToast('✅ Cobrança por email registrada na planilha!');
   }
   document.getElementById('email-overlay').classList.remove('aberto');
   _emailWizPasso = 0;
@@ -2077,8 +2104,13 @@ function renderizarWizardEmail() {
 
   const isUltimo = _emailWizPasso === total-1;
   document.getElementById('email-wiz-footer-info').textContent = `Passo ${_emailWizPasso+1} de ${total}`;
-  document.getElementById('btn-email-wiz-proximo').textContent = isUltimo ? 'Fechar' : 'Próximo →';
-  document.getElementById('btn-email-wiz-proximo').onclick = isUltimo ? fecharEmailAviso : avancarWizardEmail;
+  document.getElementById('btn-email-wiz-proximo').textContent = isUltimo ? '✅ Concluir e Registrar' : 'Próximo →';
+  document.getElementById('btn-email-wiz-proximo').onclick = isUltimo ? async () => {
+    const btn = document.getElementById('btn-email-wiz-proximo');
+    btn.disabled = true;
+    btn.textContent = '💾 Gravando...';
+    await fecharEmailAviso();
+  } : avancarWizardEmail;
 }
 
 async function copiarPassoEmail() {
@@ -2231,12 +2263,14 @@ function downloadBlob(blob, filename) {
       </div>
       <button class="cob-close" onclick="fecharEmailAviso()">✕</button>
     </div>
-    <div class="email-steps" id="email-steps"></div>
-    <div class="email-wiz-body" id="email-wiz-body"></div>
+    <div class="email-steps" id="email-steps"><div class="email-step-dot feito">✓ 1 · Destinatários</div><div class="email-step-dot feito">✓ 2 · Assunto</div><div class="email-step-dot feito">✓ 3 · Corpo</div><div class="email-step-dot ativo">4 · Enviar ✓</div></div>
+    <div class="email-wiz-body" id="email-wiz-body">
+    <div class="email-wiz-instrucao">Tudo pronto! Revise o email no webmail e clique em <strong>Enviar</strong>.</div>
+    <div style="text-align:center;padding:20px 0"><div style="font-size:48px;margin-bottom:12px">✅</div><div style="font-size:15px;font-weight:700;color:#16a34a;margin-bottom:8px">Todos os dados foram copiados!</div><div style="font-size:13px;color:#6b7280">Revise o email no webmail e clique em Enviar.</div></div></div>
     <div class="email-wiz-footer">
-      <span class="email-wiz-footer-info" id="email-wiz-footer-info"></span>
+      <span class="email-wiz-footer-info" id="email-wiz-footer-info">Passo 4 de 4</span>
       <button class="btn-email-cancelar" onclick="fecharEmailAviso()">Fechar</button>
-      <button class="btn-email-proximo" id="btn-email-wiz-proximo" disabled="">Próximo →</button>
+      <button class="btn-email-proximo" id="btn-email-wiz-proximo" disabled="">💾 Gravando...</button>
     </div>
   </div>
 </div>
@@ -2247,14 +2281,52 @@ function downloadBlob(blob, filename) {
     <div class="cob-header">
       <div class="cob-header-left">
         <h2>📲 Cobranças WhatsApp</h2>
-        <p id="cob-tab-label" style="font-size:12px;color:#b45309;margin-top:2px"></p>
+        <p id="cob-tab-label" style="font-size:12px;color:#b45309;margin-top:2px">Mar/26</p>
       </div>
       <button class="cob-close" onclick="fecharCob()">✕</button>
     </div>
-    <div class="cob-body" id="cob-body"><div class="cob-estado">Carregando...</div></div>
-    <div class="cob-footer" id="cob-footer">
-      <button class="btn-cob-cancelar" onclick="fecharCob()">Fechar</button>
+    <div class="cob-body" id="cob-body">
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6b7280;margin-bottom:4px">
+        <span>Progresso do disparo</span>
+        <span>0 de 1 enviados</span>
+      </div>
+      <div style="height:6px;background:#f0f0f0;border-radius:6px;overflow:hidden">
+        <div style="height:100%;width:0%;background:#16a34a;border-radius:6px;transition:width .4s"></div>
+      </div>
     </div>
+    <div style="background:#f0fdf4;border:2px solid #bbf7d0;border-radius:12px;padding:16px;margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#14532d">larissa</div>
+          <div style="font-size:11.5px;color:#16a34a;margin-top:2px">📱 5511959522699</div>
+        </div>
+        <div style="background:#dcfce7;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;color:#15803d">
+          1/1
+        </div>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px">Lojas pendentes:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px">
+        <span class="rep-loja-tag">Akai Sao Jose Dos Campos</span><span class="rep-loja-tag">Akai Sao Vicente</span><span class="rep-loja-tag">Amore 2</span><span class="rep-loja-tag">Amore Comercio de Co</span><span class="rep-loja-tag">Andreia Onaga Perfum</span><span class="rep-loja-tag">Aroma Perfumaria</span>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:#374151;margin-bottom:5px">Mensagem que será enviada:</div>
+      <div class="msg-preview" style="margin:0;font-size:11.5px">Oi larissa, tudo bem?
+Estou passando para avisar que ainda não recebemos esses relatórios:
+
+  • Akai Sao Jose Dos Campos
+  • Akai Sao Vicente
+  • Amore 2
+  • Amore Comercio de Co
+  • Andreia Onaga Perfum
+  • Aroma Perfumaria
+
+Poderia nos enviar o quanto antes? 😊</div>
+    </div>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e;text-align:center">
+      👆 Clique em <strong>"Enviar agora"</strong> para abrir o WhatsApp Web com esta mensagem pronta.<br>
+      Depois pressione <strong>Enter</strong> no WhatsApp e volte aqui para continuar.
+    </div></div>
+    <div class="cob-footer" id="cob-footer"><span class="cob-footer-info">💾 Gravando cobrança...</span></div>
   </div>
 </div>
 
@@ -2302,6 +2374,6 @@ function downloadBlob(blob, filename) {
 </div>
 
 <!-- Toast -->
-<div class="cob-toast" id="cob-toast"></div>
+<div class="cob-toast" id="cob-toast">✅ Cobrança por email registrada na planilha!</div>
 
 </body></html>
