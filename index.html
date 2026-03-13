@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0062)file:///C:/Users/Analytics/Downloads/dashboard-sellout_24.html -->
+<!-- saved from url=(0062)file:///C:/Users/Analytics/Downloads/dashboard-sellout_26.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle SellOut</title>
@@ -433,8 +433,8 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
     <p id="header-sub">Acompanhamento de relatórios · Mar/26</p>
   </div>
   <div class="refresh-indicator" id="refresh-indicator" onclick="refreshData()" title="Clique para atualizar agora">
-    <span class="refresh-dot" id="refresh-dot"></span>
-    <span id="refresh-label">Atualizado às 09:23:17</span>
+    <span class="refresh-dot loading" id="refresh-dot"></span>
+    <span id="refresh-label">Tempo real · 5s</span>
     <span style="opacity:.5;margin-left:2px">· 🔄</span>
   </div>
 </div>
@@ -595,7 +595,7 @@ td span.clickable:hover { color: #3f51b5; border-color: #3f51b5; }
         <div class="aviso-icon">📲</div>
         <div class="aviso-info">
           <div class="aviso-titulo">Última Cobrança WhatsApp</div>
-          <div class="aviso-data" id="aviso-whatsapp-data">13/03/2026, 08:40</div>
+          <div class="aviso-data" id="aviso-whatsapp-data">13/03/2026</div>
           <div class="aviso-sub" id="aviso-whatsapp-sub">Cobrança feita em Mar/26</div>
         </div>
       </div>
@@ -1199,7 +1199,7 @@ function uniq(col) { return [...new Set(allData.map(r=>r[col]).filter(v=>v&&v.tr
 function renderAll() { applyFilters(); renderKPIs(); renderProgress(); renderFilters(); renderActivePills(); renderTable(); showState('dashboard'); atualizarBotaoCob(); renderCardAvisos(); }
 
 // ══════════════════════════════════════════════════════
-// CARD AVISOS — localStorage por aba
+// CARD AVISOS — lê direto dos dados da planilha
 // ══════════════════════════════════════════════════════
 function getChaveAviso(tipo) {
   return `sellout_${tipo}_${activeSheet}`;
@@ -1219,13 +1219,35 @@ function gravarAvisoWhatsapp() {
   renderCardAvisos();
 }
 
+function getUltimaCobrancaDaPlanilha(coluna) {
+  // Busca a data mais recente não-vazia da coluna na planilha (allData)
+  if (!allData || !allData.length) return null;
+  const datas = allData
+    .map(r => (r[coluna] || '').trim())
+    .filter(v => v && v !== '—' && v !== '-');
+  if (!datas.length) return null;
+  // Retorna a mais recente (última preenchida, assumindo ordem da planilha)
+  // Tenta ordenar por data no formato dd/MM/yyyy HH:mm
+  const parseData = str => {
+    const m = str.match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})/);
+    if (m) return new Date(+m[3], +m[2]-1, +m[1], +m[4], +m[5]);
+    return new Date(0);
+  };
+  return datas.sort((a, b) => parseData(b) - parseData(a))[0];
+}
+
 function renderCardAvisos() {
-  // Garante que activeSheet está disponível
   if (!activeSheet) return;
   const tabLabel = TABS.find(t => t.sheet === activeSheet)?.label || activeSheet;
 
-  const emailData = localStorage.getItem(getChaveAviso('email'));
-  const wppData   = localStorage.getItem(getChaveAviso('whatsapp'));
+  // Prioridade: planilha > localStorage
+  const wppPlanilha   = getUltimaCobrancaDaPlanilha('Ultima Cobrança');
+  const emailPlanilha = getUltimaCobrancaDaPlanilha('Ultima Cobrança Email');
+  const wppLocal      = localStorage.getItem(getChaveAviso('whatsapp'));
+  const emailLocal    = localStorage.getItem(getChaveAviso('email'));
+
+  const wppData   = wppPlanilha   || wppLocal;
+  const emailData = emailPlanilha || emailLocal;
 
   const elEmailData = document.getElementById('aviso-email-data');
   const elEmailSub  = document.getElementById('aviso-email-sub');
