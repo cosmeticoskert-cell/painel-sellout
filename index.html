@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<!-- saved from url=(0050)file:///C:/Users/Analytics/Downloads/index_20.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle SellOut</title>
@@ -7647,26 +7647,11 @@ function renderPagination() {
 function gp(p) { currentPage=p; renderTable(); window.scrollTo(0,0); }
 function toggleSort(col) { sortDir=sortCol===col?(sortDir==='asc'?'desc':'asc'):'asc'; sortCol=col; applyFilters(); renderTable(); }
 
-function showState(state, msg = '') {
-  const spinner = document.getElementById('spinner');
-  const errorBox = document.getElementById('error-box');
-  const dashboard = document.getElementById('dashboard');
-
-  if (spinner) spinner.classList.add('hidden');
-  if (errorBox) errorBox.classList.add('hidden');
-  if (dashboard) dashboard.classList.add('hidden');
-
-  if (state === 'loading' && spinner) {
-    spinner.classList.remove('hidden');
-  }
-
-  if (state === 'error' && errorBox) {
-    errorBox.classList.remove('hidden');
-  }
-
-  if (state === 'dashboard' && dashboard) {
-    dashboard.classList.remove('hidden');
-  }
+function showState(state, msg) {
+  ['spinner','error-box','dashboard'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+  document.getElementById(state).classList.remove('hidden');
+  if(state==='spinner') document.getElementById('spinner-msg').textContent = msg||'';
+  if(state==='error') document.getElementById('error-msg').textContent = msg||'';
 }
 
 // ══════════════════════════════════════════════════════
@@ -8232,7 +8217,7 @@ function downloadBlob(blob, filename) {
 </script>
 
 <!-- SheetJS para exportação Excel -->
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="file:///C:/Users/Analytics/Downloads/index_files/xlsx.full.min.js.download"></script>
 
 <!-- ── MODAL EMAIL WIZARD ──────────────────────────── -->
 <div class="email-overlay" id="email-overlay" onclick="if(event.target===this)fecharEmailAviso()">
