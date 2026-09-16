@@ -6978,7 +6978,22 @@ let allData=[], filteredData=[], cache={};
 let colFilters = {}; FDEFS.forEach(f=>colFilters[f.id]= f.type==='text' ? '' : []);
 let sortCol=null, sortDir='asc', currentPage=1;
 const PER_PAGE = 50;
-const API_URL = 'https://script.google.com/macros/s/AKfycbw--q8RfCjWgiOUscbWfR9tboruoHZXAAdB0a0DxZ7KGHRLai-qjDk_9Omch4MJJeEc_w/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwMGrBEH6Je0C2WZJ_py6ZzYSlInS3YegMkjbu5InBeJRmS9Tk74DCLXfKa471PmK6h/exec';
+
+async function fetchAppsScriptJson(url) {
+  const res = await fetch(url);
+  const text = await res.text();
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${text.slice(0, 120)}`);
+
+  try {
+    return JSON.parse(text);
+  } catch (_) {
+    const htmlHint = text.trim().startsWith('<')
+      ? 'O Apps Script retornou HTML em vez de JSON. Verifique se a URL publicada termina em /exec e se a implantacao esta ativa.'
+      : 'Resposta do Apps Script nao e JSON valido.';
+    throw new Error(htmlHint);
+  }
+}
 
 // ══════════════════════════════════════════════════════
 // AUTO-REFRESH em tempo real — polling a cada 5s, silencioso
@@ -7015,9 +7030,7 @@ async function silentRefresh() {
   _polling = true;
   updateRefreshIndicator(true);
   try {
-    const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(activeSheet)}&_t=${Date.now()}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const j = await res.json();
+    const j = await fetchAppsScriptJson(`${API_URL}?sheet=${encodeURIComponent(activeSheet)}&_t=${Date.now()}`);
     if (j.error) throw new Error(j.error);
     const rows = j.rows || [];
     if (rows.length) {
@@ -7053,8 +7066,7 @@ function sheetToLabel(name) {
 async function loadSheetList() {
   if (!API_URL) return;
   try {
-    const res = await fetch(`${API_URL}?action=sheets`);
-    const j = await res.json();
+    const j = await fetchAppsScriptJson(`${API_URL}?action=sheets`);
     if (j.sheets && j.sheets.length) {
       TABS = j.sheets.map(s => ({ sheet: s, label: sheetToLabel(s) }));
       activeSheet = TABS[TABS.length - 1].sheet;
@@ -7082,9 +7094,8 @@ function switchTab(sheet) {
 
 async function fetchData(sheet) {
   if (!API_URL) throw new Error('URL não configurada.');
-  const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(sheet)}&_t=${Date.now()}`);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const j = await res.json(); if (j.error) throw new Error(j.error);
+  const j = await fetchAppsScriptJson(`${API_URL}?sheet=${encodeURIComponent(sheet)}&_t=${Date.now()}`);
+  if (j.error) throw new Error(j.error);
   return j.rows || [];
 }
 
