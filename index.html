@@ -7683,7 +7683,8 @@ let _cobModo = 'mes'; // 'mes' = cobrança do mês selecionado | 'retro' = cobra
 // Mesma lógica da aba "Pendências_Reps": percorre as abas do ano corrente
 // (mesmo ano da aba mais recente), pega as lojas com Recebido = "Não" nos meses
 // ANTERIORES ao mês mais recente (o mês atual já é cobrado pelo botão normal)
-// e agrupa pelo representante ATUAL da loja = o do último mês em que ela aparece.
+// e agrupa pelo representante ATUAL da loja. Só entram lojas presentes no mês
+// mais recente (lojas que fecharam no período ficam de fora).
 const MESES_ORDEM = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 
 function isRecebidoNao(r) {
@@ -7716,7 +7717,7 @@ async function abrirCobRetro() {
     return;
   }
   document.getElementById('cob-tab-label').textContent =
-    `Meses anteriores: ${abasRetro[0].label} a ${abasRetro[abasRetro.length-1].label} · representante atual de cada loja`;
+    `Lojas ativas em ${ultima.label} com pendências de ${abasRetro[0].label} a ${abasRetro[abasRetro.length-1].label} · representante atual`;
 
   // Carrega todas as abas do ano (usa cache quando já carregada)
   let carregadas = 0;
@@ -7757,9 +7758,14 @@ async function abrirCobRetro() {
     });
   });
 
+  // Só cobra lojas que existem no mês atual (aba mais recente) — evita lojas que fecharam
+  const ordemAtual = MESES_ORDEM.indexOf(ultima.sheet.split('_')[1]);
+
   const mapa = {};
   Object.values(lojas).forEach(L => {
     if (!L.faltando.length || !L.rep) return;
+    if (L.ordemRep !== ordemAtual) return; // loja não aparece no mês atual
+
     L.faltando.sort((a,b) => MESES_ORDEM.indexOf(a) - MESES_ORDEM.indexOf(b));
     if (!mapa[L.rep]) mapa[L.rep] = { representante: L.rep, lojas: [], _qtd: [] };
     mapa[L.rep].lojas.push(`${L.nome} | ${L.faltando.join(', ')}`);
